@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="background">#F7F7F7</color>
+    <color name="divider">#D8D8D8</color>
+    <color name="firstTitle">#323232</color>
+    <color name="secondTitle">#626262</color>
+    <color name="thirdTitle">#626262</color>
+    <color name="whiteFont">#FFFFFF</color>
+    <color name="themeRed">#e31d1a</color>
+    <color name="lightColorButton">#bde4393c</color>
+    <color name="deepColorButton">#e4393c</color>
+
+</resources>
