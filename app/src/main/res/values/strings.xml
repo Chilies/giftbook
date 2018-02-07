@@ -6,17 +6,38 @@
     <string name="app_english_name">礼集</string>
     <string name="app_chinese_slogan">“让你我得偿所愿”</string>
     <string name="app_english_slogan">"May you get you wish"</string>
-
+    <string name="comment">评论</string>
+    <string name="payment">赞助</string>
 
     <string name="register_input_phone">请输入常用手机号</string>
     <string name="register_set_password">设置密码</string>
     <string name="register_input_identify_code">请输入收到的验证码</string>
-
     <string name="get_identify_code">获取验证码</string>
     <string name="register">注册</string>
-    <string name="login">登录</string>
     <string name="protocol">点击注册代表您已同意《用户注册协议》</string>
     <string name="login_in_register_page">密码登录</string>
+
+    <string name="login_phone">请输入已验证的手机号</string>
+    <string name="login_password">请输入密码</string>
+    <string name="login">登录</string>
+    <string name="register_now">立即注册</string>
+
+    <string name="activity_main_wish_menu">心愿</string>
+    <string name="activity_main_friend_menu">亲友</string>
+    <string name="activity_main_personal_menu">我的</string>
+
+    <string name="fragment_wish_title">心愿湖</string>
+    <string name="activity_main_switch_off">好友</string>
+    <string name="activity_main_switch_on">全部</string>
+
+    <string name="item_fragment_wish_money">￥</string>
+    <string name="item_fragment_wish_type">类型：</string>
+
+
+    <string name="test">LOGO圈是以logo设计欣赏,标志欣赏,字体设计,logo分享的标志设计网,为logo设计师和设计爱好者提供一个展示设计作品和交流的平台,从分享、欣赏、交流中
+        得到快乐与进步!</string>
+
+
 
 
 

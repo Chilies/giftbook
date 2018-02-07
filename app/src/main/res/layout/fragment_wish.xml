@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/themeRed"
+        android:orientation="horizontal">
+
+        <Switch
+            android:id="@+id/fragment_wish_switch_button"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginLeft="10dp"
+            android:layout_centerVertical="true"
+            android:switchMinWidth="20dp"
+            android:textColor="@color/firstTitle"
+            android:textOn="@string/activity_main_switch_on"
+            android:textOff="@string/activity_main_switch_off"
+            android:thumb="@drawable/thumb"
+            android:track="@drawable/track"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:gravity="center_horizontal"
+            android:text="@string/fragment_wish_title"
+            android:textColor="@color/white"
+            android:textSize="28sp"
+            />
+
+        <ImageView
+            android:id="@+id/fragment_wish_add_img"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentRight="true"
+            android:padding="10dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/add"/>
+
+
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/fragment_wish_listView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:dividerHeight="3dp"
+        android:fadingEdge="none"
+        android:scrollbars="none"
+        />
+
+</LinearLayout>

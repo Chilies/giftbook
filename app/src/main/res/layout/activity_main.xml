@@ -1,35 +1,124 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
+<LinearLayout
+    android:id="@+id/activity_main"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    tools:context="edu.sctu.giftbook.MainActivity">
+    android:background="@color/background"
+    android:orientation="vertical"
+    tools:context=".MainActivity"
+    >
 
-    <android.support.design.widget.AppBarLayout
+    <FrameLayout
+        android:id="@+id/main_fragment"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        />
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:id="@+id/activity_main_wish"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay"/>
+            android:layout_height="70dp"
+            android:layout_weight="1"
+            >
 
-    </android.support.design.widget.AppBarLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/unClick"/>
 
-    <include layout="@layout/content_main"/>
+            <TextView
+                android:id="@+id/activity_main_wish_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/activity_main_wish_img"
+                android:layout_centerHorizontal="true"
+                android:text="@string/activity_main_wish_menu"
+                android:textColor="@color/firstTitle"
+                android:textSize="12sp"/>
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_dialog_email"/>
+            <ImageView
+                android:id="@+id/activity_main_wish_img"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:padding="5dp"
+                android:src="@drawable/main_wish_unclick"/>
+        </RelativeLayout>
 
-</android.support.design.widget.CoordinatorLayout>
+        <RelativeLayout
+            android:id="@+id/activity_main_friend"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_weight="1"
+            >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/unClick"/>
+
+            <TextView
+                android:id="@+id/activity_main_friend_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/activity_main_friend_img"
+                android:layout_centerHorizontal="true"
+                android:text="@string/activity_main_friend_menu"
+                android:textColor="@color/firstTitle"
+                android:textSize="12sp"/>
+
+            <ImageView
+                android:id="@+id/activity_main_friend_img"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/main_friend_unclick"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/activity_main_personal"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_weight="1"
+            >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/unClick"/>
+
+            <ImageView
+                android:id="@+id/activity_main_personal_img"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_centerHorizontal="true"
+                android:padding="5dp"
+                android:src="@drawable/main_personal_unclick"
+                />
+
+            <TextView
+                android:id="@+id/activity_main_personal_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/activity_main_personal_img"
+                android:layout_centerHorizontal="true"
+                android:text="@string/activity_main_personal_menu"
+                android:textColor="@color/firstTitle"
+                android:textSize="12sp"/>
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+
+</LinearLayout>
