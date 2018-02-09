@@ -5,57 +5,54 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
+    android:background="@color/themeRed"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true"
     android:orientation="vertical"
     tools:context=".MainActivity"
     >
-
     <FrameLayout
+        android:background="@color/background"
         android:id="@+id/main_fragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
         />
-
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="50dp"
+        android:background="@color/background"
         android:orientation="horizontal">
-
         <RelativeLayout
-            android:id="@+id/activity_main_wish"
+            android:id="@+id/activity_main_wish_button"
             android:layout_width="match_parent"
-            android:layout_height="70dp"
+            android:layout_height="50dp"
             android:layout_weight="1"
             >
-
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="1px"
                 android:background="@color/unClick"/>
-
+            <ImageView
+                android:id="@+id/activity_main_wish_img"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/main_wish_unclick"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"/>
             <TextView
                 android:id="@+id/activity_main_wish_text"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="20dp"
                 android:layout_below="@id/activity_main_wish_img"
                 android:layout_centerHorizontal="true"
                 android:text="@string/activity_main_wish_menu"
                 android:textColor="@color/firstTitle"
-                android:textSize="12sp"/>
-
-            <ImageView
-                android:id="@+id/activity_main_wish_img"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:padding="5dp"
-                android:src="@drawable/main_wish_unclick"/>
+                android:textSize="14sp"/>
         </RelativeLayout>
 
         <RelativeLayout
-            android:id="@+id/activity_main_friend"
+            android:id="@+id/activity_main_friend_button"
             android:layout_width="match_parent"
             android:layout_height="70dp"
             android:layout_weight="1"
@@ -65,28 +62,26 @@
                 android:layout_width="match_parent"
                 android:layout_height="1px"
                 android:background="@color/unClick"/>
-
+            <ImageView
+                android:id="@+id/activity_main_friend_img"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/main_friend_unclick"/>
             <TextView
                 android:id="@+id/activity_main_friend_text"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="20dp"
                 android:layout_below="@id/activity_main_friend_img"
                 android:layout_centerHorizontal="true"
                 android:text="@string/activity_main_friend_menu"
                 android:textColor="@color/firstTitle"
-                android:textSize="12sp"/>
-
-            <ImageView
-                android:id="@+id/activity_main_friend_img"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:src="@drawable/main_friend_unclick"/>
+                android:textSize="14sp"/>
         </RelativeLayout>
 
         <RelativeLayout
-            android:id="@+id/activity_main_personal"
+            android:id="@+id/activity_main_personal_button"
             android:layout_width="match_parent"
             android:layout_height="70dp"
             android:layout_weight="1"
@@ -99,24 +94,22 @@
 
             <ImageView
                 android:id="@+id/activity_main_personal_img"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
                 android:layout_centerHorizontal="true"
-                android:padding="5dp"
                 android:src="@drawable/main_personal_unclick"
                 />
 
             <TextView
                 android:id="@+id/activity_main_personal_text"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="20dp"
                 android:layout_below="@id/activity_main_personal_img"
                 android:layout_centerHorizontal="true"
                 android:text="@string/activity_main_personal_menu"
                 android:textColor="@color/firstTitle"
-                android:textSize="12sp"/>
+                android:textSize="14sp"/>
         </RelativeLayout>
-
 
     </LinearLayout>
 

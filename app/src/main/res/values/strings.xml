@@ -11,6 +11,7 @@
 
     <string name="register_input_phone">请输入常用手机号</string>
     <string name="register_set_password">设置密码</string>
+    <string name="register_set_nickname">设置昵称</string>
     <string name="register_input_identify_code">请输入收到的验证码</string>
     <string name="get_identify_code">获取验证码</string>
     <string name="register">注册</string>
@@ -34,8 +35,7 @@
     <string name="item_fragment_wish_type">类型：</string>
 
 
-    <string name="test">LOGO圈是以logo设计欣赏,标志欣赏,字体设计,logo分享的标志设计网,为logo设计师和设计爱好者提供一个展示设计作品和交流的平台,从分享、欣赏、交流中
-        得到快乐与进步!</string>
+    <string name="test">为消费者提供最权威的年货买什么好,年货送什么好的知识,是消费者们了解春节送礼的重要参考依据,</string>
 
 
 

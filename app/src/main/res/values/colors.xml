@@ -5,7 +5,7 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
-    <color name="background">#F7F7F7</color>
+    <color name="background">#FAFAFA</color>
     <color name="divider">#D8D8D8</color>
     <color name="firstTitle">#323232</color>
     <color name="secondTitle">#626262</color>
@@ -16,7 +16,9 @@
 
 
     <color name="switchButtonOn">#ffc028</color>
-    <color name="switchButtonOff">#9b9b9b</color>
+    <color name="switchOnBackground">#faeca2</color>
+    <color name="switchButtonOff">#8fffffff</color>
+    <color name="switchOffBackground">#ceffffff</color>
 
 
     //注册登录

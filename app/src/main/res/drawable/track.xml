@@ -3,7 +3,7 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <item android:state_checked="true"
-          android:drawable="@drawable/switch_custom_thumb_on"/>
-    <item android:drawable="@drawable/switch_custom_thumb_off"/>
+          android:drawable="@drawable/switch_custom_track_on"/>
+    <item android:drawable="@drawable/switch_custom_track_off"/>
 
 </selector>

@@ -4,50 +4,47 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    >
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="40dp"
         android:background="@color/themeRed"
         android:orientation="horizontal">
-
         <Switch
             android:id="@+id/fragment_wish_switch_button"
-            android:layout_width="wrap_content"
+            android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_marginLeft="10dp"
-            android:layout_centerVertical="true"
             android:switchMinWidth="20dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_gravity="center"
             android:textColor="@color/firstTitle"
             android:textOn="@string/activity_main_switch_on"
             android:textOff="@string/activity_main_switch_off"
             android:thumb="@drawable/thumb"
             android:track="@drawable/track"
             />
-
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:gravity="center_horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:gravity="center"
             android:text="@string/fragment_wish_title"
+            android:layout_weight="1"
             android:textColor="@color/white"
-            android:textSize="28sp"
+            android:textSize="20sp"
             />
-
         <ImageView
             android:id="@+id/fragment_wish_add_img"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_alignParentRight="true"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:padding="10dp"
-            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_gravity="center"
             android:src="@drawable/add"/>
-
-
-    </RelativeLayout>
+    </LinearLayout>
 
     <ListView
         android:id="@+id/fragment_wish_listView"
