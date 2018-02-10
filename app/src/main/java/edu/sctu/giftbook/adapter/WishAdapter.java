@@ -2,6 +2,7 @@ package edu.sctu.giftbook.adapter;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,7 +52,8 @@ public class WishAdapter extends BaseAdapter {
         ViewHolder holder;
         if (view == null) {
             holder = new ViewHolder();
-            view = layoutInflater.inflate(R.layout.item_fragment_wish_listview, null);
+            Log.e("getView", "view is null");
+            view = layoutInflater.inflate(R.layout.item_fragment_wish_listview,null);
             holder.avatar = (ImageView) view.findViewById(R.id.item_fragment_wish_avatar_img);
             holder.nikeName = (TextView) view.findViewById(R.id.item_fragment_wish_nickname_text);
             holder.time = (TextView) view.findViewById(R.id.item_fragment_wish_time_text);
@@ -60,17 +62,16 @@ public class WishAdapter extends BaseAdapter {
             holder.article = (ImageView) view.findViewById(R.id.item_fragment_wish_article_img);
             holder.comment = (LinearLayout) view.findViewById(R.id.item_fragment_wish_comment_linearLayout);
             holder.payment = (LinearLayout) view.findViewById(R.id.item_fragment_wish_payment_linearLayout);
+            view.setTag(holder);
         } else {
             holder = (ViewHolder) view.getTag();
+            Log.e("getView", "ok");
         }
-
 
         holder.avatar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(activity,PersonalHomeActivity.class);
-                activity.startActivity(intent);
-//                JumpUtil.jumpInActivity(activity, PersonalHomeActivity.class);
+                JumpUtil.jumpInActivity(activity, PersonalHomeActivity.class);
             }
         });
         holder.nikeName.setOnClickListener(new View.OnClickListener() {
@@ -100,7 +101,6 @@ public class WishAdapter extends BaseAdapter {
 
         return view;
     }
-
 
     private static class ViewHolder {
         ImageView avatar, isWishCard, article;

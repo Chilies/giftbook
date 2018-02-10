@@ -47,7 +47,7 @@
                 android:layout_below="@id/activity_main_wish_img"
                 android:layout_centerHorizontal="true"
                 android:text="@string/activity_main_wish_menu"
-                android:textColor="@color/firstTitle"
+                android:textColor="@color/thirdTitle"
                 android:textSize="14sp"/>
         </RelativeLayout>
 
@@ -76,7 +76,7 @@
                 android:layout_below="@id/activity_main_friend_img"
                 android:layout_centerHorizontal="true"
                 android:text="@string/activity_main_friend_menu"
-                android:textColor="@color/firstTitle"
+                android:textColor="@color/thirdTitle"
                 android:textSize="14sp"/>
         </RelativeLayout>
 
@@ -107,7 +107,7 @@
                 android:layout_below="@id/activity_main_personal_img"
                 android:layout_centerHorizontal="true"
                 android:text="@string/activity_main_personal_menu"
-                android:textColor="@color/firstTitle"
+                android:textColor="@color/thirdTitle"
                 android:textSize="14sp"/>
         </RelativeLayout>
 

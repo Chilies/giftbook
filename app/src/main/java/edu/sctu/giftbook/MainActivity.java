@@ -13,16 +13,26 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import edu.sctu.giftbook.fragment.FriendFragment;
 import edu.sctu.giftbook.fragment.PersonalFragment;
 import edu.sctu.giftbook.fragment.WishFragment;
+import edu.sctu.giftbook.utils.ToastUtil;
+
+import static edu.sctu.giftbook.R.id.activity_main_personal_text;
+import static edu.sctu.giftbook.R.id.textView;
 
 public class MainActivity extends FragmentActivity implements View.OnClickListener {
     private Fragment wishFragment, friendFragment, personalFragment;
     private RelativeLayout wishButton, friendButton, personalButton;
+    private ImageView wishImage, friendImage, personalImage;
+    private TextView wishText, friendText, personalText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,10 +51,10 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         fragmentTransaction.add(R.id.main_fragment, wishFragment);
         fragmentTransaction.commit();
 
-        transformFragment();
+        getViews();
     }
 
-    private void transformFragment() {
+    private void getViews() {
         wishButton = (RelativeLayout) findViewById(R.id.activity_main_wish_button);
         friendButton = (RelativeLayout) findViewById(R.id.activity_main_friend_button);
         personalButton = (RelativeLayout) findViewById(R.id.activity_main_personal_button);
@@ -52,6 +62,16 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         wishButton.setOnClickListener(this);
         friendButton.setOnClickListener(this);
         personalButton.setOnClickListener(this);
+
+        wishImage = (ImageView) findViewById(R.id.activity_main_wish_img);
+        wishText = (TextView) findViewById(R.id.activity_main_wish_text);
+        friendImage = (ImageView) findViewById(R.id.activity_main_friend_img);
+        friendText = (TextView) findViewById(R.id.activity_main_friend_text);
+        personalImage = (ImageView) findViewById(R.id.activity_main_personal_img);
+        personalText = (TextView) findViewById(activity_main_personal_text);
+
+        wishImage.setImageResource(R.drawable.main_wish_click);
+        wishText.setTextColor(getResources().getColor(R.color.themeRed));
     }
 
     @Override
@@ -59,27 +79,36 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         int id = view.getId();
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         switch (id) {
-            // TODO: 2018/2/9 这个不起作用
             case R.id.activity_main_wish_button:
-                Log.e("click", "wish");
-                wishButton.getChildAt(0).setBackgroundResource(R.drawable.main_wish_click);
+                changeTabColor(wishImage, wishText, R.drawable.main_wish_click);
                 fragmentTransaction.replace(R.id.main_fragment, wishFragment);
                 fragmentTransaction.commit();
                 break;
             case R.id.activity_main_friend_button:
-                Log.e("click", "friend");
-                friendButton.getChildAt(0).setBackgroundResource(R.drawable.main_friend_click);
+                changeTabColor(friendImage, friendText, R.drawable.main_friend_click);
                 fragmentTransaction.replace(R.id.main_fragment, friendFragment);
                 fragmentTransaction.commit();
                 break;
             case R.id.activity_main_personal_button:
-                Log.e("click", "personal");
-                personalButton.getChildAt(0).setBackgroundResource(R.drawable.main_personal_click);
+                changeTabColor(personalImage, personalText, R.drawable.main_personal_click);
                 fragmentTransaction.replace(R.id.main_fragment, personalFragment);
                 fragmentTransaction.commit();
                 break;
             default:
                 break;
+
         }
+    }
+
+    public void changeTabColor(ImageView imageView, TextView textView, int resource) {
+        wishImage.setImageResource(R.drawable.main_wish_unclick);
+        wishText.setTextColor(getResources().getColor(R.color.thirdTitle));
+        friendImage.setImageResource(R.drawable.main_friend_unclick);
+        friendText.setTextColor(getResources().getColor(R.color.thirdTitle));
+        personalImage.setImageResource(R.drawable.main_personal_unclick);
+        personalText.setTextColor(getResources().getColor(R.color.thirdTitle));
+
+        imageView.setImageResource(resource);
+        textView.setTextColor(getResources().getColor(R.color.themeRed));
     }
 }

@@ -4,166 +4,215 @@
               android:layout_height="match_parent"
               android:orientation="vertical">
 
+    <include layout="@layout/activity_top"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="10dp"
+                android:orientation="horizontal"
+                >
+
+                <ImageView
+                    android:id="@+id/activity_wish_details_avatar_img"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/avatar"
+                    />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    >
+
+                    <TextView
+                        android:id="@+id/activity_wish_details_username_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="张三李四"
+                        android:textColor="@color/firstTitle"
+                        android:textSize="18sp"
+                        />
+
+                    <TextView
+                        android:id="@+id/activity_wish_details_time_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:text="2017-05-25"
+                        android:textColor="@color/secondTitle"
+                        android:textSize="15sp"
+                        />
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/activity_wish_details_isWishCard_img"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/wish_card"
+                    />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:orientation="vertical"
+                >
+
+                <TextView
+                    android:id="@+id/activity_wish_details_content_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLines="4"
+                    android:text="@string/test"
+                    android:textColor="@color/thirdTitle"
+                    android:textSize="16sp"/>
+
+                <ImageView
+                    android:id="@+id/activity_wish_details_content_img"
+                    android:layout_width="300dp"
+                    android:layout_height="200dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="5dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/img"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="left"
+                    android:orientation="horizontal"
+                    >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/activity_wish_details_type"
+                        android:textColor="@color/secondTitle"
+                        android:textSize="16sp"
+                        />
+
+                    <TextView
+                        android:id="@+id/activity_wish_details_type_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:text="婚恋"
+                        android:textColor="@color/secondTitle"
+                        android:textSize="16sp"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:orientation="horizontal"
+                    >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/activity_wish_details_money"
+                        android:textColor="@color/themeRed"
+                        android:textSize="16sp"
+                        />
+
+                    <TextView
+                        android:id="@+id/activity_wish_details_money_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:text="200"
+                        android:textColor="@color/themeRed"
+                        android:textSize="20sp"
+                        />
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/activity_wish_details_giver_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@color/white"
+                android:text="晏起、李洁、王树旗、贺鹏、刘畅等4人已赞助!"
+                android:textColor="@color/secondTitle"
+                android:textSize="16sp"/>
+
+            <ListView
+                android:id="@+id/activity_wish_details_comment_listView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@color/white"
+                android:fadingEdge="none"
+                android:scrollbars="none"
+                />
+        </LinearLayout>
+    </ScrollView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="-41dp"
+        android:background="@color/divider"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:layout_margin="10dp"
+        android:background="@color/background"
+        android:gravity="bottom"
         android:orientation="horizontal"
         >
 
-        <ImageView
-            android:id="@+id/item_fragment_wish_avatar_img"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/avatar"
-            />
-
-        <LinearLayout
+        <EditText
+            android:id="@+id/activity_wish_details_comment_edit"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_weight="1"
+            android:layout_height="30dp"
+            android:layout_gravity="center_vertical"
             android:layout_marginLeft="10dp"
-            android:orientation="vertical"
-            >
-            <TextView
-                android:id="@+id/activity_wish_details_username_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:text="张三李四"
-                android:textColor="@color/firstTitle"
-                android:textSize="18sp"
-                />
-            <TextView
-                android:id="@+id/activity_wish_details_time_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:text="2017-05-25"
-                android:textColor="@color/secondTitle"
-                android:textSize="15sp"
-                />
-        </LinearLayout>
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_edittext"
+            android:hint="@string/activity_wish_details_comment"
+            android:textColor="@color/unClick"
+            android:textSize="14sp"
+            />
 
         <ImageView
-            android:id="@+id/activity_wish_details_isWishCard_img"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/wish_card"
-            />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:orientation="vertical"
-        >
-
-        <TextView
-            android:id="@+id/activity_wish_details_content_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:maxLines="4"
-            android:text="@string/test"
-            android:textColor="@color/thirdTitle"
-            android:textSize="16sp"/>
-
-        <ImageView
-            android:id="@+id/activity_wish_details_content_img"
-            android:layout_width="300dp"
-            android:layout_height="200dp"
-            android:layout_margin="5dp"
-            android:layout_gravity="center_horizontal"
-            android:scaleType="fitXY"
-            android:src="@drawable/img"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:orientation="horizontal">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="left"
-            android:orientation="horizontal"
-            >
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/item_fragment_wish_type"
-                android:textColor="@color/secondTitle"
-                android:textSize="16sp"
-                />
-
-            <TextView
-                android:id="@+id/activity_wish_details_type_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:text="婚恋"
-                android:textColor="@color/secondTitle"
-                android:textSize="16sp"
-                />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="right"
-            android:orientation="horizontal"
-            >
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/item_fragment_wish_money"
-                android:textColor="@color/themeRed"
-                android:textSize="16sp"
-                />
-
-            <TextView
-                android:id="@+id/activity_wish_details_money_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:text="200"
-                android:textColor="@color/themeRed"
-                android:textSize="20sp"
-                />
-        </LinearLayout>
-    </LinearLayout>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:background="@color/white"
-        android:text="晏起、李洁、王树旗、贺鹏、刘畅等4人已赞助!"
-        android:textColor="@color/secondTitle"
-        android:textSize="16sp"
-        android:id="@+id/textView3"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <ListView
-            android:id="@+id/activity_wish_details_comment_listView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="5dp"
-            android:background="@color/white"
-            android:fadingEdge="none"
-            android:scrollbars="none"
-            />
+            android:id="@+id/imageView"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/payment"/>
     </LinearLayout>
 
 </LinearLayout>

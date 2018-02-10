@@ -46,9 +46,11 @@ public class CommentAdapter extends BaseAdapter {
             holder = new ViewHolder();
             view = layoutInflater.inflate(R.layout.item_comment, null);
             holder.textView = (TextView) view.findViewById(R.id.item_comment_text);
+            view.setTag(holder);
         } else {
             holder = (ViewHolder) view.getTag();
         }
+
         holder.textView.setText("小鱼儿：星期五去钓鱼吧！");
 
         return view;
