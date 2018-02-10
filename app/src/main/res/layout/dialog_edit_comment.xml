@@ -9,6 +9,8 @@
         android:layout_height="90dp"
         android:layout_margin="10dp"
         android:gravity="start"
+        android:padding="5dp"
+        android:hint="@string/publish_comment"
         android:background="@drawable/bg_edittext"
         />
 

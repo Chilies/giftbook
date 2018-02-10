@@ -8,6 +8,8 @@
     <string name="app_english_slogan">"May you get you wish"</string>
     <string name="comment">评论</string>
     <string name="payment">赞助</string>
+    <string name="publish_comment">发表评论</string>
+
 
     <string name="register_input_phone">请输入常用手机号</string>
     <string name="register_set_password">设置密码</string>
@@ -33,7 +35,7 @@
 
     <string name="activity_wish_details_money">￥</string>
     <string name="activity_wish_details_type">类型：</string>
-    <string name="activity_wish_details_comment">&#160;&#160;发表评论</string>
+    <!--<string name="activity_wish_details_comment">&#160;&#160;发表评论</string>-->
 
 
     <string name="test">为消费者提供最权威的年货买什么好,年货送什么好的知识,是消费者们了解春节送礼的重要参考依据,</string>

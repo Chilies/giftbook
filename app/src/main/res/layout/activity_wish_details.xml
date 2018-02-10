@@ -2,12 +2,16 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+              android:background="@color/themeRed"
+              android:clipToPadding="true"
+              android:fitsSystemWindows="true"
               android:orientation="vertical">
 
     <include layout="@layout/activity_top"/>
 
     <ScrollView
         android:layout_width="match_parent"
+        android:background="@color/background"
         android:layout_height="match_parent">
 
         <LinearLayout
@@ -196,12 +200,13 @@
             android:id="@+id/activity_wish_details_comment_edit"
             android:layout_width="match_parent"
             android:layout_height="30dp"
+            android:padding="5dp"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_weight="1"
             android:background="@drawable/bg_edittext"
-            android:hint="@string/activity_wish_details_comment"
+            android:hint="@string/publish_comment"
             android:textColor="@color/unClick"
             android:textSize="14sp"
             />
