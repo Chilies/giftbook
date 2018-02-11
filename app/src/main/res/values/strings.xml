@@ -40,6 +40,9 @@
 
     <string name="test">为消费者提供最权威的年货买什么好,年货送什么好的知识,是消费者们了解春节送礼的重要参考依据,</string>
 
+    <string name="activity_update_personal_information_nickname">昵称</string>
+    <string name="activity_update_personal_information_signature">签名</string>
+    <string name="activity_update_personal_information_sex">性别</string>
 
 
 

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    android:orientation="vertical"
+    >
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="从图库找图片"
+        android:id="@+id/gallery"
+        android:onClick="gallery"
+        android:background="#ccc"
+        android:textSize="20sp"
+        android:padding="10dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="40dp"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="拍照获取图片"
+        android:id="@+id/camera"
+        android:onClick="camera"
+        android:background="#ccc"
+        android:textSize="20sp"
+        android:padding="10dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="40dp"
+        />
+
+    <ImageView
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:id="@+id/imageView"
+        android:scaleType="fitXY"
+        android:background="@mipmap/ic_launcher"
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="30dp"
+        />
+
+</LinearLayout>

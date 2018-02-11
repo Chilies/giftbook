@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/themeRed"
+              android:orientation="vertical">
+
+    <include layout="@layout/activity_top"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background"
+        android:orientation="vertical"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:orientation="vertical"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="50dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center"
+                    android:text="@string/activity_update_personal_information_nickname"
+                    android:textSize="16sp"
+                    android:textColor="@color/firstTitle"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:text="Chilies"
+                    android:textSize="16sp"
+                    android:textColor="@color/firstTitle"
+                    />
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/divider"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="50dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center"
+                    android:text="@string/activity_update_personal_information_signature"
+                    android:textSize="16sp"
+                    android:textColor="@color/firstTitle"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:text="今天是个好日子！"
+                    android:textColor="@color/firstTitle"
+                    android:textSize="16sp"
+                    />
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/divider"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="50dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center"
+                    android:text="@string/activity_update_personal_information_sex"
+                    android:textSize="16sp"
+                    android:textColor="@color/firstTitle"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:text="女"
+                    android:textColor="@color/firstTitle"
+                    android:textSize="16sp"
+                    />
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/divider"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="50dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center"
+                    android:text="所在地"
+                    android:textSize="16sp"
+                    android:textColor="@color/firstTitle"
+                    />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:text="中国-北京"
+                    android:textColor="@color/firstTitle"
+                    android:textSize="16sp"
+                    />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/next"
+                    />
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/divider"/>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/register_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="133dp"
+            android:layout_marginBottom="20dp"
+            android:background="@color/themeRed"
+            android:text="修改资料"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:visibility="visible"/>
+
+    </LinearLayout>
+
+</LinearLayout>

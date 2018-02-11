@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:background="@color/background"
-              android:descendantFocusability="blocksDescendants"
               android:orientation="vertical">
 
     <LinearLayout
@@ -13,14 +13,17 @@
         android:orientation="horizontal"
         >
 
-        <ImageView
-            android:focusable="false"
-            android:clickable="true"
+        <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/item_fragment_wish_avatar_img"
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:clickable="true"
+            android:focusable="false"
+            android:scaleType="centerCrop"
             android:src="@drawable/avatar"
-            />
+            app:riv_border_color="@color/white"
+            app:riv_oval="true"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -31,12 +34,12 @@
             >
 
             <TextView
-                android:focusable="false"
-                android:clickable="true"
                 android:id="@+id/item_fragment_wish_nickname_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
+                android:clickable="true"
+                android:focusable="false"
                 android:text="张三李四"
                 android:textColor="@color/firstTitle"
                 android:textSize="18sp"/>
@@ -81,13 +84,13 @@
             android:textSize="16sp"/>
 
         <ImageView
-            android:focusable="false"
-            android:clickable="true"
             android:id="@+id/item_fragment_wish_article_img"
             android:layout_width="200dp"
             android:layout_height="150dp"
             android:layout_gravity="center_horizontal"
             android:layout_margin="5dp"
+            android:clickable="true"
+            android:focusable="false"
             android:scaleType="fitXY"
             android:src="@drawable/img"/>
     </LinearLayout>
@@ -100,12 +103,12 @@
         >
 
         <LinearLayout
-            android:focusable="false"
-            android:clickable="true"
             android:id="@+id/item_fragment_wish_comment_linearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:clickable="true"
+            android:focusable="false"
             android:gravity="center_horizontal"
             android:orientation="horizontal"
             >
@@ -114,9 +117,10 @@
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_gravity="center_vertical"
-                android:src="@drawable/comments"/>
+                android:src="@drawable/comment"/>
 
             <TextView
+                android:id="@+id/item_fragment_wish_listview_comment_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -126,12 +130,12 @@
         </LinearLayout>
 
         <LinearLayout
-            android:focusable="false"
-            android:clickable="true"
             android:id="@+id/item_fragment_wish_payment_linearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:clickable="true"
+            android:focusable="false"
             android:gravity="center_horizontal"
             android:orientation="horizontal"
             >
@@ -143,6 +147,7 @@
                 android:src="@drawable/payment"/>
 
             <TextView
+                android:id="@+id/item_fragment_wish_listview_payment_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"

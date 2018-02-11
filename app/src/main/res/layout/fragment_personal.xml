@@ -9,7 +9,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="3"
+        android:layout_weight="4"
         android:orientation="vertical"
         >
 
@@ -27,7 +27,9 @@
             android:layout_marginTop="-190dp"
             android:src="@drawable/avatar"
             app:riv_border_color="@color/white"
-            app:riv_border_width="5dp"
+            app:riv_border_width="2dp"
+            android:scaleType="centerCrop"
+            android:id="@+id/fragment_personal_avatar_img"
             app:riv_oval="true"/>
 
         <TextView
@@ -36,6 +38,7 @@
             android:layout_margin="10dp"
             android:gravity="center"
             android:text="Chilies"
+            android:textIsSelectable="true"
             android:textColor="@color/white"
             android:textSize="20sp"/>
 
@@ -46,9 +49,11 @@
             android:layout_marginLeft="50dp"
             android:layout_marginRight="50dp"
             android:layout_marginTop="-15dp"
+            android:textIsSelectable="true"
             android:text="乘风破浪会有时，直挂云帆济沧海。乘风破浪会有时，直挂云帆济沧海。"
             android:textColor="@color/white"
-            android:textSize="14sp"/>
+            android:textSize="14sp"
+            android:id="@+id/textView5"/>
     </LinearLayout>
 
     <View
@@ -60,7 +65,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="10dp"
-        android:layout_weight="2"
+        android:layout_weight="3"
         android:orientation="vertical"
         >
 
@@ -82,6 +87,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_weight="1"
                 android:text="18328023198"
+                android:textIsSelectable="true"
                 android:textColor="@color/firstTitle"
                 android:textSize="16sp"
                 />
@@ -160,6 +166,10 @@
                 android:src="@drawable/next"
                 />
         </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/divider"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"
@@ -187,6 +197,10 @@
                 android:src="@drawable/next"
                 />
         </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/divider"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"
@@ -214,19 +228,10 @@
                 android:src="@drawable/next"
                 />
         </LinearLayout>
-
-
-        <!--<Button-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:background="@color/lightColorButton"-->
-            <!--android:text="修改资料"-->
-            <!--android:layout_marginLeft="20dp"-->
-            <!--android:layout_marginRight="20dp"-->
-            <!--android:layout_marginTop="30dp"-->
-            <!--android:textColor="@color/white"-->
-            <!--android:textSize="20sp"-->
-            <!--android:visibility="visible"/>-->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/divider"/>
 
     </LinearLayout>
 </LinearLayout>

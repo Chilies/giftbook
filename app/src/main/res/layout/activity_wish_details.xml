@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
               android:background="@color/themeRed"
               android:clipToPadding="true"
               android:fitsSystemWindows="true"
@@ -26,11 +27,15 @@
                 android:orientation="horizontal"
                 >
 
-                <ImageView
-                    android:id="@+id/activity_wish_details_avatar_img"
+                <com.makeramen.roundedimageview.RoundedImageView
                     android:layout_width="40dp"
                     android:layout_height="40dp"
+                    android:id="@+id/activity_wish_details_avatar_img"
+                    android:layout_gravity="center"
                     android:src="@drawable/avatar"
+                    app:riv_border_color="@color/white"
+                    app:riv_oval="true"
+                    android:scaleType="centerCrop"
                     />
 
                 <LinearLayout
@@ -201,13 +206,15 @@
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:padding="5dp"
+            android:focusable="false"
+            android:clickable="true"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_weight="1"
             android:background="@drawable/bg_edittext"
             android:hint="@string/publish_comment"
-            android:textColor="@color/unClick"
+            android:textColor="@color/firstTitle"
             android:textSize="14sp"
             />
 
