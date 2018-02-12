@@ -19,6 +19,12 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".activity.WishDetailsActivity"/>
+        <activity android:name=".activity.PersonalHomeActivity"/>
+        <activity android:name=".activity.PaymentRecordActivity"/>
+        <activity android:name=".activity.UpdateInformationActivity"/>
+        <activity android:name=".activity.PublishWishActivity"/>
+
     </application>
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>

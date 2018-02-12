@@ -17,6 +17,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.makeramen.roundedimageview.RoundedImageView;
 
@@ -26,15 +28,21 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import edu.sctu.giftbook.R;
+import edu.sctu.giftbook.activity.PaymentRecordActivity;
+import edu.sctu.giftbook.activity.UpdateInformationActivity;
 import edu.sctu.giftbook.utils.ImageTools;
+import edu.sctu.giftbook.utils.JumpUtil;
+import edu.sctu.giftbook.utils.ToastUtil;
 
 /**
  * Created by zhengsenwen on 2018/2/9.
  */
 
-public class PersonalFragment extends Fragment {
+public class PersonalFragment extends Fragment implements View.OnClickListener {
     private Activity activity;
     private RoundedImageView avatar;
+    private TextView nickName, signature;
+    private LinearLayout wishRecord, paymentRecord, updateInformation;
 
     private static final int PHOTO_FROM_GALLERY = 1;
     private static final int PHOTO_FROM_CAMERA = 2;
@@ -46,43 +54,84 @@ public class PersonalFragment extends Fragment {
     private String uriStr;
 //    private SharePreference sharePreference;
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         activity = getActivity();
         View view = LayoutInflater.from(activity).inflate(R.layout.fragment_personal, null);
-        avatar = (RoundedImageView) view.findViewById(R.id.fragment_personal_avatar_img);
+        getViews(view);
         return view;
+    }
+
+    private void getViews(View view) {
+        avatar = (RoundedImageView) view.findViewById(R.id.fragment_personal_avatar_img);
+//        nickName = (TextView) view.findViewById(R.id.fragment_personal_nickename_text);
+//        signature = (TextView) view.findViewById(R.id.fragment_personal_signature_text);
+        wishRecord = (LinearLayout) view.findViewById(R.id.fragment_personal_wish_record);
+        paymentRecord = (LinearLayout) view.findViewById(R.id.fragment_personal_payment_record);
+        updateInformation = (LinearLayout) view.findViewById(R.id.fragment_personal_update_information);
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        setOnClick();
+    }
 
-        avatar.setOnClickListener(new View.OnClickListener() {
+    private void setOnClick() {
+        avatar.setOnClickListener(this);
+        wishRecord.setOnClickListener(this);
+        paymentRecord.setOnClickListener(this);
+        updateInformation.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        int id = v.getId();
+        switch (id) {
+            case R.id.fragment_personal_avatar_img:
+                changeAvatar();
+                break;
+            case R.id.fragment_personal_wish_record:
+                ToastUtil.makeText(activity, "正在开发中");
+                break;
+            case R.id.fragment_personal_payment_record:
+                JumpUtil.jumpInActivity(activity, PaymentRecordActivity.class);
+                break;
+//            case R.id.fragment_personal_nickename_text:
+//                JumpUtil.jumpInActivity(activity, UpdateInformationActivity.class);
+//            break;
+//            case R.id.fragment_personal_signature_text:
+//                JumpUtil.jumpInActivity(activity, UpdateInformationActivity.class);
+//                break;
+            case R.id.fragment_personal_update_information:
+                JumpUtil.jumpInActivity(activity, UpdateInformationActivity.class);
+                break;
+            default:
+                break;
+        }
+    }
+
+
+    private void changeAvatar() {
+        final String[] items = {"拍摄", "从手机相册中选择"};
+        AlertDialog.Builder listDialog =
+                new AlertDialog.Builder(activity);
+        listDialog.setItems(items, new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                final String[] items = {"拍摄", "从手机相册中选择"};
-                AlertDialog.Builder listDialog =
-                        new AlertDialog.Builder(activity);
-                listDialog.setItems(items, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        switch (which) {
-                            case 0:
-                                selectAvatarFromCamera();
-                                break;
-                            case 1:
-                                selectAvatarFromLocal();
-                                break;
-                            default:
-                                break;
-                        }
-                    }
-                });
-                listDialog.show();
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which) {
+                    case 0:
+//                        selectAvatarFromCamera();
+                        break;
+                    case 1:
+                        selectAvatarFromLocal();
+                        break;
+                    default:
+                        break;
+                }
             }
         });
+        listDialog.show();
     }
 
     private void selectAvatarFromLocal() {
@@ -156,6 +205,7 @@ public class PersonalFragment extends Fragment {
      *
      * @return
      */
+    @Nullable
     private File createStoragePathForAvatar() {
         if (hasSdcard()) {
             appDir = new File("/sdcard/giftbook/");
@@ -186,6 +236,7 @@ public class PersonalFragment extends Fragment {
             return false;
         }
     }
+
 
 //    /**
 //     * remove sharePreference

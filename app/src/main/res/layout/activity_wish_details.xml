@@ -17,7 +17,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
             android:orientation="vertical">
 
             <LinearLayout
@@ -63,7 +63,7 @@
                         android:gravity="center_vertical"
                         android:text="2017-05-25"
                         android:textColor="@color/secondTitle"
-                        android:textSize="15sp"
+                        android:textSize="14sp"
                         />
                 </LinearLayout>
 
@@ -147,7 +147,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/activity_wish_details_money"
+                        android:text="@string/char_money"
                         android:textColor="@color/themeRed"
                         android:textSize="16sp"
                         />
@@ -159,7 +159,7 @@
                         android:layout_marginLeft="5dp"
                         android:text="200"
                         android:textColor="@color/themeRed"
-                        android:textSize="20sp"
+                        android:textSize="22sp"
                         />
                 </LinearLayout>
             </LinearLayout>

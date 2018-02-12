@@ -33,14 +33,16 @@
             app:riv_oval="true"/>
 
         <TextView
+            android:id="@+id/fragment_personal_nickename_text"
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:layout_margin="10dp"
             android:gravity="center"
-            android:text="Chilies"
+            android:text="@string/fragment_personal_nickname"
             android:textIsSelectable="true"
             android:textColor="@color/white"
-            android:textSize="20sp"/>
+            android:textSize="20sp"
+            />
 
         <TextView
             android:layout_width="match_parent"
@@ -50,10 +52,10 @@
             android:layout_marginRight="50dp"
             android:layout_marginTop="-15dp"
             android:textIsSelectable="true"
-            android:text="乘风破浪会有时，直挂云帆济沧海。乘风破浪会有时，直挂云帆济沧海。"
+            android:text="@string/fragment_personal_signature"
             android:textColor="@color/white"
             android:textSize="14sp"
-            android:id="@+id/textView5"/>
+            android:id="@+id/fragment_personal_signature_text"/>
     </LinearLayout>
 
     <View
@@ -81,12 +83,12 @@
                 android:src="@drawable/phone"/>
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="20dp"
                 android:layout_gravity="center"
                 android:layout_marginLeft="10dp"
                 android:layout_weight="1"
-                android:text="18328023198"
+                android:text="@string/fragment_personal_phone_number"
                 android:textIsSelectable="true"
                 android:textColor="@color/firstTitle"
                 android:textSize="16sp"
@@ -105,7 +107,7 @@
                 android:src="@drawable/sex"/>
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="20dp"
                 android:layout_gravity="center"
                 android:layout_marginLeft="10dp"
@@ -128,18 +130,19 @@
                 android:src="@drawable/address"/>
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="20dp"
                 android:layout_gravity="center"
                 android:layout_marginLeft="10dp"
                 android:layout_weight="1"
-                android:text="中国-北京"
+                android:text="@string/address"
                 android:textColor="@color/firstTitle"
                 android:textSize="16sp"
                 />
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/fragment_personal_wish_record"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:orientation="horizontal">
@@ -150,12 +153,12 @@
                 android:layout_gravity="center"
                 android:src="@drawable/personal_wish"/>
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="20dp"
                 android:layout_gravity="center"
                 android:layout_marginLeft="10dp"
                 android:layout_weight="1"
-                android:text="心愿记录"
+                android:text="@string/fragment_personal_wish_record"
                 android:textColor="@color/firstTitle"
                 android:textSize="16sp"
                 />
@@ -171,6 +174,7 @@
             android:layout_height="1dp"
             android:background="@color/divider"/>
         <LinearLayout
+            android:id="@+id/fragment_personal_payment_record"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:orientation="horizontal">
@@ -181,12 +185,12 @@
                 android:layout_gravity="center"
                 android:src="@drawable/account_book"/>
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="20dp"
                 android:layout_gravity="center"
                 android:layout_marginLeft="10dp"
                 android:layout_weight="1"
-                android:text="个人账单"
+                android:text="@string/fragment_personal_payment_record"
                 android:textColor="@color/firstTitle"
                 android:textSize="16sp"
                 />
@@ -202,6 +206,7 @@
             android:layout_height="1dp"
             android:background="@color/divider"/>
         <LinearLayout
+            android:id="@+id/fragment_personal_update_information"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:orientation="horizontal">
@@ -212,12 +217,12 @@
                 android:layout_gravity="center"
                 android:src="@drawable/update"/>
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="20dp"
                 android:layout_gravity="center"
                 android:layout_marginLeft="10dp"
                 android:layout_weight="1"
-                android:text="修改资料"
+                android:text="@string/fragment_personal_update_information"
                 android:textColor="@color/firstTitle"
                 android:textSize="16sp"
                 />

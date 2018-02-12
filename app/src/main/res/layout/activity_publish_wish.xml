@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/themeRed"
+              android:clipToPadding="true"
+              android:fitsSystemWindows="true"
+              android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/themeRed"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="50dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:gravity="center"
+            android:text="取消"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            />
+
+        <TextView
+            android:id="@+id/article_title"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="心愿"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            />
+
+        <Button
+            android:layout_width="50dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/corner_bg"
+            android:gravity="center"
+            android:text="发表"
+            android:textColor="@color/themeRed"
+            android:textSize="18sp"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background"
+        android:orientation="vertical"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="270dp"
+            android:layout_margin="10dp"
+            android:background="@color/background"
+            android:orientation="vertical"
+            >
+
+            <EditText
+                android:id="@+id/etContent"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:background="@null"
+                android:gravity="start"
+                android:hint="分享一下吧..."
+                android:padding="5dp"
+                />
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/add_pic"
+                />
+            <!--<View-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="1dp"-->
+            <!--android:background="#E0E0E0"/>-->
+            <!--<View-->
+            <!--android:id="@+id/line"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="1dp"-->
+            <!--android:background="#E0E0E0"/>-->
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:orientation="horizontal"
+            >
+
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="50dp"
+                android:layout_gravity="left"
+                android:gravity="center"
+                android:text="价值￥："
+                android:textColor="@color/firstTitle"
+                android:textSize="14sp"
+                android:id="@+id/textView5"/>
+
+            <EditText
+                android:layout_width="200dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:gravity="left"
+                android:text="300.00"
+                android:hint="请输入心愿金额"
+                android:textColor="@color/themeRed"
+                android:textSize="20sp"
+                android:id="@+id/editText"/>
+
+        </LinearLayout>
+
+        <!--<View-->
+            <!--android:layout_width="200dp"-->
+            <!--android:layout_height="1dp"-->
+            <!--android:layout_marginLeft="80dp"-->
+            <!--android:background="@color/firstTitle"/>-->
+       <!---->
+
+        <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/divider"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:orientation="horizontal"
+            >
+
+            <TextView
+                android:layout_width="70dp"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:text="心愿分类："
+                android:textColor="@color/firstTitle"
+                android:textSize="14sp"
+                />
+
+            <Spinner
+                android:id="@+id/activity_publish_wish_type_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+
+                />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

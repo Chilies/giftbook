@@ -9,6 +9,10 @@
     <string name="comment">评论</string>
     <string name="payment">赞助</string>
     <string name="publish_comment">发表评论</string>
+    <string name="address">中国-北京</string>
+    <string name="char_money">￥</string>
+
+
 
 
     <string name="register_input_phone">请输入常用手机号</string>
@@ -33,16 +37,33 @@
     <string name="activity_main_switch_off">好友</string>
     <string name="activity_main_switch_on">全部</string>
 
-    <string name="activity_wish_details_money">￥</string>
     <string name="activity_wish_details_type">类型：</string>
     <!--<string name="activity_wish_details_comment">&#160;&#160;发表评论</string>-->
 
 
     <string name="test">为消费者提供最权威的年货买什么好,年货送什么好的知识,是消费者们了解春节送礼的重要参考依据,</string>
 
+    <string name="fragment_personal_payment_record">个人账单</string>
+    <string name="fragment_personal_nickname">Chilies</string>
+    <string name="fragment_personal_signature">乘风破浪会有时，直挂云帆济沧海。乘风破浪会有时，直挂云帆济沧海。</string>
+    <string name="fragment_personal_phone_number">18328023198</string>
+    <string name="fragment_personal_sex">女</string>
+    <string name="fragment_personal_wish_record">心愿记录</string>
+    <string name="fragment_personal_update_information">修改资料</string>
+
+
     <string name="activity_update_personal_information_nickname">昵称</string>
     <string name="activity_update_personal_information_signature">签名</string>
     <string name="activity_update_personal_information_sex">性别</string>
+    <string name="activity_update_personal_information_address">所在地</string>
+    <string name="activity_update_personal_information_update">保存修改</string>
+
+    <string name="activity_payment_record_stage">本年度</string>
+    <string name="activity_payment_record_budget">支出 ￥2000.20  收入 ￥300.59</string>
+
+    <string name="item_activity_payment_record_listview_nickname">李白</string>
+    <string name="item_activity_payment_record_listview_time">2017-05-25</string>
+    <string name="item_activity_payment_record_listview_money">+2000.80</string>
 
 
 

@@ -3,6 +3,8 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:background="@color/themeRed"
+              android:fitsSystemWindows="true"
+              android:clipToPadding="true"
               android:orientation="vertical">
 
     <include layout="@layout/activity_top"/>
@@ -32,14 +34,17 @@
                     android:textSize="16sp"
                     android:textColor="@color/firstTitle"
                     />
-                <TextView
-                    android:layout_width="match_parent"
+                <EditText
+                    android:id="@+id/activity_update_information_nickname_text"
+                    android:layout_width="0dp"
                     android:layout_height="20dp"
                     android:layout_gravity="center"
                     android:layout_marginLeft="10dp"
                     android:layout_weight="1"
                     android:text="Chilies"
+                    android:enabled="true"
                     android:textSize="16sp"
+                    android:background="@null"
                     android:textColor="@color/firstTitle"
                     />
             </LinearLayout>
@@ -60,13 +65,16 @@
                     android:textSize="16sp"
                     android:textColor="@color/firstTitle"
                     />
-                <TextView
-                    android:layout_width="match_parent"
+                <EditText
+                    android:id="@+id/activity_update_information_signture_text"
+                    android:layout_width="0dp"
                     android:layout_height="20dp"
                     android:layout_gravity="center"
                     android:layout_marginLeft="10dp"
                     android:layout_weight="1"
+                    android:enabled="true"
                     android:text="今天是个好日子！"
+                    android:background="@null"
                     android:textColor="@color/firstTitle"
                     android:textSize="16sp"
                     />
@@ -88,16 +96,21 @@
                     android:textSize="16sp"
                     android:textColor="@color/firstTitle"
                     />
-                <TextView
-                    android:layout_width="match_parent"
+
+                <EditText
+                    android:id="@+id/activity_update_information_sex_text"
+                    android:layout_width="0dp"
                     android:layout_height="20dp"
                     android:layout_gravity="center"
                     android:layout_marginLeft="10dp"
                     android:layout_weight="1"
+                    android:enabled="true"
+                    android:background="@null"
                     android:text="女"
                     android:textColor="@color/firstTitle"
                     android:textSize="16sp"
                     />
+
             </LinearLayout>
             <View
                 android:layout_width="match_parent"
@@ -113,18 +126,19 @@
                     android:layout_width="50dp"
                     android:layout_height="20dp"
                     android:layout_gravity="center"
-                    android:text="所在地"
+                    android:text="@string/activity_update_personal_information_address"
                     android:textSize="16sp"
                     android:textColor="@color/firstTitle"
                     />
 
                 <TextView
-                    android:layout_width="match_parent"
+                    android:id="@+id/activity_update_information_address_text"
+                    android:layout_width="0dp"
                     android:layout_height="20dp"
                     android:layout_gravity="center"
                     android:layout_marginLeft="10dp"
                     android:layout_weight="1"
-                    android:text="中国-北京"
+                    android:text="@string/address"
                     android:textColor="@color/firstTitle"
                     android:textSize="16sp"
                     />
@@ -143,7 +157,7 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/register_button"
+            android:id="@+id/activity_update_information_update_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
@@ -151,11 +165,10 @@
             android:layout_marginTop="133dp"
             android:layout_marginBottom="20dp"
             android:background="@color/themeRed"
-            android:text="修改资料"
+            android:text="@string/activity_update_personal_information_update"
             android:textColor="@color/white"
             android:textSize="20sp"
             android:visibility="visible"/>
-
     </LinearLayout>
 
 </LinearLayout>
