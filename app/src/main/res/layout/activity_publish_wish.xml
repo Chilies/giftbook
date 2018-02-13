@@ -14,15 +14,16 @@
         android:orientation="horizontal">
 
         <TextView
-            android:layout_width="50dp"
+            android:id="@+id/activity_publish_wish_cancel_text"
+            android:layout_width="40dp"
             android:layout_height="30dp"
             android:layout_gravity="center"
-            android:layout_marginLeft="10dp"
             android:gravity="center"
             android:text="取消"
+            android:layout_margin="10dp"
             android:textColor="@color/white"
-            android:textSize="20sp"
-            />
+            android:textSize="18sp"
+           />
 
         <TextView
             android:id="@+id/article_title"
@@ -38,16 +39,17 @@
             />
 
         <Button
+            android:id="@+id/activity_publish_wish_publish_button"
             android:layout_width="50dp"
             android:layout_height="30dp"
             android:layout_gravity="center"
-            android:layout_marginRight="10dp"
+            android:layout_margin="10dp"
             android:background="@drawable/corner_bg"
             android:gravity="center"
-            android:text="发表"
+            android:text="发布"
             android:textColor="@color/themeRed"
             android:textSize="18sp"
-            />
+       />
     </LinearLayout>
 
     <LinearLayout
@@ -56,87 +58,31 @@
         android:background="@color/background"
         android:orientation="vertical"
         >
-
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="270dp"
+            android:layout_height="260dp"
             android:layout_margin="10dp"
             android:background="@color/background"
             android:orientation="vertical"
             >
-
             <EditText
-                android:id="@+id/etContent"
+                android:id="@+id/activity_publish_wish_destination_edit"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
                 android:background="@null"
                 android:gravity="start"
-                android:hint="分享一下吧..."
-                android:padding="5dp"
+                android:hint="分享你的小心愿..."
+                android:textSize="16sp"
                 />
-
             <ImageView
+                android:id="@+id/activity_publish_wish_choose_pic_img"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
+
                 android:layout_marginTop="10dp"
                 android:src="@drawable/add_pic"
                 />
-            <!--<View-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="1dp"-->
-            <!--android:background="#E0E0E0"/>-->
-            <!--<View-->
-            <!--android:id="@+id/line"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="1dp"-->
-            <!--android:background="#E0E0E0"/>-->
-
         </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:orientation="horizontal"
-            >
-
-            <TextView
-                android:layout_width="60dp"
-                android:layout_height="50dp"
-                android:layout_gravity="left"
-                android:gravity="center"
-                android:text="价值￥："
-                android:textColor="@color/firstTitle"
-                android:textSize="14sp"
-                android:id="@+id/textView5"/>
-
-            <EditText
-                android:layout_width="200dp"
-                android:layout_height="50dp"
-                android:layout_gravity="center"
-                android:gravity="left"
-                android:text="300.00"
-                android:hint="请输入心愿金额"
-                android:textColor="@color/themeRed"
-                android:textSize="20sp"
-                android:id="@+id/editText"/>
-
-        </LinearLayout>
-
-        <!--<View-->
-            <!--android:layout_width="200dp"-->
-            <!--android:layout_height="1dp"-->
-            <!--android:layout_marginLeft="80dp"-->
-            <!--android:background="@color/firstTitle"/>-->
-       <!---->
-
-        <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:background="@color/divider"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -147,12 +93,50 @@
             >
 
             <TextView
-                android:layout_width="70dp"
+                android:layout_width="80dp"
                 android:layout_height="40dp"
+                android:layout_gravity="left"
+                android:gravity="center_vertical"
+                android:text="价       值￥"
+                android:textColor="@color/firstTitle"
+                android:textSize="16sp"
+                android:id="@+id/textView5"/>
+
+            <EditText
+                android:id="@+id/activity_publish_wish_value_eidt"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
                 android:gravity="center"
+                android:hint="请输入金额"
+                android:textColor="@color/themeRed"
+                android:textSize="16sp"
+               />
+
+        </LinearLayout>
+
+        <!--<View-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="1dp"-->
+        <!--android:layout_marginLeft="10dp"-->
+        <!--android:layout_marginRight="10dp"-->
+        <!--android:background="@color/divider"/>-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:orientation="horizontal"
+            >
+
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="40dp"
+                android:gravity="center_vertical"
                 android:text="心愿分类："
                 android:textColor="@color/firstTitle"
-                android:textSize="14sp"
+                android:textSize="16sp"
                 />
 
             <Spinner

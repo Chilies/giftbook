@@ -66,7 +66,6 @@ public class WishDetailsActivity extends Activity implements View.OnClickListene
             case R.id.back_img:
                 finish();
                 break;
-
             case R.id.activity_wish_details_comment_edit:
                 newCommentAlertDialog();
                 delayLoadSoftInput(editCommentText);

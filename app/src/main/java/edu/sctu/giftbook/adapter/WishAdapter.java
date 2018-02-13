@@ -55,7 +55,7 @@ public class WishAdapter extends BaseAdapter {
             Log.e("getView", "view is null");
             view = layoutInflater.inflate(R.layout.item_fragment_wish_listview,null);
             holder.avatar = (ImageView) view.findViewById(R.id.item_fragment_wish_avatar_img);
-            holder.nikeName = (TextView) view.findViewById(R.id.item_fragment_wish_nickname_text);
+            holder.nickname = (TextView) view.findViewById(R.id.item_fragment_wish_nickname_text);
             holder.time = (TextView) view.findViewById(R.id.item_fragment_wish_time_text);
             holder.isWishCard = (ImageView) view.findViewById(R.id.item_fragment_wish_isWishCard_img);
             holder.destination = (TextView) view.findViewById(R.id.item_fragment_wish_destination_text);
@@ -74,7 +74,7 @@ public class WishAdapter extends BaseAdapter {
                 JumpUtil.jumpInActivity(activity, PersonalHomeActivity.class);
             }
         });
-        holder.nikeName.setOnClickListener(new View.OnClickListener() {
+        holder.nickname.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 JumpUtil.jumpInActivity(activity, PersonalHomeActivity.class);
@@ -104,7 +104,7 @@ public class WishAdapter extends BaseAdapter {
 
     private static class ViewHolder {
         ImageView avatar, isWishCard, article;
-        TextView nikeName, time, destination;
+        TextView nickname, time, destination;
         LinearLayout comment, payment;
     }
 }

@@ -8,6 +8,9 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -24,7 +27,10 @@ import edu.sctu.giftbook.utils.ToastUtil;
 public class PublishWishActivity extends Activity implements View.OnClickListener {
 
     private Activity activity;
-    private LayoutInflater layoutInflater;
+    private EditText destination,value;
+    private TextView cancel;
+    private ImageView choosePic;
+    private Button publish;
     private Spinner type;
     private List<String> dataList;
     private ArrayAdapter<String> adapter;
@@ -43,7 +49,18 @@ public class PublishWishActivity extends Activity implements View.OnClickListene
     }
 
     public void getViews() {
+        cancel = (TextView) findViewById(R.id.activity_publish_wish_cancel_text);
+        publish = (Button) findViewById(R.id.activity_publish_wish_publish_button);
+        destination = (EditText) findViewById(R.id.activity_publish_wish_destination_edit);
+        choosePic = (ImageView) findViewById(R.id.activity_publish_wish_choose_pic_img);
+        value = (EditText) findViewById(R.id.activity_publish_wish_value_eidt);
         type = (Spinner) findViewById(R.id.activity_publish_wish_type_spinner);
+
+        cancel.setOnClickListener(this);
+        publish.setOnClickListener(this);
+        choosePic.setOnClickListener(this);
+
+
         adapter = new ArrayAdapter<String>(activity, android.R.layout.simple_spinner_item, getData());
         adapter.setDropDownViewResource(
                 android.support.design.R.layout.support_simple_spinner_dropdown_item);
@@ -73,6 +90,18 @@ public class PublishWishActivity extends Activity implements View.OnClickListene
 
     @Override
     public void onClick(View v) {
-
+        switch (v.getId()){
+            case R.id.activity_publish_wish_cancel_text:
+                finish();
+            break;
+            case R.id.activity_publish_wish_publish_button:
+                ToastUtil.makeText(activity,"正在开发中");
+                break;
+            case R.id.activity_publish_wish_choose_pic_img:
+                ToastUtil.makeText(activity,"正在开发中");
+                break;
+            default:
+            break;
+        }
     }
 }
