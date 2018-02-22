@@ -51,8 +51,8 @@ public class WishAdapter extends BaseAdapter {
     public View getView(int position, View view, ViewGroup parent) {
         ViewHolder holder;
         if (view == null) {
-            holder = new ViewHolder();
             Log.e("getView", "view is null");
+            holder = new ViewHolder();
             view = layoutInflater.inflate(R.layout.item_fragment_wish_listview,null);
             holder.avatar = (ImageView) view.findViewById(R.id.item_fragment_wish_avatar_img);
             holder.nickname = (TextView) view.findViewById(R.id.item_fragment_wish_nickname_text);

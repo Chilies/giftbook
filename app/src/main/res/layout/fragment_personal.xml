@@ -10,21 +10,22 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="4"
+        android:background="@color/themeRed"
         android:orientation="vertical"
         >
-
         <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:id="@+id/fragment_personal_settings_img"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginRight="10dp"
             android:scaleType="fitXY"
-            android:background="@color/themeRed"
+            android:layout_gravity="right"
+            android:src="@drawable/settings"
             />
-
         <com.makeramen.roundedimageview.RoundedImageView
             android:layout_width="90dp"
             android:layout_height="90dp"
             android:layout_gravity="center"
-            android:layout_marginTop="-190dp"
             android:src="@drawable/avatar"
             app:riv_border_color="@color/white"
             app:riv_border_width="2dp"
@@ -43,7 +44,6 @@
             android:textColor="@color/white"
             android:textSize="20sp"
             />
-
         <TextView
             android:layout_width="match_parent"
             android:layout_height="55dp"
@@ -70,12 +70,10 @@
         android:layout_weight="3"
         android:orientation="vertical"
         >
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:orientation="horizontal">
-
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
@@ -83,7 +81,8 @@
                 android:src="@drawable/phone"/>
 
             <TextView
-                android:layout_width="0dp"
+                android:id="@+id/fragment_personal_phone_number_text"
+            android:layout_width="0dp"
                 android:layout_height="20dp"
                 android:layout_gravity="center"
                 android:layout_marginLeft="10dp"
@@ -107,7 +106,8 @@
                 android:src="@drawable/sex"/>
 
             <TextView
-                android:layout_width="0dp"
+                android:id="@+id/fragment_personal_sex_text"
+            android:layout_width="0dp"
                 android:layout_height="20dp"
                 android:layout_gravity="center"
                 android:layout_marginLeft="10dp"
@@ -117,7 +117,29 @@
                 android:textSize="16sp"
                 />
         </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal">
 
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center"
+                android:src="@drawable/alipay"/>
+
+            <TextView
+                android:id="@+id/fragment_personal_phone_alipay_text"
+                android:layout_width="0dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:text="18328023198"
+                android:textColor="@color/firstTitle"
+                android:textSize="16sp"
+                />
+        </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"
@@ -130,6 +152,7 @@
                 android:src="@drawable/address"/>
 
             <TextView
+                android:id="@+id/fragment_personal_phone_area_text"
                 android:layout_width="0dp"
                 android:layout_height="20dp"
                 android:layout_gravity="center"
@@ -205,38 +228,7 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/divider"/>
-        <LinearLayout
-            android:id="@+id/fragment_personal_update_information"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:orientation="horizontal">
 
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_gravity="center"
-                android:src="@drawable/update"/>
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="20dp"
-                android:layout_gravity="center"
-                android:layout_marginLeft="10dp"
-                android:layout_weight="1"
-                android:text="@string/fragment_personal_update_information"
-                android:textColor="@color/firstTitle"
-                android:textSize="16sp"
-                />
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="40dp"
-                android:layout_gravity="center_vertical"
-                android:src="@drawable/next"
-                />
-        </LinearLayout>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/divider"/>
 
     </LinearLayout>
 </LinearLayout>

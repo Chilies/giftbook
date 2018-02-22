@@ -9,6 +9,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import edu.sctu.giftbook.R;
@@ -18,17 +19,17 @@ import edu.sctu.giftbook.utils.ToastUtil;
  * Created by zhengsenwen on 2018/2/12.
  */
 
-public class UpdateInformationActivity extends Activity implements View.OnClickListener {
+public class UserInfoUpdateActivity extends Activity implements View.OnClickListener {
 
     private Activity activity;
     private EditText nickName, signature, sex;
-    private TextView address;
+    private Spinner area;
     private Button saveAndUpdate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        activity = UpdateInformationActivity.this;
+        activity = UserInfoUpdateActivity.this;
         //设置无标题栏
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_update_personal_infomation);

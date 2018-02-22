@@ -41,7 +41,6 @@ public class WishFragment extends Fragment implements View.OnClickListener {
     public void getViews(View view) {
         publish = (ImageView) view.findViewById(R.id.fragment_wish_add_img);
 
-
         wishListView = (ListView) view.findViewById(R.id.fragment_wish_listView);
         LayoutInflater layoutInflater = LayoutInflater.from(activity);
         wishListView.setAdapter(new WishAdapter(layoutInflater, activity));

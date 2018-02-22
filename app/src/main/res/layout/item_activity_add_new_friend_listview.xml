@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:descendantFocusability="blocksDescendants"
+              android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_margin="10dp"
+        >
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:id="@+id/item_activity_add_new_friend_listView_avatar"
+            android:clickable="true"
+            android:focusable="false"
+            android:scaleType="centerCrop"
+            android:src="@drawable/avatar"
+            app:riv_border_color="@color/white"
+            app:riv_oval="true"
+            />
+
+        <TextView
+            android:id="@+id/item_activity_add_new_friend_listView_nickname_text"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="10dp"
+            android:layout_gravity="center_vertical"
+            android:clickable="true"
+            android:focusable="false"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="@string/item_activity_payment_record_listview_nickname"
+            android:textColor="@color/firstTitle"
+            android:textSize="18sp"/>
+        <Button
+            android:id="@+id/item_activity_add_new_friend_listView_fellow_button"
+            android:layout_width="60dp"
+            android:layout_height="30dp"
+            android:clickable="true"
+            android:focusable="false"
+            android:text="关注"
+            android:layout_gravity="center_vertical"
+            android:textColor="@color/white"
+            android:background="@drawable/corner_red_bg"
+            />
+    </LinearLayout>
+
+</LinearLayout>

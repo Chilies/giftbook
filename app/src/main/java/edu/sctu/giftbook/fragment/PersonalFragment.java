@@ -23,14 +23,13 @@ import android.widget.TextView;
 import com.makeramen.roundedimageview.RoundedImageView;
 
 import java.io.File;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import edu.sctu.giftbook.R;
 import edu.sctu.giftbook.activity.PaymentRecordActivity;
-import edu.sctu.giftbook.activity.UpdateInformationActivity;
-import edu.sctu.giftbook.utils.ImageTools;
+import edu.sctu.giftbook.activity.SettingsActivity;
+import edu.sctu.giftbook.activity.UserInfoUpdateActivity;
 import edu.sctu.giftbook.utils.JumpUtil;
 import edu.sctu.giftbook.utils.ToastUtil;
 
@@ -40,9 +39,10 @@ import edu.sctu.giftbook.utils.ToastUtil;
 
 public class PersonalFragment extends Fragment implements View.OnClickListener {
     private Activity activity;
+    private ImageView settings;
     private RoundedImageView avatar;
-    private TextView nickName, signature;
-    private LinearLayout wishRecord, paymentRecord, updateInformation;
+    private TextView nickName, signature, phoneNumber, sex, area;
+    private LinearLayout wishRecord, paymentRecord;
 
     private static final int PHOTO_FROM_GALLERY = 1;
     private static final int PHOTO_FROM_CAMERA = 2;
@@ -63,12 +63,17 @@ public class PersonalFragment extends Fragment implements View.OnClickListener {
     }
 
     private void getViews(View view) {
+        settings = (ImageView) view.findViewById(R.id.fragment_personal_settings_img);
         avatar = (RoundedImageView) view.findViewById(R.id.fragment_personal_avatar_img);
-//        nickName = (TextView) view.findViewById(R.id.fragment_personal_nickename_text);
-//        signature = (TextView) view.findViewById(R.id.fragment_personal_signature_text);
+        nickName = (TextView) view.findViewById(R.id.fragment_personal_nickename_text);
+        signature = (TextView) view.findViewById(R.id.fragment_personal_signature_text);
+        phoneNumber = (TextView) view.findViewById(R.id.fragment_personal_phone_number_text);
+        sex = (TextView) view.findViewById(R.id.fragment_personal_sex_text);
+        area = (TextView) view.findViewById(R.id.fragment_personal_phone_area_text);
+
+
         wishRecord = (LinearLayout) view.findViewById(R.id.fragment_personal_wish_record);
         paymentRecord = (LinearLayout) view.findViewById(R.id.fragment_personal_payment_record);
-        updateInformation = (LinearLayout) view.findViewById(R.id.fragment_personal_update_information);
     }
 
     @Override
@@ -78,16 +83,19 @@ public class PersonalFragment extends Fragment implements View.OnClickListener {
     }
 
     private void setOnClick() {
+        settings.setOnClickListener(this);
         avatar.setOnClickListener(this);
         wishRecord.setOnClickListener(this);
         paymentRecord.setOnClickListener(this);
-        updateInformation.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         int id = v.getId();
         switch (id) {
+            case R.id.fragment_personal_settings_img:
+                JumpUtil.jumpInActivity(activity, SettingsActivity.class);
+                break;
             case R.id.fragment_personal_avatar_img:
                 changeAvatar();
                 break;
@@ -103,9 +111,6 @@ public class PersonalFragment extends Fragment implements View.OnClickListener {
 //            case R.id.fragment_personal_signature_text:
 //                JumpUtil.jumpInActivity(activity, UpdateInformationActivity.class);
 //                break;
-            case R.id.fragment_personal_update_information:
-                JumpUtil.jumpInActivity(activity, UpdateInformationActivity.class);
-                break;
             default:
                 break;
         }

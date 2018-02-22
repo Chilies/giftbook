@@ -3,7 +3,9 @@
               xmlns:app="http://schemas.android.com/apk/res-auto"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:orientation="horizontal">
+              android:background="@color/background"
+              android:descendantFocusability="blocksDescendants"
+              android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,24 +17,24 @@
             android:layout_height="35dp"
             android:layout_gravity="center"
             android:id="@+id/item_fragment_friend_listView_avatar"
-            android:clickable="true"
-            android:focusable="false"
             android:scaleType="centerCrop"
             android:src="@drawable/avatar"
+            android:clickable="true"
+            android:focusable="false"
             app:riv_border_color="@color/white"
             app:riv_oval="true"
             />
 
         <TextView
             android:id="@+id/item_fragment_friend_listView_nickname_text"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="35dp"
             android:layout_marginLeft="10dp"
             android:layout_gravity="center_vertical"
-            android:clickable="true"
-            android:focusable="false"
             android:gravity="center_vertical"
             android:text="@string/item_activity_payment_record_listview_nickname"
+            android:clickable="true"
+            android:focusable="false"
             android:textColor="@color/firstTitle"
             android:textSize="18sp"/>
     </LinearLayout>

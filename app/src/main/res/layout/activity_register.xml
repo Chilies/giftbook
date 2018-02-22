@@ -120,7 +120,6 @@
             android:layout_marginBottom="5dp"
             android:layout_marginTop="5dp"
             android:background="@color/divider"/>
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -128,25 +127,41 @@
             android:orientation="horizontal">
 
             <EditText
-                android:id="@+id/register_input_identify_code"
+                android:id="@+id/register_input_alipay_account"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="@string/register_input_identify_code"
+                android:hint="@string/register_set_alipay"
                 android:inputType="textPassword"
                 android:padding="5dp"
                 android:textSize="14sp"/>
-
-            <TextView
-                android:id="@+id/register_get_identify_code"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:padding="5dp"
-                android:text="@string/get_identify_code"
-                android:textColor="@color/firstTitle"
-                android:textSize="14sp"/>
         </LinearLayout>
+
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:gravity="center_horizontal"-->
+            <!--android:orientation="horizontal">-->
+
+            <!--<EditText-->
+                <!--android:id="@+id/register_input_identify_code"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_weight="1"-->
+                <!--android:hint="@string/register_input_identify_code"-->
+                <!--android:inputType="textPassword"-->
+                <!--android:padding="5dp"-->
+                <!--android:textSize="14sp"/>-->
+
+            <!--<TextView-->
+                <!--android:id="@+id/register_get_identify_code"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_weight="2"-->
+                <!--android:padding="5dp"-->
+                <!--android:text="@string/get_identify_code"-->
+                <!--android:textColor="@color/firstTitle"-->
+                <!--android:textSize="14sp"/>-->
+        <!--</LinearLayout>-->
 
         <View
             android:layout_width="match_parent"
