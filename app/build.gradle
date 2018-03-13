@@ -25,23 +25,24 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-//    compile 'com.android.support:appcompat-v7:25.2.0'
+    //    compile 'com.android.support:appcompat-v7:25.2.0'
     compile 'com.android.support:design:25.2.0'
     testCompile 'junit:junit:4.12'
-
     //自己添加的jar
-    // https://mvnrepository.com/artifact/com.google.android/support-v4
-//    compile group: 'com.google.android', name: 'support-v4', version: 'r7'
-    // https://mvnrepository.com/artifact/com.squareup.okhttp3/okhttp
-    compile group: 'com.squareup.okhttp3', name: 'okhttp', version: '3.9.0'
-    // https://mvnrepository.com/artifact/com.alibaba/fastjson
-    compile group: 'com.alibaba', name: 'fastjson', version: '1.2.44'
+    //    compile group: 'com.google.android', name: 'support-v4', version: 'r7'
+    compile 'com.squareup.okhttp3:okhttp:3.9.0'
+    compile 'com.alibaba:fastjson:1.2.44'
     compile 'com.makeramen:roundedimageview:2.2.1'
-
+    compile 'com.alibaba:fastjson:1.2.8'
+    compile 'com.zhy:okhttputils:2.6.2'
+    //    compile 'com.jakewharton:butterknife:7.0.1'
+    //    compile 'org.simple:androideventbus:1.0.5.1'
+    //    compile 'com.squareup.okhttp:okhttp:2.7.2'
+    compile files('libs/sunjce_provider.jar')
 }
 
 

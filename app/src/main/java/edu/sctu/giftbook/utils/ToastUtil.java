@@ -12,4 +12,9 @@ public class ToastUtil {
     public static  void makeText(Activity activity,CharSequence text) {
         Toast.makeText(activity,text,Toast.LENGTH_SHORT).show();
     }
+
+    public static  void makeText(Activity activity, int text) {
+        Toast.makeText(activity,text,Toast.LENGTH_SHORT).show();
+    }
+
 }

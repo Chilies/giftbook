@@ -3,7 +3,12 @@ package edu.sctu.giftbook.utils;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.util.Set;
 
 /**
@@ -17,7 +22,7 @@ public class SharePreference {
 
 	private static SharePreference tool = null;
 
-	private SharedPreferences shareprefece;
+	private SharedPreferences sharepreference;
 	private SharedPreferences.Editor editor;
 
 	/**
@@ -26,8 +31,8 @@ public class SharePreference {
 	@SuppressLint("WorldWriteableFiles")
 	private SharePreference(Context context) {
 		// Preferences对象
-		shareprefece = context.getSharedPreferences("SharePrefece", Context.MODE_APPEND + Context.MODE_WORLD_READABLE + Context.MODE_WORLD_WRITEABLE);
-		editor = shareprefece.edit();
+		sharepreference = context.getSharedPreferences("sharepreference", Context.MODE_APPEND + Context.MODE_WORLD_READABLE + Context.MODE_WORLD_WRITEABLE);
+		editor = sharepreference.edit();
 	}
 
 	/**
@@ -45,7 +50,7 @@ public class SharePreference {
 	}
 
 	public boolean isEmpty(String key) {
-		return shareprefece.contains(key);
+		return sharepreference.contains(key);
 	}
 
 	/**
@@ -83,7 +88,7 @@ public class SharePreference {
 	 * @return
 	 */
 	public Set<String> getSetCache(String key,Set<String> defValues){
-		return shareprefece.getStringSet(key,defValues);
+		return sharepreference.getStringSet(key,defValues);
 	}
 	/**
 	 * 设置SharedPrefere缓存 Create at 2013-6-17
@@ -119,7 +124,7 @@ public class SharePreference {
 	 * @return String
 	 */
 	public String getString(String key) {
-		return shareprefece.getString(key, "");
+		return sharepreference.getString(key, "");
 	}
 
 	/**
@@ -129,7 +134,7 @@ public class SharePreference {
 	 * @return boolean
 	 */
 	public boolean getBoolean(String key) {
-		return shareprefece.getBoolean(key, false);
+		return sharepreference.getBoolean(key, false);
 	}
 
 	/**
@@ -139,7 +144,7 @@ public class SharePreference {
 	 * @return int
 	 */
 	public int getInt(String key) {
-		return shareprefece.getInt(key, 0);
+		return sharepreference.getInt(key, 0);
 	}
 
 	/**
@@ -149,7 +154,7 @@ public class SharePreference {
 	 * @return long
 	 */
 	public long getLong(String key) {
-		return shareprefece.getLong(key, 0);
+		return sharepreference.getLong(key, 0);
 	}
 
 	/**
@@ -159,7 +164,7 @@ public class SharePreference {
 	 * @return float
 	 */
 	public float getFloat(String key) {
-		return shareprefece.getFloat(key, 0.0f);
+		return sharepreference.getFloat(key, 0.0f);
 	}
 
 	/**
@@ -169,8 +174,34 @@ public class SharePreference {
 	 * @return
 	 */
 	public boolean ifHaveShare(String string) {
-		return shareprefece.contains(string);
+		return sharepreference.contains(string);
 	}
 
+
+    public void saveBitmapToSharedPreferences(Bitmap bitmap, String image){
+
+        //第一步:将Bitmap压缩至字节数组输出流ByteArrayOutputStream
+        ByteArrayOutputStream byteArrayOutputStream=new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 80, byteArrayOutputStream);
+        //第二步:利用Base64将字节数组输出流中的数据转换成字符串String
+        byte[] byteArray=byteArrayOutputStream.toByteArray();
+        String imageString= Base64.encodeToString(byteArray, Base64.DEFAULT);
+        //第三步:将String保持至SharedPreferences
+        this.setCache(image,imageString);
+    }
+
+
+
+    public Bitmap getBitmapFromSharedPreferences(String image){
+        //第一步:取出字符串形式的Bitmap
+        String imageString=this.getString(image);
+        //第二步:利用Base64将字符串转换为ByteArrayInputStream
+        byte[] byteArray=Base64.decode(imageString, Base64.DEFAULT);
+        ByteArrayInputStream byteArrayInputStream=new ByteArrayInputStream(byteArray);
+        //第三步:利用ByteArrayInputStream生成Bitmap
+        Bitmap bitmap= BitmapFactory.decodeStream(byteArrayInputStream);
+
+        return bitmap;
+    }
 
 }
