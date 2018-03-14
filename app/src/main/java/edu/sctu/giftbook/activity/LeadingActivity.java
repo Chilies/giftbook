@@ -15,6 +15,7 @@ import java.util.List;
 import edu.sctu.giftbook.MainActivity;
 import edu.sctu.giftbook.R;
 import edu.sctu.giftbook.base.BaseActivity;
+import edu.sctu.giftbook.utils.CacheConfig;
 import edu.sctu.giftbook.utils.JumpUtil;
 import edu.sctu.giftbook.utils.SharePreference;
 
@@ -40,8 +41,8 @@ public class LeadingActivity extends BaseActivity {
 //        setContentView(R.layout.activity_leading);
         setContentView(R.layout.activity_guide_page);
 
-        if (SharePreference.getInstance(this).ifHaveShare("isFirst")) {
-            SharePreference.getInstance(this).setCache("isFirst", true);
+        if (SharePreference.getInstance(this).ifHaveShare(CacheConfig.IS_FIRST)) {
+            SharePreference.getInstance(this).setCache(CacheConfig.IS_FIRST, true);
             JumpUtil.jumpInActivity(this, MainActivity.class);
         } else {
 

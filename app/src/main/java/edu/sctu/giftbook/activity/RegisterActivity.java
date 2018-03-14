@@ -19,7 +19,7 @@ import java.util.Map;
 
 import edu.sctu.giftbook.R;
 import edu.sctu.giftbook.base.BaseActivity;
-import edu.sctu.giftbook.entity.JsonBase;
+import edu.sctu.giftbook.entity.JsonBaseObject;
 import edu.sctu.giftbook.entity.UserJson;
 import edu.sctu.giftbook.utils.DesUtils;
 import edu.sctu.giftbook.utils.JumpUtil;
@@ -82,6 +82,8 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
             case R.id.register_agreement_text:
                 break;
             case R.id.register_login_text:
+                JumpUtil.jumpInActivity(activity, LoginActivity.class);
+                finish();
                 break;
             default:
                 break;
@@ -131,17 +133,17 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         @Override
         public void onResponse(String response, int id) {
             Log.e("register", response);
-            JsonBase<UserJson> userJsonJsonBase = JSON.parseObject(response,
-                    new TypeReference<JsonBase<UserJson>>() {
+            JsonBaseObject<UserJson> userJsonJsonBaseObject = JSON.parseObject(response,
+                    new TypeReference<JsonBaseObject<UserJson>>() {
                     }.getType());
 
 //            UserJson userJson = JSON.parseObject(response, UserJson.class);
-            if (userJsonJsonBase.getCode() == 200
-                    && userJsonJsonBase.getMsg().equals("success")) {
+            if (userJsonJsonBaseObject.getCode() == 200
+                    && userJsonJsonBaseObject.getMsg().equals("success")) {
                 ToastUtil.makeText(activity, R.string.register_success);
                 JumpUtil.jumpInActivity(activity, LoginActivity.class);
             } else {
-                Log.e("parseError", userJsonJsonBase.getCode() + userJsonJsonBase.getMsg());
+                Log.e("someError", userJsonJsonBaseObject.getCode() + userJsonJsonBaseObject.getMsg());
             }
         }
     };

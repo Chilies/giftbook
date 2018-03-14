@@ -4,7 +4,7 @@ package edu.sctu.giftbook.entity;
  * Created by zhengsenwen on 2018/3/13.
  */
 
-public class JsonBase<T> {
+public class JsonBaseObject<T> {
 
     private int code;
     private String msg;

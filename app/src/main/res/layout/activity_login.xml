@@ -61,7 +61,7 @@
             android:orientation="horizontal">
 
             <EditText
-                android:id="@+id/register_input_phone_number"
+                android:id="@+id/login_input_phone_number"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/login_phone"
@@ -84,7 +84,7 @@
             android:orientation="horizontal">
 
             <EditText
-                android:id="@+id/register_input_password"
+                android:id="@+id/login_input_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/login_password"

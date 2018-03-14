@@ -11,6 +11,7 @@ public class URLConfig {
     public static final String BASE_URL_IMAGE = "http://58.87.93.34:8099";
 
     public static final String URL_USER_REGISTER = "/user/register";
+    public static final String URL_USER_LOGIN = "/user/login";
 
 
 

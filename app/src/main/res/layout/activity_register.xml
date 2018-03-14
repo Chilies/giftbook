@@ -134,7 +134,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/register_set_nickname"
-                android:inputType="textPassword"
                 android:padding="5dp"
                 android:textSize="14sp"/>
         </LinearLayout>

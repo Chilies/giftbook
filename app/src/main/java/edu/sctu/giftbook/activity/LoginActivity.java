@@ -2,20 +2,47 @@ package edu.sctu.giftbook.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.TypeReference;
+import com.zhy.http.okhttp.callback.StringCallback;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import edu.sctu.giftbook.MainActivity;
 import edu.sctu.giftbook.R;
 import edu.sctu.giftbook.base.BaseActivity;
+import edu.sctu.giftbook.entity.JsonBaseList;
+import edu.sctu.giftbook.entity.UserJson;
+import edu.sctu.giftbook.utils.CacheConfig;
+import edu.sctu.giftbook.utils.DesUtils;
+import edu.sctu.giftbook.utils.JumpUtil;
+import edu.sctu.giftbook.utils.NetworkController;
+import edu.sctu.giftbook.utils.SharePreference;
+import edu.sctu.giftbook.utils.ToastUtil;
+import edu.sctu.giftbook.utils.URLConfig;
+import okhttp3.Call;
 
 /**
  * Created by zhengsenwen on 2018/3/13.
  */
 
-public class LoginActivity extends BaseActivity {
+public class LoginActivity extends BaseActivity implements View.OnClickListener {
 
     private Activity activity;
-
+    private EditText phoneNumberEdit, passwordEdit;
+    private String phoneNumber, password;
+    private Button loginButton;
+    private TextView toRegister;
+    private SharePreference sharePreference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,10 +54,89 @@ public class LoginActivity extends BaseActivity {
         //透明状态栏
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
 
+        sharePreference = SharePreference.getInstance(activity);
+
         getViews();
     }
 
     public void getViews() {
 
+        phoneNumberEdit = (EditText) findViewById(R.id.login_input_phone_number);
+        passwordEdit = (EditText) findViewById(R.id.login_input_password);
+
+        loginButton = (Button) findViewById(R.id.login_button);
+        toRegister = (TextView) findViewById(R.id.login_register_text);
+
+        loginButton.setOnClickListener(this);
+        toRegister.setOnClickListener(this);
+
     }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.login_button:
+                login();
+                break;
+            case R.id.register_agreement_text:
+                break;
+            case R.id.register_login_text:
+                JumpUtil.jumpInActivity(activity, RegisterActivity.class);
+                finish();
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void login() {
+        Map<String, String> map = new HashMap<>();
+
+        phoneNumber = phoneNumberEdit.getText().toString();
+        password = passwordEdit.getText().toString();
+
+        if ((phoneNumber != null) && !"".equals(phoneNumber)
+                && (password != null) && !"".equals(password)) {
+            map.put("phoneNumber", DesUtils.encrypt(phoneNumber));
+            map.put("password", DesUtils.encrypt(password));
+
+            NetworkController.postMap(URLConfig.URL_USER_LOGIN, map, callBack);
+        } else {
+            ToastUtil.makeText(activity, R.string.not_null);
+        }
+
+    }
+
+    StringCallback callBack = new StringCallback() {
+        @Override
+        public void onError(Call call, Exception e, int id) {
+            ToastUtil.makeText(activity, R.string.net_work_error);
+            Log.e("error", e.getMessage(), e);
+        }
+
+        @Override
+        public void onResponse(String response, int id) {
+            Log.e("login", response);
+            JsonBaseList<UserJson> userJsonJsonBaseList = JSON.parseObject(response,
+                    new TypeReference<JsonBaseList<UserJson>>() {
+                    }.getType());
+
+            if (userJsonJsonBaseList.getCode() == 200
+                    && userJsonJsonBaseList.getMsg().equals("success")) {
+                ToastUtil.makeText(activity, R.string.login_success);
+                JumpUtil.jumpInActivity(activity, MainActivity.class);
+
+                UserJson userJson = userJsonJsonBaseList.getData().get(0);
+                sharePreference.setCache(CacheConfig.IS_FIRST, true);
+                sharePreference.setCache(CacheConfig.CACHE_NICKNAME, userJson.getNickName());
+                sharePreference.setCache(CacheConfig.CACHE_ALIPAY_ACCOUNT, userJson.getAlipayAccount());
+                sharePreference.setCache(CacheConfig.CACHE_SIGNATURE, userJson.getSignature());
+                sharePreference.setCache(CacheConfig.CACHE_PHONE_NUMBER, userJson.getTelephone());
+
+            } else {
+                Log.e("someError", userJsonJsonBaseList.getCode() + userJsonJsonBaseList.getMsg());
+            }
+        }
+    };
+
 }

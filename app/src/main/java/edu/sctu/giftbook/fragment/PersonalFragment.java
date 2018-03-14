@@ -30,7 +30,9 @@ import edu.sctu.giftbook.R;
 import edu.sctu.giftbook.activity.PaymentRecordActivity;
 import edu.sctu.giftbook.activity.SettingsActivity;
 import edu.sctu.giftbook.activity.UserInfoUpdateActivity;
+import edu.sctu.giftbook.utils.CacheConfig;
 import edu.sctu.giftbook.utils.JumpUtil;
+import edu.sctu.giftbook.utils.SharePreference;
 import edu.sctu.giftbook.utils.ToastUtil;
 
 /**
@@ -52,12 +54,14 @@ public class PersonalFragment extends Fragment implements View.OnClickListener {
     private Date date;
     private String str = "";
     private String uriStr;
-//    private SharePreference sharePreference;
+    private SharePreference sharePreference;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         activity = getActivity();
         View view = LayoutInflater.from(activity).inflate(R.layout.fragment_personal, null);
+        sharePreference = SharePreference.getInstance(activity);
+
         getViews(view);
         return view;
     }
@@ -71,9 +75,12 @@ public class PersonalFragment extends Fragment implements View.OnClickListener {
         sex = (TextView) view.findViewById(R.id.fragment_personal_sex_text);
         area = (TextView) view.findViewById(R.id.fragment_personal_phone_area_text);
 
-
         wishRecord = (LinearLayout) view.findViewById(R.id.fragment_personal_wish_record);
         paymentRecord = (LinearLayout) view.findViewById(R.id.fragment_personal_payment_record);
+
+        nickName.setText(sharePreference.getString(CacheConfig.CACHE_NICKNAME));
+        signature.setText(sharePreference.getString(CacheConfig.CACHE_SIGNATURE));
+        phoneNumber.setText(sharePreference.getString(CacheConfig.CACHE_PHONE_NUMBER));
     }
 
     @Override
