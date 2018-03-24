@@ -10,6 +10,7 @@
     <color name="firstTitle">#323232</color>
     <color name="secondTitle">#626262</color>
     <color name="thirdTitle">#626262</color>
+    <color name="hint">#aa626262</color>
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
     <color name="themeRed">#e4393c</color>

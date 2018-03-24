@@ -7,11 +7,22 @@ package edu.sctu.giftbook.utils;
 public class URLConfig {
 
     public static final String MEDIA_TYPE = "applicaton/json; charset=utf-8";
-    public static final String BASE_URL = "http://58.87.93.34:8099/api";
+    public static final String BASE_URL = "http://58.87.93.34:8099/api";  //服务器
+
+//    public static final String BASE_URL = "http://192.168.1.16:8099/api"; //寝室
+//
+//    public static final String BASE_URL = "http://192.168.43.101:8099/api"; //办公室
+
     public static final String BASE_URL_IMAGE = "http://58.87.93.34:8099";
 
     public static final String URL_USER_REGISTER = "/user/register";
     public static final String URL_USER_LOGIN = "/user/login";
+    public static final String URL_USER_UPDATE_AVATAR = "/user/update/avatar";
+
+    public static final String URL_WISH_PUBLISH_TYPE = "/wish/publish/type";
+    public static final String URL_WISH_PUBLISH = "/wish/publish/one/wishCard";
+    public static final String URL_WISH_ALL = "/wish/all";
+
 
 
 

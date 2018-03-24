@@ -55,10 +55,10 @@
         </LinearLayout>
 
         <ImageView
-            android:id="@+id/item_fragment_wish_isWishCard_img"
+            android:id="@+id/item_fragment_wish_card_type_img"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@drawable/wish_card"
+            android:src="@drawable/marry"
             />
     </LinearLayout>
 

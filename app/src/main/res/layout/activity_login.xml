@@ -29,7 +29,7 @@
             <TextView
                 android:id="@+id/textView"
                 android:layout_width="wrap_content"
-                android:layout_height="40dp"
+                android:layout_height="50dp"
                 android:text="@string/app_chinese_name"
                 android:textColor="@color/firstTitle"
                 android:textSize="40sp"
@@ -37,14 +37,15 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="12dp"
-                android:layout_marginTop="15dp"
+                android:layout_height="15dp"
+                android:layout_marginTop="5dp"
                 android:text="@string/app_chinese_slogan"
                 android:textColor="@color/thirdTitle"
                 android:textSize="12sp"/>
 
         </LinearLayout>
     </LinearLayout>
+
 
 
     <LinearLayout
@@ -66,6 +67,8 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/login_phone"
                 android:inputType="phone"
+                android:background="@null"
+                android:phoneNumber="true"
                 android:padding="10dp"
                 android:textSize="14sp"/>
         </LinearLayout>
@@ -88,6 +91,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/login_password"
+                android:background="@null"
                 android:inputType="textPassword"
                 android:padding="5dp"
                 android:textSize="14sp"/>

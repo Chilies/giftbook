@@ -15,7 +15,6 @@ public class UserJson implements Serializable {
 	private String gender;
 	private String religionId;
 	private String avatarId;
-	private String wishCardId;
 	private String friendId;
 	private String alipayAccount;
 
@@ -81,14 +80,6 @@ public class UserJson implements Serializable {
 
 	public void setAvatarId(String avatarId) {
 		this.avatarId = avatarId;
-	}
-
-	public String getWishCardId() {
-		return wishCardId;
-	}
-
-	public void setWishCardId(String wishCardId) {
-		this.wishCardId = wishCardId;
 	}
 
 	public String getFriendId() {

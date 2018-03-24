@@ -128,12 +128,14 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
                 UserJson userJson = userJsonJsonBaseList.getData().get(0);
                 sharePreference.setCache(CacheConfig.IS_FIRST, true);
+                sharePreference.setCache(CacheConfig.USER_ID, userJson.getId());
                 sharePreference.setCache(CacheConfig.CACHE_NICKNAME, userJson.getNickName());
                 sharePreference.setCache(CacheConfig.CACHE_ALIPAY_ACCOUNT, userJson.getAlipayAccount());
                 sharePreference.setCache(CacheConfig.CACHE_SIGNATURE, userJson.getSignature());
                 sharePreference.setCache(CacheConfig.CACHE_PHONE_NUMBER, userJson.getTelephone());
 
             } else {
+                ToastUtil.makeText(activity, R.string.login_failed);
                 Log.e("someError", userJsonJsonBaseList.getCode() + userJsonJsonBaseList.getMsg());
             }
         }

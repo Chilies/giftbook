@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
+import android.util.Log;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -67,8 +68,10 @@ public class SharePreference {
 	 * @param key
 	 */
 	public void removeOneCache(String key){
-		editor.remove(key);
-		editor.commit();
+        if(ifHaveShare(key)){
+            editor.remove(key);
+            editor.commit();
+        }
 	}
 
 	/**
@@ -178,7 +181,7 @@ public class SharePreference {
 	}
 
 
-    public void saveBitmapToSharedPreferences(Bitmap bitmap, String image){
+    public void saveBitmapToSharedPreferences(String image,Bitmap bitmap){
 
         //第一步:将Bitmap压缩至字节数组输出流ByteArrayOutputStream
         ByteArrayOutputStream byteArrayOutputStream=new ByteArrayOutputStream();

@@ -1,6 +1,7 @@
 package edu.sctu.giftbook.utils;
 
 import android.graphics.Bitmap;
+import android.media.Image;
 import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -12,6 +13,7 @@ import com.zhy.http.okhttp.builder.PostFormBuilder;
 import com.zhy.http.okhttp.callback.BitmapCallback;
 import com.zhy.http.okhttp.callback.FileCallBack;
 import com.zhy.http.okhttp.callback.StringCallback;
+import com.zhy.http.okhttp.request.OkHttpRequest;
 import com.zhy.http.okhttp.request.RequestCall;
 
 import java.io.File;
@@ -20,6 +22,7 @@ import java.util.Map;
 import edu.sctu.giftbook.base.BaseApplication;
 import okhttp3.Call;
 import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 
 import static android.icu.lang.UCharacter.GraphemeClusterBreak.L;
 
@@ -49,15 +52,61 @@ public class NetworkController {
      * @param callback 请求响应回调
      */
     public static void postMap(String url, Map param, StringCallback callback) {
-         Log.d("postObject", "URL:" + BASE_URL + url + " ,param:" + JSON.toJSONString(param));
+        Log.d("postObject", "URL:" + BASE_URL + url + " ,param:" + JSON.toJSONString(param));
         PostFormBuilder builder = OkHttpUtils.post()
                 .url(NetworkController.BASE_URL + url);
         for (Object key : param.keySet()) {
             builder.addParams(String.valueOf(key), String.valueOf(param.get(key)));
         }
         builder.build().execute(callback);
-//                .build()
-//                .execute(callback);
+    }
+
+
+    /**
+     * 带参数上传文件
+     *
+     * @param url
+     * @param params
+     * @param fileHashMap
+     * @param callback
+     */
+    public static void postFile(String url, Map<String, String> params, Map<String, File> fileHashMap, StringCallback callback) {
+        Log.e("postObject", "URL:" + BASE_URL + url + " ,param:" + JSON.toJSONString(params));
+        OkHttpUtils.post()
+                .files("file", fileHashMap)
+                .url(NetworkController.BASE_URL + url)
+                .params(params)
+                .build()
+                .execute(callback);
+    }
+
+    /**
+     * 无参数的get请求方式去获取网络数据
+     *
+     * @param url
+     * @param callback
+     */
+    public static void getObject(String url, StringCallback callback) {
+        Log.d("getObject", "URL:" + BASE_URL + url);
+        OkHttpUtils.get()
+                .url(BASE_URL + url)
+                .build()
+                .execute(callback);
+    }
+
+    /**
+     * 获取图片
+     *
+     * @param url      要发送请求的url
+     * @param callback 请求响应回调
+     */
+    public static void getImage(String url, BitmapCallback callback) {
+        Log.e("getImage", "URL:" + url);
+        OkHttpUtils.get()
+                .url(url)
+                .build()
+                .execute(callback);
+
     }
 
     /**
@@ -68,7 +117,7 @@ public class NetworkController {
      * @param callback 请求响应回调
      */
     public static void postObject(String url, Object param, StringCallback callback) {
-        Log.d("postObject", "URL:" + BASE_URL + url + " ,param:" + JSON.toJSONString(param));
+        Log.e("postObject", "URL:" + BASE_URL + url + " ,param:" + JSON.toJSONString(param));
         OkHttpUtils.postString()
                 .url(NetworkController.BASE_URL + url)
                 .mediaType(MediaType.parse(MEDIA_TYPE))
@@ -87,13 +136,14 @@ public class NetworkController {
      */
     public static void postFiles(String url, Map<String, String> params, Map<String, File> fileHashMap, StringCallback callback) {
 //         Log.d("postObject", "URL:" + BASE_URL + url + " ,param:" + JSON.toJSONString(param));
-        OkHttpUtils.post()//
-                .files("files", fileHashMap)//
-                .url(url)
-                .params(params)//
-                .build()//
+        OkHttpUtils.post()
+                .files("files", fileHashMap)
+                .url(NetworkController.BASE_URL + url)
+                .params(params)
+                .build()
                 .execute(callback);
     }
+
 
     /**
      * 将参数转为Json字符串并get到服务器
@@ -113,22 +163,6 @@ public class NetworkController {
                 .execute(callback);
     }
 
-    /**
-     * 无参数的get请求方式去获取网络数据
-     *
-     * @param url
-     * @param callback
-     */
-
-    public static void getObject(String url, StringCallback callback) {
-        Log.d("getObject", "URL:" + BASE_URL + url);
-        OkHttpUtils
-                .get()
-                .url(NetworkController.BASE_URL + url)
-                .build()
-                .execute(callback);
-        System.out.println("路径.............." + NetworkController.BASE_URL + url);
-    }
 
     /**
      * post Json格式的字符串参数到服务器
@@ -161,7 +195,7 @@ public class NetworkController {
 //            mImageView.setImageBitmap(bitmap);
 //        }else {
 //            System.out.println("请求网络"+url);
-        try{
+        try {
             OkHttpUtils
                     .get()
                     .url(BASE_URL_IMAGE + url)
@@ -171,6 +205,7 @@ public class NetworkController {
                         public void onError(Call call, Exception e, int id) {
                             mImageView.setImageResource(errorImage);
                         }
+
                         @Override
                         public void onResponse(Bitmap response, int id) {
 
@@ -183,11 +218,11 @@ public class NetworkController {
                         }
 
                     });
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e);
         }
 
-        }
+    }
 
 
 //    }
@@ -214,24 +249,8 @@ public class NetworkController {
                     public void onResponse(File response, int id) {
 
                     }
-
-//                    @Override
-//                    public void inProgress(float progress)
-//                    {
-//                        mProgressBar.setProgress((int) (100 * progress));
-//                    }
-
-//                    @Override
-//                    public void onError(Request request, Exception e)
-//                    {
-//                        Log.e(TAG, "onError :" + e.getMessage());
-//                    }
-//
-//                    @Override
-//                    public void onResponse(File file)
-//                    {
-//                        Log.e(TAG, "onResponse :" + file.getAbsolutePath());
-//                    }
                 });
     }
+
+
 }
