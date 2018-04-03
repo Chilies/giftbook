@@ -21,7 +21,6 @@
             android:clickable="true"
             android:focusable="false"
             android:scaleType="centerCrop"
-            android:src="@drawable/avatar"
             app:riv_border_color="@color/white"
             app:riv_oval="true"/>
 
@@ -40,7 +39,6 @@
                 android:layout_gravity="center_vertical"
                 android:clickable="true"
                 android:focusable="false"
-                android:text="张三李四"
                 android:textColor="@color/firstTitle"
                 android:textSize="18sp"/>
 
@@ -49,7 +47,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:text="2017-05-25"
                 android:textColor="@color/secondTitle"
                 android:textSize="14sp"/>
         </LinearLayout>
@@ -58,7 +55,6 @@
             android:id="@+id/item_fragment_wish_card_type_img"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@drawable/marry"
             />
     </LinearLayout>
 
@@ -79,7 +75,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:maxLines="4"
-            android:text="@string/test"
             android:textColor="@color/thirdTitle"
             android:textSize="16sp"/>
 
@@ -92,7 +87,7 @@
             android:clickable="true"
             android:focusable="false"
             android:scaleType="fitXY"
-            android:src="@drawable/img"/>
+            />
     </LinearLayout>
 
     <LinearLayout

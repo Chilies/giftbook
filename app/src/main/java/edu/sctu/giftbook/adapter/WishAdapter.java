@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.icu.text.SimpleDateFormat;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -64,7 +65,7 @@ public class WishAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View view, ViewGroup parent) {
+    public View getView(final int position, View view, ViewGroup parent) {
         final ViewHolder holder;
         if (view == null) {
             Log.e("getView", "view is null");
@@ -139,7 +140,12 @@ public class WishAdapter extends BaseAdapter {
         holder.comment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                JumpUtil.jumpInActivity(activity, WishDetailsActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("wishCardId",list.get(position).getWishCardId()+"");
+                Log.e("wishCardId",list.get(position)
+                        .getWishCardId()+"");
+                bundle.putInt("userId",list.get(position).getId());
+                JumpUtil.jumpInActivity(activity, WishDetailsActivity.class,bundle);
             }
         });
         holder.payment.setOnClickListener(new View.OnClickListener() {

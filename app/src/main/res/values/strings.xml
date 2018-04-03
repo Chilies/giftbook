@@ -28,6 +28,7 @@
 
 
 
+
     <string name="register_input_phone">请输入常用手机号</string>
     <string name="register_set_password">设置密码</string>
     <string name="register_confirm_password">确认密码</string>

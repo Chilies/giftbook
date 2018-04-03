@@ -22,6 +22,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
 }
 
 dependencies {
@@ -43,6 +44,8 @@ dependencies {
     //    compile 'org.simple:androideventbus:1.0.5.1'
     //    compile 'com.squareup.okhttp:okhttp:2.7.2'
     compile files('libs/sunjce_provider.jar')
+    compile group: 'com.google.zxing', name: 'core', version: '3.3.2'
+
 }
 
 

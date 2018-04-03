@@ -47,11 +47,14 @@ public class DesUtils {
             return null;  
         }  
     } 
-    
-    public static void main(String[] args) {
-        String phonestr = DesUtils.encrypt("18328023199");
-        System.out.println("加密手机号：" + phonestr);
-        String password = DesUtils.encrypt("qaz147");
-        System.out.println("加密密码：" + password);
-    }
+
+//    public static void main(String[] args) {
+//        String phonestr = DesUtils.encrypt("18328023199");
+//        System.out.println("加密手机号：" + phonestr);
+//        String password = DesUtils.encrypt("qaz147");
+//        System.out.println("加密密码：" + password);
+//
+//        String abs = "HTTPS://QR.ALIPAY.COM/FKX01971ADK0PRYJG5OC13";
+//        System.out.println(abs.substring(22,abs.length()));
+//    }
 }

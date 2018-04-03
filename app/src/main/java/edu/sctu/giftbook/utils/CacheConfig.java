@@ -26,6 +26,9 @@ public class CacheConfig {
     public static String CACHE_AVATAR_SRC = "avatarSrc";
 
 
+    public static String CACHE_ALIPAY_RECEIVE_CODE = "alipayReceiveCode";
+
+
     public static String CACHE_IMG_PATH_SET_KEY = "cacheImgPath";
     public static String CACHE_UPLOAD_NEWS_TEXT = "cacheQuestionText";
     public static String CACHE_SELECTED_TEAM_ID = "cacheSelectedTeamId";

@@ -258,11 +258,11 @@ public class PublishWishActivity extends Activity implements View.OnClickListene
             }
 
             fileHashMap.put("file", file);
-            map.put("phoneNumber", sharePreference.getString(CacheConfig.CACHE_PHONE_NUMBER));
+            map.put("phoneNumber", sharePreference.getString(
+                    CacheConfig.CACHE_PHONE_NUMBER));
             map.put("content", destination);
             map.put("price", value);
             map.put("type", type);
-            Log.e("wish", map.get("phoneNumber") + destination + value + type);
 
             StringCallback callBackPublishWish = new StringCallback() {
                 @Override
@@ -270,21 +270,26 @@ public class PublishWishActivity extends Activity implements View.OnClickListene
                     ToastUtil.makeText(activity, R.string.net_work_error);
                     Log.e("error", e.getMessage(), e);
                 }
-
                 @Override
                 public void onResponse(String response, int id) {
                     Log.e("wish", response);
-                    JsonBaseList<WishCard> wishCardJsonBaseList = JSON.parseObject(response,
+                    JsonBaseList<WishCard> wishCardJsonBaseList
+                            = JSON.parseObject(response,
                             new TypeReference<JsonBaseList<WishCard>>() {
                             }.getType());
                     if (wishCardJsonBaseList.getCode() == 200
-                            && wishCardJsonBaseList.getMsg().equals("success")) {
-                        ToastUtil.makeText(activity, R.string.wish_card_upload_success);
+                            && wishCardJsonBaseList.getMsg()
+                            .equals("success")) {
+                        ToastUtil.makeText(activity,
+                                R.string.wish_card_upload_success);
                         JumpUtil.jumpInActivity(activity, MainActivity.class);
+                    }else {
+                        Log.e("someError", wishCardJsonBaseList.getCode() + wishCardJsonBaseList.getMsg());
                     }
                 }
             };
-            NetworkController.postFile(URLConfig.URL_WISH_PUBLISH, map, fileHashMap, callBackPublishWish);
+            NetworkController.postFile(URLConfig.URL_WISH_PUBLISH,
+                    map, fileHashMap, callBackPublishWish);
         } else {
             ToastUtil.makeText(activity, R.string.content_not_be_null);
         }

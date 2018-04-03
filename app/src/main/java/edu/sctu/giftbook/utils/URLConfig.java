@@ -11,7 +11,12 @@ public class URLConfig {
 
 //    public static final String BASE_URL = "http://192.168.1.16:8099/api"; //寝室
 //
-//    public static final String BASE_URL = "http://192.168.43.101:8099/api"; //办公室
+//    public static final String BASE_URL = "http://192.168.1.14:8099/api"; //办公室
+
+
+//    public static final String BASE_URL = "http://192.168.43.101:8099/api"; //手机临时
+
+//    public static final String BASE_URL = "http://172.20.10.8:8099/api"; //贺鹏临时
 
     public static final String BASE_URL_IMAGE = "http://58.87.93.34:8099";
 
@@ -22,13 +27,15 @@ public class URLConfig {
     public static final String URL_WISH_PUBLISH_TYPE = "/wish/publish/type";
     public static final String URL_WISH_PUBLISH = "/wish/publish/one/wishCard";
     public static final String URL_WISH_ALL = "/wish/all";
+    public static final String URL_WISH_ONE = "/wish/"; // wish/{wishCardId}
 
 
+    public static final String URL_ALIPAY_CHECK = "/alipay/check/";
+    public static final String URL_ALIPAY_UPLOAD_RECEIVE_CODE = "/alipay/upload/receive/code/";
 
 
     public static final String URL_FAMOUS_HEAD = "/files/object/c_zmjd_3";
     public static final String URL_FAMOUS_SPOT_ONE = "/article/";
-
 
 
     //个人中心
@@ -44,12 +51,11 @@ public class URLConfig {
     public static final String URL_MY_TRAVAL_LIST = "/travels/manager/";
 
 
-   //游记详情
+    //游记详情
     public static final String URL_PERSON_ALL_NOTE_DETAILS = "/travels/article/";
     public static final String URL_PERSON_MY_NOTE_DETAILS = "/travels/article/";
     //游记评论
     public static final String URL_PERSON_NOTE_DETAILS_COMMENT = "/travels/comments/";
-
 
 
 }

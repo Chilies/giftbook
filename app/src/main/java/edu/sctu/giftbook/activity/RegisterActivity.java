@@ -123,6 +123,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         }
     }
 
+    //callBack----网络请求回调接口
     StringCallback callBack = new StringCallback() {
         @Override
         public void onError(Call call, Exception e, int id) {
@@ -137,7 +138,6 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                     new TypeReference<JsonBaseObject<UserJson>>() {
                     }.getType());
 
-//            UserJson userJson = JSON.parseObject(response, UserJson.class);
             if (userJsonJsonBaseObject.getCode() == 200
                     && userJsonJsonBaseObject.getMsg().equals("success")) {
                 ToastUtil.makeText(activity, R.string.register_success);
@@ -147,6 +147,5 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
             }
         }
     };
-
 
 }

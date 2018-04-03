@@ -13,6 +13,7 @@ public class WishCardContent implements Serializable {
     private String nickName;
     private Integer wishCardId;
     private String createTime;
+    private String price;
     private String type;
     private String description;
     private String wishCardImgSrc;
@@ -55,6 +56,14 @@ public class WishCardContent implements Serializable {
 
     public void setCreateTime(String createTime) {
         this.createTime = createTime;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
     }
 
     public String getType() {

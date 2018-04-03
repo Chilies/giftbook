@@ -108,6 +108,21 @@ public class NetworkController {
                 .execute(callback);
 
     }
+    /**
+     * 将参数转为Json字符串并get到服务器
+     *
+     * @param url      要发送请求的url
+     * @param paramsMap    请求参数
+     * @param callback 请求响应回调
+     */
+
+    public static void getObject(String url, Map<String, String> paramsMap, StringCallback callback) {
+        Log.d("getObject", "URL:" + BASE_URL + url + " ,param:" + JSON.toJSONString(paramsMap));
+        OkHttpUtils.get()
+                .url(NetworkController.BASE_URL + url)
+                .build()
+                .execute(callback);
+    }
 
     /**
      * 将参数转为Json字符串并post到服务器
@@ -145,23 +160,7 @@ public class NetworkController {
     }
 
 
-    /**
-     * 将参数转为Json字符串并get到服务器
-     *
-     * @param url      要发送请求的url
-     * @param param    请求参数
-     * @param callback 请求响应回调
-     */
 
-    public static void getObject(String url, Object param, StringCallback callback) {
-        Log.d("getObject", "URL:" + BASE_URL + url + " ,param:" + JSON.toJSONString(param));
-        OkHttpUtils.postString()
-                .url(NetworkController.BASE_URL + url)
-                .mediaType(MediaType.parse(MEDIA_TYPE))
-                .content(JSON.toJSONString(param))
-                .build()
-                .execute(callback);
-    }
 
 
     /**

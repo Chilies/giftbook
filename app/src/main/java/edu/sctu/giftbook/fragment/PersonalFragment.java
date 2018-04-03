@@ -273,39 +273,39 @@ public class PersonalFragment extends Fragment implements View.OnClickListener {
         }
 
         paramsMap.put("userId", String.valueOf(userId));
-        Log.e("userId", String.valueOf(userId));
         fileMap.put("file", file);
-
         StringCallback callBack = new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
                 ToastUtil.makeText(activity, R.string.net_work_error);
                 Log.e("error", e.getMessage(), e);
             }
-
             @Override
             public void onResponse(String response, int id) {
                 Log.e("updateAvatar", response);
-                JsonBaseList<AvatarJson> avatarJsonJsonBaseList = JSON.parseObject(response,
-                        new TypeReference<JsonBaseList<AvatarJson>>() {
+                JsonBaseList<AvatarJson> avatarJsonJsonBaseList =
+                        JSON.parseObject(response,
+                                new TypeReference<JsonBaseList<AvatarJson>>() {
                         }.getType());
 
                 if (avatarJsonJsonBaseList.getCode() == 200
                         && avatarJsonJsonBaseList.getMsg().equals("success")) {
                     ToastUtil.makeText(activity, R.string.avatar_upload_success);
-                    sharePreference.saveBitmapToSharedPreferences(CacheConfig.CACHE_AVATAR_BITMAP, bitmap);
+                    sharePreference.saveBitmapToSharedPreferences(
+                            CacheConfig.CACHE_AVATAR_BITMAP, bitmap);
                     AvatarJson avatarJson = avatarJsonJsonBaseList.getData().get(0);
-                    sharePreference.setCache(CacheConfig.CACHE_AVATAR_SRC, avatarJson.getAvatarSrc());
-                    Log.e("url11", CacheConfig.CACHE_AVATAR_SRC + avatarJson.getAvatarSrc());
-
+                    sharePreference.setCache(CacheConfig.CACHE_AVATAR_SRC,
+                            avatarJson.getAvatarSrc());
                 } else {
                     ToastUtil.makeText(activity, R.string.login_failed);
-                    Log.e("someError", avatarJsonJsonBaseList.getCode() + avatarJsonJsonBaseList.getMsg());
                     setAvatarData();
+
+                        Log.e("someError", avatarJsonJsonBaseList.getCode() + avatarJsonJsonBaseList.getMsg());
+
                 }
             }
         };
-        Log.e("userId", paramsMap.get("userId"));
-        NetworkController.postFile(URLConfig.URL_USER_UPDATE_AVATAR, paramsMap, fileMap, callBack);
+        NetworkController.postFile(URLConfig.URL_USER_UPDATE_AVATAR,
+                paramsMap, fileMap, callBack);
     }
 }

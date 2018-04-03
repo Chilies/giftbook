@@ -32,7 +32,6 @@
                     android:layout_height="40dp"
                     android:id="@+id/activity_wish_details_avatar_img"
                     android:layout_gravity="center"
-                    android:src="@drawable/avatar"
                     app:riv_border_color="@color/white"
                     app:riv_oval="true"
                     android:scaleType="centerCrop"
@@ -51,7 +50,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:text="张三李四"
                         android:textColor="@color/firstTitle"
                         android:textSize="18sp"
                         />
@@ -61,7 +59,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
-                        android:text="2017-05-25"
                         android:textColor="@color/secondTitle"
                         android:textSize="14sp"
                         />
@@ -71,7 +68,6 @@
                     android:id="@+id/activity_wish_details_type_img"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:src="@drawable/marry"
                     />
             </LinearLayout>
 
@@ -88,7 +84,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:maxLines="4"
-                    android:text="@string/test"
                     android:textColor="@color/thirdTitle"
                     android:textSize="16sp"/>
 
@@ -99,7 +94,7 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_margin="5dp"
                     android:scaleType="fitXY"
-                    android:src="@drawable/img"/>
+                    />
             </LinearLayout>
 
             <LinearLayout
@@ -130,7 +125,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
-                        android:text="婚恋"
                         android:textColor="@color/secondTitle"
                         android:textSize="16sp"
                         />
@@ -157,7 +151,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
-                        android:text="200"
                         android:textColor="@color/themeRed"
                         android:textSize="22sp"
                         />
@@ -219,7 +212,7 @@
             />
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/activity_wish_details_payment"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_gravity="center_vertical"
