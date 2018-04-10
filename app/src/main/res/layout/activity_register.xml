@@ -66,7 +66,9 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/register_input_phone"
                 android:inputType="phone"
+                android:textColor="@color/firstTitle"
                 android:phoneNumber="true"
+                android:textColorHint="@color/hint"
                 android:background="@null"
                 android:padding="10dp"
                 android:textSize="14sp"/>
@@ -90,7 +92,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/register_set_password"
+                android:textColor="@color/firstTitle"
                 android:inputType="textPassword"
+                android:textColorHint="@color/hint"
                 android:background="@null"
                 android:padding="5dp"
                 android:textSize="14sp"/>
@@ -115,6 +119,8 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/register_confirm_password"
                 android:background="@null"
+                android:textColor="@color/firstTitle"
+                android:textColorHint="@color/hint"
                 android:inputType="textPassword"
                 android:padding="5dp"
                 android:textSize="14sp"/>
@@ -139,6 +145,8 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/register_set_nickname"
                 android:background="@null"
+                android:textColor="@color/firstTitle"
+                android:textColorHint="@color/hint"
                 android:padding="5dp"
                 android:textSize="14sp"/>
         </LinearLayout>
@@ -162,6 +170,8 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/register_set_alipay"
                 android:background="@null"
+                android:textColor="@color/firstTitle"
+                android:textColorHint="@color/hint"
                 android:inputType="textPassword"
                 android:padding="5dp"
                 android:textSize="14sp"/>

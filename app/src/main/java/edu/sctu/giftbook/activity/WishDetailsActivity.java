@@ -158,7 +158,7 @@ public class WishDetailsActivity extends Activity implements View.OnClickListene
                             }
                         };
                         NetworkController.getImage(wishCardContent.getWishCardImgSrc(), callBackArticle);
-                    }else {
+                    } else {
                         Log.e("someError", wishCardContentJsonBaseList.getCode()
                                 + wishCardContentJsonBaseList.getMsg());
                     }
@@ -210,9 +210,9 @@ public class WishDetailsActivity extends Activity implements View.OnClickListene
 
     private void supportMoney() {
 
-        if(AlipayUtils.hasInstalledAlipayClient(activity)){
+        if (AlipayUtils.hasInstalledAlipayClient(activity)) {
 //            AlipayUtils.startIntentUrl(activity,);
-            AlipayUtils.startAlipayClient(activity,"FKX024747VOVMXZ8CRHQ9B");
+            AlipayUtils.startAlipayClient(activity, "FKX024747VOVMXZ8CRHQ9B");
         }
     }
 

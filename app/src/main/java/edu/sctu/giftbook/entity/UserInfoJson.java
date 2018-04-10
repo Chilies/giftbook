@@ -2,9 +2,11 @@ package edu.sctu.giftbook.entity;
 
 import java.io.Serializable;
 
-public class UserJson implements Serializable {
-
-	private static final long serialVersionUID = 1L;
+/**
+ * Created by zhengsenwen on 2018/4/9.
+ */
+public class UserInfoJson implements Serializable {
+    public static final long serialVersionUID = 1L;
 
     private Integer id;
     private String nickName;
@@ -14,6 +16,8 @@ public class UserJson implements Serializable {
     private String gender;
     private Integer religionId;
     private String alipayAccount;
+    private String province;
+
 
     public Integer getId() {
         return id;
@@ -78,4 +82,14 @@ public class UserJson implements Serializable {
     public void setAlipayAccount(String alipayAccount) {
         this.alipayAccount = alipayAccount;
     }
+
+    public String getProvince() {
+        return province;
+    }
+
+    public void setProvince(String province) {
+        this.province = province;
+    }
+
+
 }

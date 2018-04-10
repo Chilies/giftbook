@@ -9,51 +9,6 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:background="@color/themeRed"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/activity_publish_wish_cancel_text"
-            android:layout_width="40dp"
-            android:layout_height="30dp"
-            android:layout_gravity="center"
-            android:layout_margin="10dp"
-            android:gravity="center"
-            android:text="取消"
-            android:textColor="@color/white"
-            android:textSize="18sp"
-            />
-
-        <TextView
-            android:id="@+id/article_title"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="心愿"
-            android:textColor="@color/white"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            />
-
-        <Button
-            android:id="@+id/activity_publish_wish_publish_button"
-            android:layout_width="50dp"
-            android:layout_height="30dp"
-            android:layout_gravity="center"
-            android:layout_margin="10dp"
-            android:background="@drawable/corner_bg"
-            android:gravity="center"
-            android:text="发布"
-            android:textColor="@color/themeRed"
-            android:textSize="18sp"
-            />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/background"
         android:orientation="vertical"
@@ -75,6 +30,7 @@
                 android:gravity="start"
                 android:hint="分享你的小心愿..."
                 android:textColor="@color/thirdTitle"
+                android:textColorHint="@color/hint"
                 android:textSize="16sp"
                 />
 
@@ -127,6 +83,7 @@
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:hint="请输入金额"
+                android:textColorHint="@color/hint"
                 android:textColor="@color/themeRed"
                 android:textSize="16sp"
                 />
@@ -161,11 +118,55 @@
                 android:id="@+id/activity_publish_wish_type_spinner"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-
                 />
         </LinearLayout>
 
 
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/themeRed"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/activity_publish_wish_cancel_text"
+            android:layout_width="40dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:gravity="center"
+            android:text="取消"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            />
+
+        <TextView
+            android:id="@+id/article_title"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="心愿"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            />
+
+        <Button
+            android:id="@+id/activity_publish_wish_publish_button"
+            android:layout_width="50dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:background="@drawable/corner_bg"
+            android:gravity="center"
+            android:text="发布"
+            android:textColor="@color/themeRed"
+            android:textSize="18sp"
+            />
     </LinearLayout>
 
 

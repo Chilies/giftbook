@@ -114,7 +114,7 @@ public class WishFragment extends Fragment implements View.OnClickListener {
                                     JumpUtil.jumpInActivity(activity, WishDetailsActivity.class, bundle);
                                 }
                             });
-                }else {
+                } else {
                     Log.e("someError", wishCardContentJsonBaseList.getCode()
                             + wishCardContentJsonBaseList.getMsg());
                 }
@@ -170,7 +170,7 @@ public class WishFragment extends Fragment implements View.OnClickListener {
                     popNote();
                 } else if (alipayJsonBaseList.getCode() == 3) {
                     JumpUtil.jumpInActivity(activity, PublishWishActivity.class);
-                }else {
+                } else {
                     Log.e("someError", alipayJsonBaseList.getCode() + alipayJsonBaseList.getMsg());
                 }
 
@@ -227,10 +227,14 @@ public class WishFragment extends Fragment implements View.OnClickListener {
                     // TODO: 2018/4/3  解析图片信息
 
                     String result = QRHelper.getResult(bitmap);
-                    receiveCode = result.substring(22, result.length());
-                    Log.e("result", result + requestCode);
-                    uploadReceiveCode();
-
+                    String header = result.substring(0, 21);
+                    if (header.equals("HTTPS://QR.ALIPAY.COM/")) {
+                        receiveCode = result.substring(22, result.length());
+                        Log.e("result", result + requestCode);
+                        uploadReceiveCode();
+                    } else {
+                        ToastUtil.makeText(activity, R.string.wish_choose_right_receive_code);
+                    }
                 } else {
                     ToastUtil.makeText(activity, R.string.get_image_failed);
                 }
@@ -264,8 +268,8 @@ public class WishFragment extends Fragment implements View.OnClickListener {
                     Alipay alipay = alipayJsonBaseList.getData().get(0);
                     sharePreference.setCache(CacheConfig.CACHE_ALIPAY_RECEIVE_CODE,
                             alipay.getReceiveCode());
-                    JumpUtil.jumpInActivity(activity,PublishWishActivity.class);
-                }else {
+                    JumpUtil.jumpInActivity(activity, PublishWishActivity.class);
+                } else {
                     Log.e("someError", alipayJsonBaseList.getCode() + alipayJsonBaseList.getMsg());
                 }
             }

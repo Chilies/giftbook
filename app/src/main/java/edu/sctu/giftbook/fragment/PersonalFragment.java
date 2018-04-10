@@ -36,6 +36,7 @@ import edu.sctu.giftbook.activity.PaymentRecordActivity;
 import edu.sctu.giftbook.activity.SettingsActivity;
 import edu.sctu.giftbook.entity.AvatarJson;
 import edu.sctu.giftbook.entity.JsonBaseList;
+import edu.sctu.giftbook.entity.UserInfoJson;
 import edu.sctu.giftbook.utils.CacheConfig;
 import edu.sctu.giftbook.utils.FileUtil;
 import edu.sctu.giftbook.utils.ImageTools;
@@ -72,33 +73,11 @@ public class PersonalFragment extends Fragment implements View.OnClickListener {
 
         getViews(view);
         setData();
+        setAvatarData();
+
         return view;
     }
 
-    private void setData() {
-        if (sharePreference.ifHaveShare(CacheConfig.CACHE_NICKNAME)) {
-            nickName.setText(sharePreference.getString(CacheConfig.CACHE_NICKNAME));
-        }
-        if (sharePreference.ifHaveShare(CacheConfig.CACHE_SIGNATURE)) {
-            signature.setText(sharePreference.getString(CacheConfig.CACHE_SIGNATURE));
-        }
-
-        if (sharePreference.ifHaveShare(CacheConfig.CACHE_PHONE_NUMBER)) {
-            phoneNumber.setText(sharePreference.getString(CacheConfig.CACHE_PHONE_NUMBER));
-        }
-        if (sharePreference.ifHaveShare(CacheConfig.CACHE_ALIPAY_ACCOUNT)) {
-            alipayAccount.setText(sharePreference.getString(CacheConfig.CACHE_ALIPAY_ACCOUNT));
-        }
-        if (sharePreference.ifHaveShare(CacheConfig.CACHE_GENDER)) {
-            sex.setText(sharePreference.getString(CacheConfig.CACHE_GENDER));
-        }
-        if (sharePreference.ifHaveShare(CacheConfig.CACHE_ADDRESS)) {
-            area.setText(sharePreference.getString(CacheConfig.CACHE_ADDRESS));
-        }
-
-        setAvatarData();
-
-    }
 
     private void setAvatarData() {
         if (sharePreference.ifHaveShare(CacheConfig.CACHE_AVATAR_BITMAP)) {
@@ -137,6 +116,47 @@ public class PersonalFragment extends Fragment implements View.OnClickListener {
         wishRecord = (LinearLayout) view.findViewById(R.id.fragment_personal_wish_record);
         paymentRecord = (LinearLayout) view.findViewById(R.id.fragment_personal_payment_record);
 
+    }
+
+
+    private void setData() {
+        final int userId = sharePreference.getInt(CacheConfig.USER_ID);
+        Map<String, String> paramsMap = new HashMap<>();
+        paramsMap.put("userId", String.valueOf(userId));
+
+        StringCallback userInfoCallBack = new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+                //无网状态下从sharepreference中找数据
+                getDataFromSharePreference();
+                ToastUtil.makeText(activity, R.string.net_work_error);
+                Log.e("error", e.getMessage(), e);
+            }
+
+            @Override
+            public void onResponse(String response, int id) {
+                Log.e("userInfo", response);
+                JsonBaseList<UserInfoJson> userInfoJsonJsonBaseList = JSON.parseObject(response,
+                        new TypeReference<JsonBaseList<UserInfoJson>>() {
+                        }.getType());
+                if (userInfoJsonJsonBaseList.getCode() == 200
+                        && userInfoJsonJsonBaseList.getMsg().equals("success")) {
+                    UserInfoJson userInfoJson = userInfoJsonJsonBaseList.getData().get(0);
+                    nickName.setText(userInfoJson.getNickName());
+                    signature.setText(userInfoJson.getSignature());
+                    phoneNumber.setText(userInfoJson.getTelephone());
+                    sex.setText(userInfoJson.getGender());
+                    alipayAccount.setText(userInfoJson.getAlipayAccount());
+                    area.setText(userInfoJson.getProvince());
+                } else {
+                    //无网状态下从sharepreference中找数据
+                    getDataFromSharePreference();
+                    Log.e("someError", userInfoJsonJsonBaseList.getCode() + userInfoJsonJsonBaseList.getMsg());
+                }
+            }
+        };
+        NetworkController.postMap(URLConfig.URL_USER_ALL_INFO,
+                paramsMap, userInfoCallBack);
     }
 
     @Override
@@ -233,7 +253,6 @@ public class PersonalFragment extends Fragment implements View.OnClickListener {
                             + path.substring(path.indexOf("D") - 1, path.length());
                     //生成缩略图防止OOM
                     Bitmap bitmap = ImageTools.getImageThumbnail(realPath, 100, 150);
-                    avatar.setImageBitmap(bitmap);
                     uploadAvatar(bitmap);
                 } else {
                     ToastUtil.makeText(activity, R.string.get_image_failed);
@@ -246,7 +265,6 @@ public class PersonalFragment extends Fragment implements View.OnClickListener {
                     FileUtil.storeAndUpdateInDCIM(activity, uri);
                     //生成缩略图防止OOM
                     Bitmap bitmap = ImageTools.getImageThumbnail(uri.getPath(), 100, 150);
-                    avatar.setImageBitmap(bitmap);
                     uploadAvatar(bitmap);
                 } else {
                     ToastUtil.makeText(activity, R.string.get_image_failed);
@@ -257,6 +275,11 @@ public class PersonalFragment extends Fragment implements View.OnClickListener {
         }
     }
 
+    /**
+     * 上传头像
+     *
+     * @param bitmap
+     */
     private void uploadAvatar(final Bitmap bitmap) {
         Map<String, String> paramsMap = new HashMap<>();
         Map<String, File> fileMap = new HashMap<>();
@@ -280,16 +303,18 @@ public class PersonalFragment extends Fragment implements View.OnClickListener {
                 ToastUtil.makeText(activity, R.string.net_work_error);
                 Log.e("error", e.getMessage(), e);
             }
+
             @Override
             public void onResponse(String response, int id) {
                 Log.e("updateAvatar", response);
                 JsonBaseList<AvatarJson> avatarJsonJsonBaseList =
                         JSON.parseObject(response,
                                 new TypeReference<JsonBaseList<AvatarJson>>() {
-                        }.getType());
+                                }.getType());
 
                 if (avatarJsonJsonBaseList.getCode() == 200
                         && avatarJsonJsonBaseList.getMsg().equals("success")) {
+                    avatar.setImageBitmap(bitmap);
                     ToastUtil.makeText(activity, R.string.avatar_upload_success);
                     sharePreference.saveBitmapToSharedPreferences(
                             CacheConfig.CACHE_AVATAR_BITMAP, bitmap);
@@ -300,12 +325,38 @@ public class PersonalFragment extends Fragment implements View.OnClickListener {
                     ToastUtil.makeText(activity, R.string.login_failed);
                     setAvatarData();
 
-                        Log.e("someError", avatarJsonJsonBaseList.getCode() + avatarJsonJsonBaseList.getMsg());
+                    Log.e("someError", avatarJsonJsonBaseList.getCode() + avatarJsonJsonBaseList.getMsg());
 
                 }
             }
         };
         NetworkController.postFile(URLConfig.URL_USER_UPDATE_AVATAR,
                 paramsMap, fileMap, callBack);
+    }
+
+    /**
+     * 网络连接出错情况下，从sharepreference中获得用户资料数据
+     */
+    public void getDataFromSharePreference() {
+        Log.e("userInfo", "get from share");
+        if (sharePreference.ifHaveShare(CacheConfig.CACHE_NICKNAME)) {
+            nickName.setText(sharePreference.getString(CacheConfig.CACHE_NICKNAME));
+        }
+        if (sharePreference.ifHaveShare(CacheConfig.CACHE_SIGNATURE)) {
+            signature.setText(sharePreference.getString(CacheConfig.CACHE_SIGNATURE));
+        }
+
+        if (sharePreference.ifHaveShare(CacheConfig.CACHE_PHONE_NUMBER)) {
+            phoneNumber.setText(sharePreference.getString(CacheConfig.CACHE_PHONE_NUMBER));
+        }
+        if (sharePreference.ifHaveShare(CacheConfig.CACHE_ALIPAY_ACCOUNT)) {
+            alipayAccount.setText(sharePreference.getString(CacheConfig.CACHE_ALIPAY_ACCOUNT));
+        }
+        if (sharePreference.ifHaveShare(CacheConfig.CACHE_GENDER)) {
+            sex.setText(sharePreference.getString(CacheConfig.CACHE_GENDER));
+        }
+        if (sharePreference.ifHaveShare(CacheConfig.CACHE_ADDRESS)) {
+            area.setText(sharePreference.getString(CacheConfig.CACHE_ADDRESS));
+        }
     }
 }

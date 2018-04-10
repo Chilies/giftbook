@@ -7,22 +7,27 @@ package edu.sctu.giftbook.utils;
 public class URLConfig {
 
     public static final String MEDIA_TYPE = "applicaton/json; charset=utf-8";
-    public static final String BASE_URL = "http://58.87.93.34:8099/api";  //服务器
+//    public static final String BASE_URL = "http://58.87.93.34:8099/api";  //服务器
 
 //    public static final String BASE_URL = "http://192.168.1.16:8099/api"; //寝室
 //
 //    public static final String BASE_URL = "http://192.168.1.14:8099/api"; //办公室
 
 
-//    public static final String BASE_URL = "http://192.168.43.101:8099/api"; //手机临时
+    public static final String BASE_URL = "http://192.168.43.101:8099/api"; //手机临时
 
 //    public static final String BASE_URL = "http://172.20.10.8:8099/api"; //贺鹏临时
 
     public static final String BASE_URL_IMAGE = "http://58.87.93.34:8099";
 
     public static final String URL_USER_REGISTER = "/user/register";
+    public static final String URL_USER_AREA_DATA = "/user/area";
     public static final String URL_USER_LOGIN = "/user/login";
     public static final String URL_USER_UPDATE_AVATAR = "/user/update/avatar";
+    public static final String URL_USER_UPDATE_INFO = "/user/update/info";
+    public static final String URL_USER_PASSWORD = "/user/password";
+    public static final String URL_USER_UPDATE_PASSWORD = "/user/update/password";
+    public static final String URL_USER_ALL_INFO = "/user/all/info";
 
     public static final String URL_WISH_PUBLISH_TYPE = "/wish/publish/type";
     public static final String URL_WISH_PUBLISH = "/wish/publish/one/wishCard";
@@ -32,6 +37,9 @@ public class URLConfig {
 
     public static final String URL_ALIPAY_CHECK = "/alipay/check/";
     public static final String URL_ALIPAY_UPLOAD_RECEIVE_CODE = "/alipay/upload/receive/code/";
+
+
+
 
 
     public static final String URL_FAMOUS_HEAD = "/files/object/c_zmjd_3";

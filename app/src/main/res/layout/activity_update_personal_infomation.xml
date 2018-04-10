@@ -22,6 +22,7 @@
             android:layout_margin="10dp"
             android:orientation="vertical"
             >
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
@@ -43,9 +44,10 @@
                     android:layout_gravity="center"
                     android:layout_marginLeft="10dp"
                     android:layout_weight="1"
+                    android:hint="@string/update_user_nickname"
+                    android:textColorHint="@color/hint"
                     android:background="@null"
                     android:enabled="true"
-                    android:text="Chilies"
                     android:textColor="@color/firstTitle"
                     android:textSize="16sp"
                     />
@@ -77,9 +79,10 @@
                     android:layout_gravity="center"
                     android:layout_marginLeft="10dp"
                     android:layout_weight="1"
+                    android:hint="@string/update_user_signature"
+                    android:textColorHint="@color/hint"
                     android:background="@null"
                     android:enabled="true"
-                    android:text="今天是个好日子！"
                     android:textColor="@color/firstTitle"
                     android:textSize="16sp"
                     />
@@ -113,8 +116,9 @@
                     android:layout_marginLeft="10dp"
                     android:layout_weight="1"
                     android:background="@null"
+                    android:hint="@string/update_user_gender"
+                    android:textColorHint="@color/hint"
                     android:enabled="true"
-                    android:text="女"
                     android:textColor="@color/firstTitle"
                     android:textSize="16sp"
                     />
@@ -125,71 +129,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/divider"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:orientation="horizontal">
 
-                <TextView
-                    android:layout_width="50dp"
-                    android:layout_height="20dp"
-                    android:layout_gravity="center"
-                    android:text="@string/activity_update_personal_information_phone_number"
-                    android:textColor="@color/firstTitle"
-                    android:textSize="16sp"
-                    />
-
-                <EditText
-                    android:id="@+id/activity_update_information_phone_number_text"
-                    android:layout_width="0dp"
-                    android:layout_height="20dp"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="10dp"
-                    android:layout_weight="1"
-                    android:background="@null"
-                    android:enabled="true"
-                    android:text="18328023198"
-                    android:textColor="@color/firstTitle"
-                    android:textSize="16sp"
-                    />
-            </LinearLayout>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/divider"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="50dp"
-                    android:layout_height="20dp"
-                    android:layout_gravity="center"
-                    android:text="@string/activity_update_personal_information_alipay"
-                    android:textColor="@color/firstTitle"
-                    android:textSize="16sp"
-                    />
-
-                <EditText
-                    android:id="@+id/activity_update_information_alipay_text"
-                    android:layout_width="0dp"
-                    android:layout_height="20dp"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="10dp"
-                    android:layout_weight="1"
-                    android:background="@null"
-                    android:enabled="true"
-                    android:text="18328023198"
-                    android:textColor="@color/firstTitle"
-                    android:textSize="16sp"
-                    />
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/divider"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
@@ -203,6 +143,7 @@
                     android:textColor="@color/firstTitle"
                     android:textSize="16sp"
                     />
+
                 <Spinner
                     android:id="@+id/activity_update_information_area_spinner"
                     android:layout_width="match_parent"
@@ -210,24 +151,6 @@
                     android:layout_marginLeft="10dp"
                     android:layout_weight="1"
                     />
-                <!--<TextView-->
-                    <!--android:id="@+id/activity_update_information_address_text"-->
-                    <!--android:layout_width="0dp"-->
-                    <!--android:layout_height="20dp"-->
-                    <!--android:layout_gravity="center"-->
-                    <!--android:layout_marginLeft="10dp"-->
-                    <!--android:layout_weight="1"-->
-                    <!--android:text="@string/address"-->
-                    <!--android:textColor="@color/firstTitle"-->
-                    <!--android:textSize="16sp"-->
-                    <!--/>-->
-
-                <!--<ImageView-->
-                    <!--android:layout_width="20dp"-->
-                    <!--android:layout_height="40dp"-->
-                    <!--android:layout_gravity="center_vertical"-->
-                    <!--android:src="@drawable/next"-->
-                    <!--/>-->
             </LinearLayout>
 
             <View

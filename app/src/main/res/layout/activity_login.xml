@@ -47,7 +47,6 @@
     </LinearLayout>
 
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -69,6 +68,7 @@
                 android:inputType="phone"
                 android:background="@null"
                 android:phoneNumber="true"
+                android:textColorHint="@color/hint"
                 android:padding="10dp"
                 android:textSize="14sp"/>
         </LinearLayout>
@@ -92,6 +92,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/login_password"
                 android:background="@null"
+                android:textColorHint="@color/hint"
                 android:inputType="textPassword"
                 android:padding="5dp"
                 android:textSize="14sp"/>
@@ -105,7 +106,7 @@
             android:background="@color/divider"/>
     </LinearLayout>
 
-        <Button
+    <Button
             android:id="@+id/login_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

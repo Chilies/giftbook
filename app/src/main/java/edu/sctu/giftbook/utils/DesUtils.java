@@ -46,7 +46,13 @@ public class DesUtils {
         } catch (Exception e) {  
             return null;  
         }  
-    } 
+    }
+
+//    public static void main(String[] args) {
+//        int userId = 19;
+//        System.out.println(String.valueOf(userId));
+//        System.out.println(Integer.valueOf(String.valueOf(userId)));
+//    }
 
 //    public static void main(String[] args) {
 //        String phonestr = DesUtils.encrypt("18328023199");
