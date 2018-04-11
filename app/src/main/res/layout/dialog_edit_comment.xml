@@ -6,6 +6,7 @@
               android:layout_height="150dp"
     >
     <EditText
+
         android:id="@+id/dialog_comment_edit"
         android:layout_width="match_parent"
         android:layout_height="90dp"
@@ -13,6 +14,8 @@
         android:gravity="start"
         android:padding="5dp"
         android:hint="@string/publish_comment"
+        android:textColor="@color/secondTitle"
+        android:textColorHint="@color/hint"
         android:background="@drawable/bg_edittext"
         />
 
@@ -24,8 +27,9 @@
         android:layout_gravity="right"
         android:textSize="14sp"
         android:hint="发送"
-        android:textColor="@color/white"
-        android:background="@color/unClick"
+        android:textColorHint="@color/white"
+        android:background="@color/themeRed"
+        android:id="@+id/dialog_send_comment_button"
         />
 
 </LinearLayout>

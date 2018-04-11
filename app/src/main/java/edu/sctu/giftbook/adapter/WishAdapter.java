@@ -21,12 +21,15 @@ import com.zhy.http.okhttp.callback.BitmapCallback;
 import java.util.List;
 
 import edu.sctu.giftbook.R;
+import edu.sctu.giftbook.activity.BigImageActivity;
 import edu.sctu.giftbook.activity.PersonalHomeActivity;
 import edu.sctu.giftbook.activity.WishDetailsActivity;
 import edu.sctu.giftbook.entity.WishCardContent;
+import edu.sctu.giftbook.utils.AlipayUtils;
 import edu.sctu.giftbook.utils.CommonUtil;
 import edu.sctu.giftbook.utils.JumpUtil;
 import edu.sctu.giftbook.utils.NetworkController;
+import edu.sctu.giftbook.utils.SharePreference;
 import edu.sctu.giftbook.utils.ToastUtil;
 import okhttp3.Call;
 
@@ -39,7 +42,7 @@ public class WishAdapter extends BaseAdapter {
     private List<WishCardContent> list;
 
 
-    public WishAdapter(LayoutInflater layoutInflater, Activity activity,List<WishCardContent> list) {
+    public WishAdapter(LayoutInflater layoutInflater, Activity activity, List<WishCardContent> list) {
         this.layoutInflater = layoutInflater;
         this.activity = activity;
         this.list = list;
@@ -88,11 +91,12 @@ public class WishAdapter extends BaseAdapter {
         holder.nickname.setText(list.get(position).getNickName());
         holder.time.setText(list.get(position).getCreateTime());
         holder.destination.setText(list.get(position).getDescription());
-        CommonUtil.setType(list.get(position).getType(),holder.wishType);
+        CommonUtil.setType(list.get(position).getType(), holder.wishType);
 
         BitmapCallback callBackAvatar = new BitmapCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
+                holder.avatar.setImageResource(R.drawable.avatar);
                 ToastUtil.makeText(activity, R.string.net_work_error);
                 Log.e("error", e.getMessage(), e);
             }
@@ -102,7 +106,7 @@ public class WishAdapter extends BaseAdapter {
                 holder.avatar.setImageBitmap(response);
             }
         };
-        NetworkController.getImage(list.get(position).getAvatarSrc(),callBackAvatar);
+        NetworkController.getImage(list.get(position).getAvatarSrc(), callBackAvatar);
 
         BitmapCallback callBackArticle = new BitmapCallback() {
             @Override
@@ -116,42 +120,53 @@ public class WishAdapter extends BaseAdapter {
                 holder.article.setImageBitmap(response);
             }
         };
-        NetworkController.getImage(list.get(position).getWishCardImgSrc(),callBackArticle);
+        NetworkController.getImage(list.get(position).getWishCardImgSrc(), callBackArticle);
 
         holder.avatar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                JumpUtil.jumpInActivity(activity, PersonalHomeActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putInt("userId", list.get(position).getId());
+                bundle.putString("wishCardAvatarSrc", list.get(position).getAvatarSrc());
+                JumpUtil.jumpInActivity(activity, PersonalHomeActivity.class, bundle);
             }
         });
 
         holder.nickname.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                JumpUtil.jumpInActivity(activity, PersonalHomeActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putInt("userId", list.get(position).getId());
+                bundle.putString("wishCardAvatarSrc", list.get(position).getAvatarSrc());
+                JumpUtil.jumpInActivity(activity, PersonalHomeActivity.class, bundle);
             }
         });
         holder.article.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ToastUtil.makeText(activity, "hello");
+                Bundle bundle = new Bundle();
+                bundle.putString("bigImageSrc", list.get(position).getWishCardImgSrc() + "");
+                Log.e("bigImageSrc", list.get(position).getWishCardImgSrc() + "");
+                JumpUtil.jumpInActivity(activity, BigImageActivity.class, bundle);
             }
         });
         holder.comment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
-                bundle.putString("wishCardId",list.get(position).getWishCardId()+"");
-                Log.e("wishCardId",list.get(position)
-                        .getWishCardId()+"");
-                bundle.putInt("userId",list.get(position).getId());
-                JumpUtil.jumpInActivity(activity, WishDetailsActivity.class,bundle);
+                bundle.putString("wishCardId", list.get(position).getWishCardId() + "");
+                Log.e("wishCardId", list.get(position).getWishCardId() + "  " + list.get(position).getId());
+                bundle.putString("fromUserId", list.get(position).getId() + "");
+                JumpUtil.jumpInActivity(activity, WishDetailsActivity.class, bundle);
             }
         });
         holder.payment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ToastUtil.makeText(activity, "正在开发中");
+                String alipayReceiveCode = list.get(position).getAlipayReceiveCode();
+                if (alipayReceiveCode != null && !"".equals(alipayReceiveCode)) {
+                    AlipayUtils.transformMoney(activity, alipayReceiveCode);
+                }
             }
         });
 

@@ -9,12 +9,12 @@ public class URLConfig {
     public static final String MEDIA_TYPE = "applicaton/json; charset=utf-8";
 //    public static final String BASE_URL = "http://58.87.93.34:8099/api";  //服务器
 
-//    public static final String BASE_URL = "http://192.168.1.16:8099/api"; //寝室
+    public static final String BASE_URL = "http://192.168.1.4:8099/api"; //寝室
 //
 //    public static final String BASE_URL = "http://192.168.1.14:8099/api"; //办公室
 
 
-    public static final String BASE_URL = "http://192.168.43.101:8099/api"; //手机临时
+//    public static final String BASE_URL = "http://192.168.43.101:8099/api"; //手机临时
 
 //    public static final String BASE_URL = "http://172.20.10.8:8099/api"; //贺鹏临时
 
@@ -37,6 +37,10 @@ public class URLConfig {
 
     public static final String URL_ALIPAY_CHECK = "/alipay/check/";
     public static final String URL_ALIPAY_UPLOAD_RECEIVE_CODE = "/alipay/upload/receive/code/";
+
+
+    public static final String URL_COMMENT_WISHCARD_DETAILS = "/comment/wish/card/details";
+    public static final String URL_COMMENT_PUBLISH = "/comment/publish";
 
 
 

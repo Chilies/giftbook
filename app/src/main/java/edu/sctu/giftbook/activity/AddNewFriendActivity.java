@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import edu.sctu.giftbook.R;
 import edu.sctu.giftbook.adapter.AddNewFriendAdapter;
+import edu.sctu.giftbook.base.BaseActivity;
 
 
 /**

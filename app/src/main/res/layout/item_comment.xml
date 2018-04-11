@@ -7,8 +7,12 @@
         android:id="@+id/item_comment_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:textColor="@color/thirdTitle"
+        android:maxLines="5"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="2dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:textSize="16sp"
-        android:text="三个人：我家宝宝好可爱呀；"
         />
 </LinearLayout>

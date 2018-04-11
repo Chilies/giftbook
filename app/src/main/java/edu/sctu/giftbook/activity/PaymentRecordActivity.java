@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import edu.sctu.giftbook.R;
 import edu.sctu.giftbook.adapter.BudgetAdapter;
+import edu.sctu.giftbook.base.BaseActivity;
 import edu.sctu.giftbook.utils.ToastUtil;
 
 /**

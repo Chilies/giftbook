@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
               android:background="@color/themeRed"
               android:clipToPadding="true"
               android:fitsSystemWindows="true"
@@ -12,8 +12,8 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:background="@color/background"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/background">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -28,13 +28,13 @@
                 >
 
                 <com.makeramen.roundedimageview.RoundedImageView
+                    android:id="@+id/activity_wish_details_avatar_img"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:id="@+id/activity_wish_details_avatar_img"
                     android:layout_gravity="center"
+                    android:scaleType="centerCrop"
                     app:riv_border_color="@color/white"
                     app:riv_oval="true"
-                    android:scaleType="centerCrop"
                     />
 
                 <LinearLayout
@@ -137,7 +137,6 @@
                     android:gravity="right"
                     android:orientation="horizontal"
                     >
-
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -157,67 +156,57 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/activity_wish_details_giver_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:background="@color/white"
-                android:text="晏起、李洁、王树旗、贺鹏、刘畅等4人已赞助!"
-                android:textColor="@color/secondTitle"
-                android:textSize="16sp"/>
-
             <ListView
                 android:id="@+id/activity_wish_details_comment_listView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:background="@color/white"
+                android:divider="@null"
                 android:fadingEdge="none"
                 android:scrollbars="none"
                 />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/divider"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/background"
+                android:orientation="horizontal"
+                >
+
+                <EditText
+                    android:id="@+id/activity_wish_details_comment_edit"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_edittext"
+                    android:clickable="true"
+                    android:focusable="false"
+                    android:hint="@string/publish_comment"
+                    android:padding="5dp"
+                    android:textColor="@color/firstTitle"
+                    android:textSize="14sp"
+                    />
+
+                <ImageView
+                    android:id="@+id/activity_wish_details_payment"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/payment"/>
+            </LinearLayout>
         </LinearLayout>
+
     </ScrollView>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="-41dp"
-        android:background="@color/divider"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:background="@color/background"
-        android:gravity="bottom"
-        android:orientation="horizontal"
-        >
-
-        <EditText
-            android:id="@+id/activity_wish_details_comment_edit"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:padding="5dp"
-            android:focusable="false"
-            android:clickable="true"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_weight="1"
-            android:background="@drawable/bg_edittext"
-            android:hint="@string/publish_comment"
-            android:textColor="@color/firstTitle"
-            android:textSize="14sp"
-            />
-
-        <ImageView
-            android:id="@+id/activity_wish_details_payment"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginRight="10dp"
-            android:src="@drawable/payment"/>
-    </LinearLayout>
 
 </LinearLayout>

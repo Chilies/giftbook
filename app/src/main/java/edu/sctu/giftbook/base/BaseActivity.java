@@ -34,6 +34,10 @@ public class BaseActivity extends FragmentActivity {
         AppManager.getInstance(this).finishActivity(this);
     }
 
+    public void onRefresh() {
+        super.onCreate(null);
+    }
+
 //    /**
 //     * 实现状态栏与App风格一致
 //     *

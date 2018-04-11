@@ -72,7 +72,7 @@ public class PersonalFragment extends Fragment implements View.OnClickListener {
         sharePreference = SharePreference.getInstance(activity);
 
         getViews(view);
-        setData();
+        setUserData();
         setAvatarData();
 
         return view;
@@ -119,7 +119,7 @@ public class PersonalFragment extends Fragment implements View.OnClickListener {
     }
 
 
-    private void setData() {
+    private void setUserData() {
         final int userId = sharePreference.getInt(CacheConfig.USER_ID);
         Map<String, String> paramsMap = new HashMap<>();
         paramsMap.put("userId", String.valueOf(userId));

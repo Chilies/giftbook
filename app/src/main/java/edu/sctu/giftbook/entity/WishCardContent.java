@@ -17,6 +17,8 @@ public class WishCardContent implements Serializable {
     private String type;
     private String description;
     private String wishCardImgSrc;
+    private String alipayReceiveCode;
+
 
     public Integer getId() {
         return id;
@@ -88,5 +90,13 @@ public class WishCardContent implements Serializable {
 
     public void setWishCardImgSrc(String wishCardImgSrc) {
         this.wishCardImgSrc = wishCardImgSrc;
+    }
+
+    public String getAlipayReceiveCode() {
+        return alipayReceiveCode;
+    }
+
+    public void setAlipayReceiveCode(String alipayReceiveCode) {
+        this.alipayReceiveCode = alipayReceiveCode;
     }
 }

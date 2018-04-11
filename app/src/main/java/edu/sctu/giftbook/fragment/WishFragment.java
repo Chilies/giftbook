@@ -107,10 +107,8 @@ public class WishFragment extends Fragment implements View.OnClickListener {
                                     Log.e("wishCardId", wishCardContentList.get(position)
                                             .getWishCardId() + "");
                                     Bundle bundle = new Bundle();
-                                    bundle.putString("wishCardId", wishCardContentList
-                                            .get(position).getWishCardId() + "");
-                                    bundle.putInt("userId", wishCardContentList
-                                            .get(position).getId());
+                                    bundle.putString("wishCardId", wishCardContentList.get(position).getWishCardId() + "");
+                                    bundle.putString("fromUserId", wishCardContentList.get(position).getId() + "");
                                     JumpUtil.jumpInActivity(activity, WishDetailsActivity.class, bundle);
                                 }
                             });

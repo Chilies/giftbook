@@ -32,7 +32,7 @@ import okhttp3.Call;
  * Created by zhengsenwen on 2018/3/13.
  */
 
-public class RegisterActivity extends BaseActivity implements View.OnClickListener {
+public class RegisterActivity extends Activity implements View.OnClickListener {
 
 
     private Activity activity;

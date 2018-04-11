@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.Map;
 
 import edu.sctu.giftbook.R;
+import edu.sctu.giftbook.base.BaseActivity;
 import edu.sctu.giftbook.entity.Area;
 import edu.sctu.giftbook.entity.JsonBaseList;
 import edu.sctu.giftbook.entity.UserInfoJson;

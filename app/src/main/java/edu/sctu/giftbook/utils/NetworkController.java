@@ -102,7 +102,7 @@ public class NetworkController {
      * @param callback 请求响应回调
      */
     public static void getMap(String url, Map<String, String> paramsMap, StringCallback callback) {
-        Log.d("getObject", "URL:" + BASE_URL + url + " ,param:" + JSON.toJSONString(paramsMap));
+        Log.d("getMap", "URL:" + BASE_URL + url + " ,param:" + JSON.toJSONString(paramsMap));
         OkHttpUtils.get()
                 .url(NetworkController.BASE_URL + url)
                 .params(paramsMap)

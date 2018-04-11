@@ -22,7 +22,7 @@ import edu.sctu.giftbook.utils.SharePreference;
 /**
  * Created by zcy on 2016/8/23.
  */
-public class LeadingActivity extends BaseActivity {
+public class LeadingActivity extends Activity {
 
     private Activity activity;
 
