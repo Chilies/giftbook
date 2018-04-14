@@ -48,7 +48,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         personalFragment = new PersonalFragment();
 
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.add(R.id.main_fragment, wishFragment);
+//        fragmentTransaction.add(R.id.main_fragment, wishFragment);
+        fragmentTransaction.add(R.id.main_fragment, friendFragment);
         fragmentTransaction.commit();
 
         getViews();

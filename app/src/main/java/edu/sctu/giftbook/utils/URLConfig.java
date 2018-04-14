@@ -9,12 +9,12 @@ public class URLConfig {
     public static final String MEDIA_TYPE = "applicaton/json; charset=utf-8";
 //    public static final String BASE_URL = "http://58.87.93.34:8099/api";  //服务器
 
-    public static final String BASE_URL = "http://192.168.1.4:8099/api"; //寝室
+//    public static final String BASE_URL = "http://192.168.1.5:8099/api"; //寝室
 //
 //    public static final String BASE_URL = "http://192.168.1.14:8099/api"; //办公室
 
 
-//    public static final String BASE_URL = "http://192.168.43.101:8099/api"; //手机临时
+    public static final String BASE_URL = "http://192.168.43.101:8099/api"; //手机临时
 
 //    public static final String BASE_URL = "http://172.20.10.8:8099/api"; //贺鹏临时
 
@@ -29,6 +29,7 @@ public class URLConfig {
     public static final String URL_USER_UPDATE_PASSWORD = "/user/update/password";
     public static final String URL_USER_ALL_INFO = "/user/all/info";
 
+
     public static final String URL_WISH_PUBLISH_TYPE = "/wish/publish/type";
     public static final String URL_WISH_PUBLISH = "/wish/publish/one/wishCard";
     public static final String URL_WISH_ALL = "/wish/all";
@@ -41,6 +42,10 @@ public class URLConfig {
 
     public static final String URL_COMMENT_WISHCARD_DETAILS = "/comment/wish/card/details";
     public static final String URL_COMMENT_PUBLISH = "/comment/publish";
+
+    public static final String URL_FRIEND_ALL_PHONE = "/friend/all/phone";
+    public static final String URL_FRIEND_CONTACT_FRIEND = "/friend/contact/friend";
+    public static final String URL_FELLOW_FRIEND = "/friend/fellow";
 
 
 

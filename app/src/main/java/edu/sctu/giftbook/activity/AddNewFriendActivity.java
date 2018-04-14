@@ -2,6 +2,7 @@ package edu.sctu.giftbook.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -11,9 +12,25 @@ import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.TypeReference;
+import com.zhy.http.okhttp.callback.StringCallback;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import edu.sctu.giftbook.R;
 import edu.sctu.giftbook.adapter.AddNewFriendAdapter;
-import edu.sctu.giftbook.base.BaseActivity;
+import edu.sctu.giftbook.entity.Contact;
+import edu.sctu.giftbook.entity.ContactFriend;
+import edu.sctu.giftbook.entity.JsonBaseList;
+import edu.sctu.giftbook.utils.ContactUtil;
+import edu.sctu.giftbook.utils.NetworkController;
+import edu.sctu.giftbook.utils.ToastUtil;
+import edu.sctu.giftbook.utils.URLConfig;
+import okhttp3.Call;
 
 
 /**
@@ -26,6 +43,9 @@ public class AddNewFriendActivity extends Activity implements View.OnClickListen
     private SearchView searchView;
     private ListView newFriendListView, searchListView;
     private LayoutInflater layoutInflater;
+    private List<Contact> contactList;
+    private List<String> samePhoneNumberList;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,8 +56,10 @@ public class AddNewFriendActivity extends Activity implements View.OnClickListen
         setContentView(R.layout.activity_add_new_friend);
         //透明状态栏
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        layoutInflater = layoutInflater.from(activity);
 
         getViews();
+        getAppUserFriend();
     }
 
     public void getViews() {
@@ -46,9 +68,7 @@ public class AddNewFriendActivity extends Activity implements View.OnClickListen
         ImageView backImg = (ImageView) findViewById(R.id.back_img);
         backImg.setOnClickListener(this);
 
-        layoutInflater = layoutInflater.from(activity);
         newFriendListView = (ListView) findViewById(R.id.activity_add_new_friend_ListView);
-        newFriendListView.setAdapter(new AddNewFriendAdapter(activity, layoutInflater));
 
 //        searchView = (SearchView) findViewById(R.id.activity_add_new_friend_searchEdit);
 //        searchListView = (ListView) findViewById(R.id.activity_add_new_friend_searchListView);
@@ -113,6 +133,84 @@ public class AddNewFriendActivity extends Activity implements View.OnClickListen
 //            }
 //        });
 
+    }
+
+
+    private void setContactFriendData(List<String> samePhoneNumberList) {
+        Map<String, String> map = new HashMap<>();
+
+        Log.e("phone", JSON.toJSONString(samePhoneNumberList));
+        map.put("phoneListJsonString", JSON.toJSONString(samePhoneNumberList));
+
+        StringCallback friendCallBack = new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+                ToastUtil.makeText(activity, R.string.net_work_error);
+                Log.e("error", e.getMessage(), e);
+            }
+
+
+            @Override
+            public void onResponse(String response, int id) {
+                Log.e("friend", response);
+                JsonBaseList<ContactFriend> contactFriendJsonBaseList = JSON.parseObject(response,
+                        new TypeReference<JsonBaseList<ContactFriend>>() {
+                        }.getType());
+
+                if (contactFriendJsonBaseList.getCode() == 200
+                        && contactFriendJsonBaseList.getMsg().equals("success")) {
+                    List<ContactFriend> contactFriendList = contactFriendJsonBaseList.getData();
+
+                    newFriendListView.setAdapter(new AddNewFriendAdapter(
+                            activity, layoutInflater, contactFriendList, contactList));
+
+                }
+
+            }
+        };
+        NetworkController.postMap(URLConfig.URL_FRIEND_CONTACT_FRIEND, map, friendCallBack);
+
+    }
+
+
+    /**
+     * 获取用户手机通讯录APP好友（电话号码）
+     */
+    public void getAppUserFriend() {
+        samePhoneNumberList = new ArrayList<>();
+        StringCallback allPhoneCallBack = new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+                ToastUtil.makeText(activity, R.string.net_work_error);
+                Log.e("error", e.getMessage(), e);
+            }
+
+            @Override
+            public void onResponse(String response, int id) {
+                Log.e("phone", response);
+                JsonBaseList<String> stringJsonBaseList = JSON.parseObject(
+                        response, new TypeReference<JsonBaseList<String>>() {
+                        }.getType());
+                if (stringJsonBaseList.getCode() == 200
+                        && stringJsonBaseList.getMsg().equals("success")) {
+                    List<String> phoneList = stringJsonBaseList.getData();
+                    contactList = ContactUtil.getContactInfo(activity);
+                    for (int i = 0; i < contactList.size(); i++) {
+                        for (int j = 0; j < phoneList.size(); j++) {
+                            if (contactList.get(i).getPhoneNumber().equals(phoneList.get(j))) {
+                                samePhoneNumberList.add(phoneList.get(j));
+                            }
+                        }
+                    }
+
+                    setContactFriendData(samePhoneNumberList);
+
+                } else {
+                    Log.e("someError", stringJsonBaseList.getCode() + stringJsonBaseList.getMsg());
+                }
+            }
+        };
+        NetworkController.getObject(URLConfig.URL_FRIEND_ALL_PHONE, allPhoneCallBack);
     }
 
     @Override

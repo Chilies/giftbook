@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.ArrayMap;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,13 +12,29 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.TypeReference;
+import com.zhy.http.okhttp.callback.StringCallback;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import edu.sctu.giftbook.R;
 import edu.sctu.giftbook.activity.AddNewFriendActivity;
 import edu.sctu.giftbook.activity.PersonalHomeActivity;
 import edu.sctu.giftbook.activity.WishDetailsActivity;
 import edu.sctu.giftbook.adapter.FriendAdapter;
+import edu.sctu.giftbook.entity.Contact;
+import edu.sctu.giftbook.entity.ContactFriend;
+import edu.sctu.giftbook.entity.JsonBaseList;
+import edu.sctu.giftbook.utils.ContactUtil;
 import edu.sctu.giftbook.utils.JumpUtil;
+import edu.sctu.giftbook.utils.NetworkController;
 import edu.sctu.giftbook.utils.ToastUtil;
+import edu.sctu.giftbook.utils.URLConfig;
+import okhttp3.Call;
 
 /**
  * Created by zhengsenwen on 2018/2/9.
@@ -33,6 +50,7 @@ public class FriendFragment extends Fragment {
         activity = getActivity();
         View view = LayoutInflater.from(activity).inflate(R.layout.fragment_friend, null);
         getViews(view);
+
         return view;
     }
 
@@ -56,28 +74,6 @@ public class FriendFragment extends Fragment {
     }
 
 
-//    @Override
-//    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-//        super.onActivityCreated(savedInstanceState);
-//        setOnClick();
-//    }
-//
-//    private void setOnClick() {
-//        newFriendView.setOnClickListener(this);
-//
-//    }
-//
-//
-//    @Override
-//    public void onClick(View v) {
-//        int id = v.getId();
-//        switch (id) {
-//            case R.id.fragment_friend_new_friend_linearlayout:
-//                JumpUtil.jumpInActivity(activity, AddNewFriendActivity.class);
-//                break;
-//            default:
-//                break;
-//        }
-//    }
+
 
 }
