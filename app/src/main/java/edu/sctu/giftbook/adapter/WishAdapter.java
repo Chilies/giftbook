@@ -1,9 +1,7 @@
 package edu.sctu.giftbook.adapter;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.graphics.Bitmap;
-import android.icu.text.SimpleDateFormat;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,7 +11,6 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 
 import com.zhy.http.okhttp.callback.BitmapCallback;
@@ -29,7 +26,6 @@ import edu.sctu.giftbook.utils.AlipayUtils;
 import edu.sctu.giftbook.utils.CommonUtil;
 import edu.sctu.giftbook.utils.JumpUtil;
 import edu.sctu.giftbook.utils.NetworkController;
-import edu.sctu.giftbook.utils.SharePreference;
 import edu.sctu.giftbook.utils.ToastUtil;
 import okhttp3.Call;
 
@@ -127,7 +123,7 @@ public class WishAdapter extends BaseAdapter {
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
                 bundle.putInt("userId", list.get(position).getId());
-                bundle.putString("wishCardAvatarSrc", list.get(position).getAvatarSrc());
+                bundle.putString("avatarSrc", list.get(position).getAvatarSrc());
                 JumpUtil.jumpInActivity(activity, PersonalHomeActivity.class, bundle);
             }
         });
@@ -137,7 +133,7 @@ public class WishAdapter extends BaseAdapter {
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
                 bundle.putInt("userId", list.get(position).getId());
-                bundle.putString("wishCardAvatarSrc", list.get(position).getAvatarSrc());
+                bundle.putString("avatarSrc", list.get(position).getAvatarSrc());
                 JumpUtil.jumpInActivity(activity, PersonalHomeActivity.class, bundle);
             }
         });

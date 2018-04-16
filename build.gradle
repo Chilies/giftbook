@@ -25,5 +25,5 @@ task clean(type: Delete) {
 
 //自定义配置部分：统一app:module 版本
 ext{
-    compileSdkVersion=25
+    compileSdkVersion=21
 }

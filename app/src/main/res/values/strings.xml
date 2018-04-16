@@ -59,8 +59,8 @@
     <string name="activity_main_personal_menu">我的</string>
 
     <string name="fragment_wish_title">心愿湖</string>
-    <string name="activity_main_switch_off">好友</string>
-    <string name="activity_main_switch_on">全部</string>
+    <string name="activity_main_switch_off">off</string>
+    <string name="activity_main_switch_on">on</string>
 
 
 
@@ -94,7 +94,9 @@
     <string name="activity_payment_record_budget">支出 ￥2000.20  收入 ￥300.59</string>
 
     <string name="item_activity_payment_record_listview_nickname">李白</string>
-    <string name="item_activity_payment_record_listview_fellow">关注</string>
+    <string name="to_fellow">关注</string>
+    <string name="already_fellow">已关注</string>
+    <string name="fellow_each_other">已关注</string>
     <string name="item_activity_payment_record_listview_time">2017-05-25</string>
     <string name="item_activity_payment_record_listview_money">+2000.80</string>
 

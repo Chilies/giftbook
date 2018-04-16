@@ -27,8 +27,9 @@
 
         <TextView
             android:id="@+id/item_fragment_friend_listView_nickname_text"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="35dp"
+            android:layout_weight="1"
             android:layout_marginLeft="10dp"
             android:layout_gravity="center_vertical"
             android:gravity="center_vertical"
@@ -37,6 +38,20 @@
             android:focusable="false"
             android:textColor="@color/firstTitle"
             android:textSize="18sp"/>
+
+        <Button
+            android:id="@+id/item_fragment_friend_listView_fellow_status"
+            android:layout_width="60dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center_vertical"
+            android:background="@color/white"
+            android:clickable="true"
+            android:focusable="false"
+            android:textSize="14sp"
+            android:textColor="@color/hint"
+            android:text="@string/already_fellow"
+            />
+
     </LinearLayout>
 
 </LinearLayout>

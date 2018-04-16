@@ -3,16 +3,15 @@ package edu.sctu.giftbook.entity;
 import java.io.Serializable;
 
 /**
- * Created by zhengsenwen on 2018/4/13.
+ * Created by zhengsenwen on 2018/4/16.
  */
-public class ContactFriend implements Serializable {
+public class AllFriend implements Serializable {
     public static final long serialVersionUID = 1L;
 
     private Integer id;
     private String nickName;
-    private String phoneNumber;
-    private String avatarSrc;
     private Integer fellowStatus;
+    private String avatarSrc;
 
     public Integer getId() {
         return id;
@@ -30,12 +29,12 @@ public class ContactFriend implements Serializable {
         this.nickName = nickName;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public Integer getFellowStatus() {
+        return fellowStatus;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setFellowStatus(Integer fellowStatus) {
+        this.fellowStatus = fellowStatus;
     }
 
     public String getAvatarSrc() {
@@ -47,11 +46,4 @@ public class ContactFriend implements Serializable {
     }
 
 
-    public Integer getFellowStatus() {
-        return fellowStatus;
-    }
-
-    public void setFellowStatus(Integer fellowStatus) {
-        this.fellowStatus = fellowStatus;
-    }
 }

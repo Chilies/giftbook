@@ -2,11 +2,11 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion  //修改前 compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    buildToolsVersion "21.0.2"
     defaultConfig {
         applicationId "edu.sctu.giftbook"
         minSdkVersion 16
-        targetSdkVersion 25
+        targetSdkVersion 21
         versionCode 1
         versionName "1.0"
         multiDexEnabled true
@@ -31,7 +31,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     //    compile 'com.android.support:appcompat-v7:25.2.0'
-    compile 'com.android.support:design:25.2.0'
+    compile 'com.android.support:design:22.2.0'
     testCompile 'junit:junit:4.12'
     //自己添加的jar
     //    compile group: 'com.google.android', name: 'support-v4', version: 'r7'

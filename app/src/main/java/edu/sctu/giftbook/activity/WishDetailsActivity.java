@@ -44,6 +44,7 @@ import edu.sctu.giftbook.entity.WishCardContent;
 import edu.sctu.giftbook.utils.AlipayUtils;
 import edu.sctu.giftbook.utils.CacheConfig;
 import edu.sctu.giftbook.utils.CommonUtil;
+import edu.sctu.giftbook.utils.JumpUtil;
 import edu.sctu.giftbook.utils.NetworkController;
 import edu.sctu.giftbook.utils.SharePreference;
 import edu.sctu.giftbook.utils.ToastUtil;
@@ -176,7 +177,7 @@ public class WishDetailsActivity extends BaseActivity implements View.OnClickLis
                     if (wishCardContentJsonBaseList.getCode() == 200
                             && wishCardContentJsonBaseList.getMsg()
                             .equals("success")) {
-                        WishCardContent wishCardContent = wishCardContentJsonBaseList
+                        final WishCardContent wishCardContent = wishCardContentJsonBaseList
                                 .getData().get(0);
                         nickName.setText(wishCardContent.getNickName());
                         time.setText(wishCardContent.getCreateTime());
@@ -215,6 +216,27 @@ public class WishDetailsActivity extends BaseActivity implements View.OnClickLis
                             }
                         };
                         NetworkController.getImage(wishCardContent.getWishCardImgSrc(), callBackArticle);
+
+                        avatar.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Bundle bundle = new Bundle();
+                                bundle.putInt("userId", wishCardContent.getId());
+                                bundle.putString("avatarSrc", wishCardContent.getAvatarSrc());
+                                JumpUtil.jumpInActivity(activity, PersonalHomeActivity.class, bundle);
+                            }
+                        });
+
+                        nickName.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Bundle bundle = new Bundle();
+                                bundle.putInt("userId", wishCardContent.getId());
+                                bundle.putString("avatarSrc", wishCardContent.getAvatarSrc());
+                                JumpUtil.jumpInActivity(activity, PersonalHomeActivity.class, bundle);
+                            }
+                        });
+
                     } else {
                         Log.e("someError", wishCardContentJsonBaseList.getCode()
                                 + wishCardContentJsonBaseList.getMsg());

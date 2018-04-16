@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SearchView;
@@ -26,8 +27,11 @@ import edu.sctu.giftbook.adapter.AddNewFriendAdapter;
 import edu.sctu.giftbook.entity.Contact;
 import edu.sctu.giftbook.entity.ContactFriend;
 import edu.sctu.giftbook.entity.JsonBaseList;
+import edu.sctu.giftbook.utils.CacheConfig;
 import edu.sctu.giftbook.utils.ContactUtil;
+import edu.sctu.giftbook.utils.JumpUtil;
 import edu.sctu.giftbook.utils.NetworkController;
+import edu.sctu.giftbook.utils.SharePreference;
 import edu.sctu.giftbook.utils.ToastUtil;
 import edu.sctu.giftbook.utils.URLConfig;
 import okhttp3.Call;
@@ -45,6 +49,7 @@ public class AddNewFriendActivity extends Activity implements View.OnClickListen
     private LayoutInflater layoutInflater;
     private List<Contact> contactList;
     private List<String> samePhoneNumberList;
+    private SharePreference sharePreference;
 
 
     @Override
@@ -57,6 +62,7 @@ public class AddNewFriendActivity extends Activity implements View.OnClickListen
         //透明状态栏
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         layoutInflater = layoutInflater.from(activity);
+        sharePreference = SharePreference.getInstance(activity);
 
         getViews();
         getAppUserFriend();
@@ -136,10 +142,22 @@ public class AddNewFriendActivity extends Activity implements View.OnClickListen
     }
 
 
-    private void setContactFriendData(List<String> samePhoneNumberList) {
-        Map<String, String> map = new HashMap<>();
+    private String setContactFriendData(List<String> samePhoneNumberList) {
+        Integer userId = sharePreference.getInt(CacheConfig.USER_ID);
+        if (userId == null || userId == 0) {
+            Log.e("error", userId + "");
+            return null;
+        }
+        if (samePhoneNumberList == null
+                || "null".equals(samePhoneNumberList)
+                || "".equals(samePhoneNumberList)) {
+            Log.e("error", samePhoneNumberList + "");
+            return null;
+        }
 
+        Map<String, String> map = new HashMap<>();
         Log.e("phone", JSON.toJSONString(samePhoneNumberList));
+        map.put("userId", String.valueOf(userId));
         map.put("phoneListJsonString", JSON.toJSONString(samePhoneNumberList));
 
         StringCallback friendCallBack = new StringCallback() {
@@ -159,10 +177,23 @@ public class AddNewFriendActivity extends Activity implements View.OnClickListen
 
                 if (contactFriendJsonBaseList.getCode() == 200
                         && contactFriendJsonBaseList.getMsg().equals("success")) {
-                    List<ContactFriend> contactFriendList = contactFriendJsonBaseList.getData();
+                    final List<ContactFriend> contactFriendList = contactFriendJsonBaseList.getData();
 
                     newFriendListView.setAdapter(new AddNewFriendAdapter(
                             activity, layoutInflater, contactFriendList, contactList));
+                    newFriendListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            if (position == 0) {
+                                JumpUtil.jumpInActivity(activity, AddNewFriendActivity.class);
+                            } else {
+                                Bundle bundle = new Bundle();
+                                bundle.putInt("userId", contactFriendList.get(position).getId());
+                                bundle.putString("wishCardAvatarSrc", contactFriendList.get(position).getAvatarSrc());
+                                JumpUtil.jumpInActivity(activity, PersonalHomeActivity.class, bundle);
+                            }
+                        }
+                    });
 
                 }
 
@@ -170,6 +201,7 @@ public class AddNewFriendActivity extends Activity implements View.OnClickListen
         };
         NetworkController.postMap(URLConfig.URL_FRIEND_CONTACT_FRIEND, map, friendCallBack);
 
+        return null;
     }
 
 

@@ -143,11 +143,32 @@ public class PersonalFragment extends Fragment implements View.OnClickListener {
                         && userInfoJsonJsonBaseList.getMsg().equals("success")) {
                     UserInfoJson userInfoJson = userInfoJsonJsonBaseList.getData().get(0);
                     nickName.setText(userInfoJson.getNickName());
-                    signature.setText(userInfoJson.getSignature());
                     phoneNumber.setText(userInfoJson.getTelephone());
-                    sex.setText(userInfoJson.getGender());
                     alipayAccount.setText(userInfoJson.getAlipayAccount());
-                    area.setText(userInfoJson.getProvince());
+
+                    if ((userInfoJson.getSignature() == null)
+                            || ("null".equals(userInfoJson.getSignature()))
+                            || "".equals(userInfoJson.getSignature())) {
+
+                    } else {
+                        signature.setText(userInfoJson.getSignature());
+                    }
+                    if ((userInfoJson.getGender() == null)
+                            || ("null".equals(userInfoJson.getGender()))
+                            || "".equals(userInfoJson.getGender())) {
+
+                    } else {
+                        sex.setText(userInfoJson.getGender());
+                    }
+                    if ((userInfoJson.getProvince() == null)
+                            || ("null".equals(userInfoJson.getProvince()))
+                            || "".equals(userInfoJson.getProvince())) {
+
+                    } else {
+                        area.setText(userInfoJson.getProvince());
+                    }
+
+
                 } else {
                     //无网状态下从sharepreference中找数据
                     getDataFromSharePreference();

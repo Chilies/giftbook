@@ -60,7 +60,8 @@ public class WishFragment extends Fragment implements View.OnClickListener {
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
         activity = getActivity();
         View view = LayoutInflater.from(activity).inflate(R.layout.fragment_wish, null);
 

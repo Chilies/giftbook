@@ -2,13 +2,13 @@ package edu.sctu.giftbook.adapter;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
@@ -22,11 +22,13 @@ import java.util.List;
 import java.util.Map;
 
 import edu.sctu.giftbook.R;
+import edu.sctu.giftbook.activity.PersonalHomeActivity;
 import edu.sctu.giftbook.entity.Contact;
 import edu.sctu.giftbook.entity.ContactFriend;
 import edu.sctu.giftbook.entity.Friend;
 import edu.sctu.giftbook.entity.JsonBaseList;
 import edu.sctu.giftbook.utils.CacheConfig;
+import edu.sctu.giftbook.utils.JumpUtil;
 import edu.sctu.giftbook.utils.NetworkController;
 import edu.sctu.giftbook.utils.SharePreference;
 import edu.sctu.giftbook.utils.ToastUtil;
@@ -94,6 +96,21 @@ public class AddNewFriendAdapter extends BaseAdapter {
             }
         }
 
+        if (list.get(position).getFellowStatus() == null
+                || "null".equals((list.get(position).getFellowStatus()))
+                || "".equals(list.get(position).getFellowStatus())) {
+
+
+        } else if (list.get(position).getFellowStatus() == 0) {
+            viewHolder.fellow.setBackgroundColor(activity.getResources().getColor(R.color.white));
+            viewHolder.fellow.setTextColor(activity.getResources().getColor(R.color.thirdTitle));
+            viewHolder.fellow.setText(activity.getResources().getString(R.string.already_fellow));
+        } else if (list.get(position).getFellowStatus() == 1) {
+            viewHolder.fellow.setBackgroundColor(activity.getResources().getColor(R.color.white));
+            viewHolder.fellow.setTextColor(activity.getResources().getColor(R.color.thirdTitle));
+            viewHolder.fellow.setText(activity.getResources().getString(R.string.fellow_each_other));
+        }
+
         if (list.get(position).getAvatarSrc() != null
                 && !"".equals(list.get(position).getAvatarSrc())
                 && !"null".equals(list.get(position).getAvatarSrc())) {
@@ -111,6 +128,26 @@ public class AddNewFriendAdapter extends BaseAdapter {
             };
             NetworkController.getImage(list.get(position).getAvatarSrc(), callBackArticle);
         }
+
+        viewHolder.avatar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putInt("userId", list.get(position).getId());
+                bundle.putString("avatarSrc", list.get(position).getAvatarSrc());
+                JumpUtil.jumpInActivity(activity, PersonalHomeActivity.class, bundle);
+            }
+        });
+
+        viewHolder.nickname.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putInt("userId", list.get(position).getId());
+                bundle.putString("avatarSrc", list.get(position).getAvatarSrc());
+                JumpUtil.jumpInActivity(activity, PersonalHomeActivity.class, bundle);
+            }
+        });
 
         viewHolder.fellow.setOnClickListener(new View.OnClickListener() {
             @Override

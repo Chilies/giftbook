@@ -40,7 +40,7 @@ public class PersonalHomeActivity extends Activity implements View.OnClickListen
     private TextView nickName, signature, phoneNumber, sex, area;
     private LinearLayout wishRecord;
     private int userId;
-    private String wishCardAvatarSrc;
+    private String avatarSrc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +53,7 @@ public class PersonalHomeActivity extends Activity implements View.OnClickListen
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
 
         userId = getIntent().getIntExtra("userId", 0);
-        wishCardAvatarSrc = getIntent().getStringExtra("wishCardAvatarSrc");
+        avatarSrc = getIntent().getStringExtra("avatarSrc");
 
         getViews();
         setUserData();
@@ -98,10 +98,30 @@ public class PersonalHomeActivity extends Activity implements View.OnClickListen
                         && userInfoJsonJsonBaseList.getMsg().equals("success")) {
                     UserInfoJson userInfoJson = userInfoJsonJsonBaseList.getData().get(0);
                     nickName.setText(userInfoJson.getNickName());
-                    signature.setText(userInfoJson.getSignature());
+
                     phoneNumber.setText(userInfoJson.getTelephone());
-                    sex.setText(userInfoJson.getGender());
-                    area.setText(userInfoJson.getProvince());
+
+                    if ((userInfoJson.getSignature() == null)
+                            || ("null".equals(userInfoJson.getSignature()))
+                            || "".equals(userInfoJson.getSignature())) {
+
+                    } else {
+                        signature.setText(userInfoJson.getSignature());
+                    }
+                    if ((userInfoJson.getGender() == null)
+                            || ("null".equals(userInfoJson.getGender()))
+                            || "".equals(userInfoJson.getGender())) {
+
+                    } else {
+                        sex.setText(userInfoJson.getGender());
+                    }
+                    if ((userInfoJson.getProvince() == null)
+                            || ("null".equals(userInfoJson.getProvince()))
+                            || "".equals(userInfoJson.getProvince())) {
+
+                    } else {
+                        area.setText(userInfoJson.getProvince());
+                    }
                 } else {
                     Log.e("someError", userInfoJsonJsonBaseList.getCode() + userInfoJsonJsonBaseList.getMsg());
                 }
@@ -112,7 +132,9 @@ public class PersonalHomeActivity extends Activity implements View.OnClickListen
     }
 
     private void setAvatarData() {
-        if (wishCardAvatarSrc != null && !"".equals(wishCardAvatarSrc)) {
+        if (avatarSrc != null
+                && !"".equals(avatarSrc)
+                && !"null".equals(avatarSrc)) {
             BitmapCallback callBackBitmap = new BitmapCallback() {
                 @Override
                 public void onError(Call call, Exception e, int id) {
@@ -126,8 +148,8 @@ public class PersonalHomeActivity extends Activity implements View.OnClickListen
                     avatar.setImageBitmap(response);
                 }
             };
-            Log.e("wishCardAvatarSrc", wishCardAvatarSrc);
-            NetworkController.getImage(wishCardAvatarSrc, callBackBitmap);
+            Log.e("avatarSrc", avatarSrc);
+            NetworkController.getImage(avatarSrc, callBackBitmap);
         } else {
             avatar.setImageResource(R.drawable.avatar);
         }
@@ -142,11 +164,11 @@ public class PersonalHomeActivity extends Activity implements View.OnClickListen
                 break;
             case R.id.activity_personal_home_avatar_img:
                 Bundle bundle = new Bundle();
-                Log.e("bigImageSrc", wishCardAvatarSrc);
-                if (wishCardAvatarSrc != null && !"".equals(wishCardAvatarSrc)) {
-                    bundle.putString("bigImageSrc", wishCardAvatarSrc);
+                Log.e("bigImageSrc", avatarSrc);
+                if (avatarSrc != null && !"".equals(avatarSrc)) {
+                    bundle.putString("bigImageSrc", avatarSrc);
                 }
-                JumpUtil.jumpInActivity(activity, BigImageActivity.class,bundle);
+                JumpUtil.jumpInActivity(activity, BigImageActivity.class, bundle);
                 break;
             case R.id.activity_personal_home_wish_record_linear:
                 break;

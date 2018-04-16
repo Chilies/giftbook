@@ -1,7 +1,6 @@
 package edu.sctu.giftbook.utils;
 
 import android.graphics.Bitmap;
-import android.media.Image;
 import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -13,7 +12,6 @@ import com.zhy.http.okhttp.builder.PostFormBuilder;
 import com.zhy.http.okhttp.callback.BitmapCallback;
 import com.zhy.http.okhttp.callback.FileCallBack;
 import com.zhy.http.okhttp.callback.StringCallback;
-import com.zhy.http.okhttp.request.OkHttpRequest;
 import com.zhy.http.okhttp.request.RequestCall;
 
 import java.io.File;
@@ -22,9 +20,7 @@ import java.util.Map;
 import edu.sctu.giftbook.base.BaseApplication;
 import okhttp3.Call;
 import okhttp3.MediaType;
-import okhttp3.MultipartBody;
 
-import static android.icu.lang.UCharacter.GraphemeClusterBreak.L;
 
 /**
  * Created by zhengsenwen on 2018/3/13.
