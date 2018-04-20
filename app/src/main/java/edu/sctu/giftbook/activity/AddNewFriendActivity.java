@@ -17,6 +17,8 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
 import com.zhy.http.okhttp.callback.StringCallback;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -24,6 +26,7 @@ import java.util.Map;
 
 import edu.sctu.giftbook.R;
 import edu.sctu.giftbook.adapter.AddNewFriendAdapter;
+import edu.sctu.giftbook.base.BaseActivity;
 import edu.sctu.giftbook.entity.Contact;
 import edu.sctu.giftbook.entity.ContactFriend;
 import edu.sctu.giftbook.entity.JsonBaseList;
@@ -41,12 +44,11 @@ import okhttp3.Call;
  * Created by zhengsenwen on 2018/2/14.
  */
 
-public class AddNewFriendActivity extends Activity implements View.OnClickListener {
+public class AddNewFriendActivity extends BaseActivity implements View.OnClickListener {
 
     private Activity activity;
     private SearchView searchView;
     private ListView newFriendListView, searchListView;
-    private LayoutInflater layoutInflater;
     private List<Contact> contactList;
     private List<String> samePhoneNumberList;
     private SharePreference sharePreference;
@@ -61,7 +63,6 @@ public class AddNewFriendActivity extends Activity implements View.OnClickListen
         setContentView(R.layout.activity_add_new_friend);
         //透明状态栏
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        layoutInflater = layoutInflater.from(activity);
         sharePreference = SharePreference.getInstance(activity);
 
         getViews();
@@ -75,7 +76,6 @@ public class AddNewFriendActivity extends Activity implements View.OnClickListen
         backImg.setOnClickListener(this);
 
         newFriendListView = (ListView) findViewById(R.id.activity_add_new_friend_ListView);
-
 //        searchView = (SearchView) findViewById(R.id.activity_add_new_friend_searchEdit);
 //        searchListView = (ListView) findViewById(R.id.activity_add_new_friend_searchListView);
 //        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener()
@@ -144,22 +144,15 @@ public class AddNewFriendActivity extends Activity implements View.OnClickListen
 
     private String setContactFriendData(List<String> samePhoneNumberList) {
         Integer userId = sharePreference.getInt(CacheConfig.USER_ID);
-        if (userId == null || userId == 0) {
-            Log.e("error", userId + "");
+        if (userId == 0) {
             return null;
         }
-        if (samePhoneNumberList == null
-                || "null".equals(samePhoneNumberList)
-                || "".equals(samePhoneNumberList)) {
-            Log.e("error", samePhoneNumberList + "");
+        if (!StringUtils.isBlank(JSON.toJSONString(samePhoneNumberList))) {
             return null;
         }
-
         Map<String, String> map = new HashMap<>();
-        Log.e("phone", JSON.toJSONString(samePhoneNumberList));
         map.put("userId", String.valueOf(userId));
         map.put("phoneListJsonString", JSON.toJSONString(samePhoneNumberList));
-
         StringCallback friendCallBack = new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
@@ -167,20 +160,16 @@ public class AddNewFriendActivity extends Activity implements View.OnClickListen
                 Log.e("error", e.getMessage(), e);
             }
 
-
             @Override
             public void onResponse(String response, int id) {
                 Log.e("friend", response);
                 JsonBaseList<ContactFriend> contactFriendJsonBaseList = JSON.parseObject(response,
                         new TypeReference<JsonBaseList<ContactFriend>>() {
                         }.getType());
-
                 if (contactFriendJsonBaseList.getCode() == 200
                         && contactFriendJsonBaseList.getMsg().equals("success")) {
                     final List<ContactFriend> contactFriendList = contactFriendJsonBaseList.getData();
-
-                    newFriendListView.setAdapter(new AddNewFriendAdapter(
-                            activity, layoutInflater, contactFriendList, contactList));
+                    newFriendListView.setAdapter(new AddNewFriendAdapter(activity, contactFriendList, contactList));
                     newFriendListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -194,13 +183,10 @@ public class AddNewFriendActivity extends Activity implements View.OnClickListen
                             }
                         }
                     });
-
                 }
-
             }
         };
         NetworkController.postMap(URLConfig.URL_FRIEND_CONTACT_FRIEND, map, friendCallBack);
-
         return null;
     }
 
@@ -234,11 +220,8 @@ public class AddNewFriendActivity extends Activity implements View.OnClickListen
                             }
                         }
                     }
-
+                    //加载通讯录用户数据
                     setContactFriendData(samePhoneNumberList);
-
-                } else {
-                    Log.e("someError", stringJsonBaseList.getCode() + stringJsonBaseList.getMsg());
                 }
             }
         };

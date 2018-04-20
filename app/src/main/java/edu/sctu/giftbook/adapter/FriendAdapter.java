@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.zhy.http.okhttp.callback.BitmapCallback;
 
+import org.apache.commons.lang3.StringUtils;
 import org.w3c.dom.Text;
 
 import java.util.List;
@@ -78,17 +79,16 @@ public class FriendAdapter extends BaseAdapter {
 
         if (list.get(position).getFellowStatus() == 0) {
 
-
         } else if (list.get(position).getFellowStatus() == 1) {
             viewHolder.fellow.setText(activity.getResources().getString(R.string.fellow_each_other));
         }
 
-        if (list.get(position).getAvatarSrc() != null
-                && !"".equals(list.get(position).getAvatarSrc())
+        if (!StringUtils.isBlank(list.get(position).getAvatarSrc())
                 && !"null".equals(list.get(position).getAvatarSrc())) {
             BitmapCallback callBackArticle = new BitmapCallback() {
                 @Override
                 public void onError(Call call, Exception e, int id) {
+                    viewHolder.avatar.setImageResource(R.drawable.avatar);
                     ToastUtil.makeText(activity, R.string.net_work_error);
                     Log.e("error", e.getMessage(), e);
                 }
@@ -100,7 +100,6 @@ public class FriendAdapter extends BaseAdapter {
             };
             NetworkController.getImage(list.get(position).getAvatarSrc(), callBackArticle);
         }
-
 
         viewHolder.avatar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -122,8 +121,6 @@ public class FriendAdapter extends BaseAdapter {
             }
         });
 
-
-
         return view;
     }
 
@@ -132,4 +129,6 @@ public class FriendAdapter extends BaseAdapter {
         TextView nickname;
         Button fellow;
     }
+
+
 }

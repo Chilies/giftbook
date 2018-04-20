@@ -10,7 +10,10 @@ import android.widget.ImageView;
 
 import com.zhy.http.okhttp.callback.BitmapCallback;
 
+import org.apache.commons.lang3.StringUtils;
+
 import edu.sctu.giftbook.R;
+import edu.sctu.giftbook.base.BaseActivity;
 import edu.sctu.giftbook.utils.NetworkController;
 import edu.sctu.giftbook.utils.ToastUtil;
 import okhttp3.Call;
@@ -19,7 +22,7 @@ import okhttp3.Call;
  * Created by zhengsenwen on 2018/4/10.
  */
 
-public class BigImageActivity extends Activity {
+public class BigImageActivity extends BaseActivity {
 
     private Activity activity;
     private ImageView bigImage;
@@ -37,15 +40,15 @@ public class BigImageActivity extends Activity {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
 
         imageUrl = getIntent().getStringExtra("bigImageSrc");
-
         bigImage = (ImageView) findViewById(R.id.activity_big_image);
-
         setBigImage();
     }
 
 
     private void setBigImage() {
-        if (imageUrl != null && !"".equals(imageUrl)) {
+        if (StringUtils.isBlank(imageUrl)) {
+            bigImage.setImageResource(R.drawable.avatar);
+        } else {
             BitmapCallback callBackBitmap = new BitmapCallback() {
                 @Override
                 public void onError(Call call, Exception e, int id) {
@@ -59,10 +62,10 @@ public class BigImageActivity extends Activity {
                     bigImage.setImageBitmap(response);
                 }
             };
-            Log.e("imageUrl", imageUrl);
             NetworkController.getImage(imageUrl, callBackBitmap);
-        } else {
-            bigImage.setImageResource(R.drawable.avatar);
         }
     }
+
+
+
 }

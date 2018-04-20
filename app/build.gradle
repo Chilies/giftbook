@@ -9,8 +9,8 @@ android {
         targetSdkVersion 21
         versionCode 1
         versionName "1.0"
-        multiDexEnabled true
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+//        multiDexEnabled true
+//        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     dexOptions {
         javaMaxHeapSize "4g"
@@ -30,21 +30,18 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    //    compile 'com.android.support:appcompat-v7:25.2.0'
     compile 'com.android.support:design:22.2.0'
     testCompile 'junit:junit:4.12'
     //自己添加的jar
-    //    compile group: 'com.google.android', name: 'support-v4', version: 'r7'
     compile 'com.squareup.okhttp3:okhttp:3.9.0'
     compile 'com.alibaba:fastjson:1.2.44'
     compile 'com.makeramen:roundedimageview:2.2.1'
     compile 'com.alibaba:fastjson:1.2.8'
     compile 'com.zhy:okhttputils:2.6.2'
-    //    compile 'com.jakewharton:butterknife:7.0.1'
-    //    compile 'org.simple:androideventbus:1.0.5.1'
-    //    compile 'com.squareup.okhttp:okhttp:2.7.2'
     compile files('libs/sunjce_provider.jar')
     compile group: 'com.google.zxing', name: 'core', version: '3.3.2'
+    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.7'
+
 
 }
 

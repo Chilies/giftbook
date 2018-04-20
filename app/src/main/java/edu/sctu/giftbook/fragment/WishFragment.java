@@ -15,12 +15,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Switch;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
 import com.zhy.http.okhttp.callback.StringCallback;
+
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.HashMap;
 import java.util.List;
@@ -52,10 +56,10 @@ public class WishFragment extends Fragment implements View.OnClickListener {
     private ListView wishListView;
     private ImageView publish;
     private SharePreference sharePreference;
-
     private static final int PHOTO_FROM_GALLERY = 1;
     private Bitmap bitmap;
     private String receiveCode;
+    private Switch selectGroupSwitch;
 
 
     @Nullable
@@ -64,21 +68,73 @@ public class WishFragment extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         activity = getActivity();
         View view = LayoutInflater.from(activity).inflate(R.layout.fragment_wish, null);
-
         sharePreference = SharePreference.getInstance(activity);
-        getViews(view);
-        setWishListData();
 
+        selectGroupSwitch = (Switch) view.findViewById(R.id.fragment_wish_switch_button);
+        publish = (ImageView) view.findViewById(R.id.fragment_wish_add_img);
+        wishListView = (ListView) view.findViewById(R.id.fragment_wish_listView);
+        setWishListData();
         return view;
     }
 
-
-    public void getViews(View view) {
-        publish = (ImageView) view.findViewById(R.id.fragment_wish_add_img);
-        wishListView = (ListView) view.findViewById(R.id.fragment_wish_listView);
+    private void setWishListData() {
+        loadAllWish();
+        selectGroupSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    Log.e("check", "is checked");
+                    loadAllWish();
+                } else {
+                    Log.e("check", "un check");
+                    loadFriendWish();
+                }
+            }
+        });
     }
 
-    private void setWishListData() {
+    private void loadFriendWish() {
+        Integer userId = sharePreference.getInt(CacheConfig.USER_ID);
+        if (userId == 0) {
+            return;
+        } else {
+            Map<String, String> map = new HashMap<>();
+            map.put("userId", String.valueOf(userId));
+            StringCallback callBackWishList = new StringCallback() {
+                @Override
+                public void onError(Call call, Exception e, int id) {
+                    ToastUtil.makeText(activity, R.string.net_work_error);
+                    Log.e("error", e.getMessage(), e);
+                }
+
+                @Override
+                public void onResponse(String response, int id) {
+                    Log.e("friendWishList", response);
+                    JsonBaseList<WishCardContent> wishCardContentJsonBaseList = JSON.parseObject(
+                            response, new TypeReference<JsonBaseList<WishCardContent>>() {
+                            }.getType());
+                    if (wishCardContentJsonBaseList.getCode() == 200
+                            && wishCardContentJsonBaseList.getMsg().equals("success")) {
+                        final List<WishCardContent> wishCardContentList = wishCardContentJsonBaseList.getData();
+                        wishListView.setAdapter(new WishAdapter(activity, wishCardContentList));
+                        wishListView.setOnItemClickListener(
+                                new AdapterView.OnItemClickListener() {
+                                    @Override
+                                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                        Bundle bundle = new Bundle();
+                                        bundle.putString("wishCardId", wishCardContentList.get(position).getWishCardId() + "");
+                                        bundle.putString("toUserId", wishCardContentList.get(position).getId() + "");
+                                        JumpUtil.jumpInActivity(activity, WishDetailsActivity.class, bundle);
+                                    }
+                                });
+                    }
+                }
+            };
+            NetworkController.getMap(URLConfig.URL_FRIEND_WISH_ALL, map, callBackWishList);
+        }
+    }
+
+    private void loadAllWish() {
         StringCallback callBackWishList = new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
@@ -89,48 +145,34 @@ public class WishFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onResponse(String response, int id) {
                 Log.e("wishAllList", response);
-                JsonBaseList<WishCardContent> wishCardContentJsonBaseList
-                        = JSON.parseObject(response,
-                        new TypeReference<JsonBaseList<WishCardContent>>() {
+                JsonBaseList<WishCardContent> wishCardContentJsonBaseList = JSON.parseObject(
+                        response, new TypeReference<JsonBaseList<WishCardContent>>() {
                         }.getType());
                 if (wishCardContentJsonBaseList.getCode() == 200
                         && wishCardContentJsonBaseList.getMsg().equals("success")) {
-                    final List<WishCardContent> wishCardContentList
-                            = wishCardContentJsonBaseList.getData();
-                    LayoutInflater layoutInflater = LayoutInflater.from(activity);
-                    wishListView.setAdapter(new WishAdapter(layoutInflater,
-                            activity, wishCardContentList));
+                    final List<WishCardContent> wishCardContentList = wishCardContentJsonBaseList.getData();
+                    wishListView.setAdapter(new WishAdapter(activity, wishCardContentList));
                     wishListView.setOnItemClickListener(
                             new AdapterView.OnItemClickListener() {
                                 @Override
-                                public void onItemClick(AdapterView<?> parent, View view,
-                                                        int position, long id) {
-                                    Log.e("wishCardId", wishCardContentList.get(position)
-                                            .getWishCardId() + "");
+                                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                                     Bundle bundle = new Bundle();
                                     bundle.putString("wishCardId", wishCardContentList.get(position).getWishCardId() + "");
-                                    bundle.putString("fromUserId", wishCardContentList.get(position).getId() + "");
+                                    bundle.putString("toUserId", wishCardContentList.get(position).getId() + "");
                                     JumpUtil.jumpInActivity(activity, WishDetailsActivity.class, bundle);
                                 }
                             });
-                } else {
-                    Log.e("someError", wishCardContentJsonBaseList.getCode()
-                            + wishCardContentJsonBaseList.getMsg());
                 }
             }
         };
         NetworkController.getObject(URLConfig.URL_WISH_ALL, callBackWishList);
     }
 
-
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        setOnClick();
-    }
-
-    private void setOnClick() {
         publish.setOnClickListener(this);
+
     }
 
     @Override
@@ -145,11 +187,13 @@ public class WishFragment extends Fragment implements View.OnClickListener {
         }
     }
 
-    private void publishWishCard() {
+    private String publishWishCard() {
+        Integer userId = sharePreference.getInt(CacheConfig.USER_ID);
+        if (userId == 0) {
+            return null;
+        }
         Map<String, String> map = new HashMap<>();
-        int userId = sharePreference.getInt(CacheConfig.USER_ID);
         map.put("userId", String.valueOf(userId));
-
         StringCallback alipayCheckCallBack = new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
@@ -165,17 +209,16 @@ public class WishFragment extends Fragment implements View.OnClickListener {
                         }.getType());
                 if (alipayJsonBaseList.getCode() == 200
                         && alipayJsonBaseList.getMsg().equals("success")) {
-                    //请求成功说明用户没有上传过收钱码
+                    //弹出提示让用户上传收钱码
                     popNote();
+
                 } else if (alipayJsonBaseList.getCode() == 3) {
                     JumpUtil.jumpInActivity(activity, PublishWishActivity.class);
-                } else {
-                    Log.e("someError", alipayJsonBaseList.getCode() + alipayJsonBaseList.getMsg());
                 }
-
             }
         };
         NetworkController.postMap(URLConfig.URL_ALIPAY_CHECK, map, alipayCheckCallBack);
+        return null;
     }
 
 
@@ -212,24 +255,20 @@ public class WishFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.e("now", "is here");
         switch (requestCode) {
             case PHOTO_FROM_GALLERY:
                 if (data != null) {
                     Uri uri = data.getData();
-                    Log.e("uri", uri.toString() + "  " + uri.getPath());
                     String path = uri.getPath();
                     String realPath = Environment.getExternalStorageDirectory().getPath()
                             + path.substring(path.indexOf("D") - 1, path.length());
                     //生成缩略图防止OOM 回显图片较小，上传的图片较大
                     bitmap = ImageTools.getImageThumbnail(realPath, 500, 500);
-                    // TODO: 2018/4/3  解析图片信息
-
+                    // 解析二维码信息
                     String result = QRHelper.getResult(bitmap);
                     String header = result.substring(0, 21);
                     if (header.equals("HTTPS://QR.ALIPAY.COM/")) {
                         receiveCode = result.substring(22, result.length());
-                        Log.e("result", result + requestCode);
                         uploadReceiveCode();
                     } else {
                         ToastUtil.makeText(activity, R.string.wish_choose_right_receive_code);
@@ -243,12 +282,17 @@ public class WishFragment extends Fragment implements View.OnClickListener {
         }
     }
 
-    private void uploadReceiveCode() {
+    private String uploadReceiveCode() {
+        Integer userId = sharePreference.getInt(CacheConfig.USER_ID);
+        if (userId == 0) {
+            return null;
+        }
+        if (StringUtils.isBlank(receiveCode)) {
+            return null;
+        }
         Map<String, String> map = new HashMap<>();
-        int userId = sharePreference.getInt(CacheConfig.USER_ID);
         map.put("userId", String.valueOf(userId));
         map.put("receiveCode", receiveCode);
-
         StringCallback receiveCodeCallBack = new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
@@ -268,12 +312,12 @@ public class WishFragment extends Fragment implements View.OnClickListener {
                     sharePreference.setCache(CacheConfig.CACHE_ALIPAY_RECEIVE_CODE,
                             alipay.getReceiveCode());
                     JumpUtil.jumpInActivity(activity, PublishWishActivity.class);
-                } else {
-                    Log.e("someError", alipayJsonBaseList.getCode() + alipayJsonBaseList.getMsg());
                 }
             }
         };
-        NetworkController.postMap(URLConfig.URL_ALIPAY_UPLOAD_RECEIVE_CODE, map, receiveCodeCallBack);
+        NetworkController.postMap(URLConfig.URL_ALIPAY_UPLOAD_RECEIVE_CODE,
+                map, receiveCodeCallBack);
+        return null;
     }
 
 

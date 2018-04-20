@@ -15,7 +15,6 @@ import java.util.concurrent.Executors;
 public class BaseApplication extends Application {
 
     private static BaseApplication mInstance;
-    private List<Activity> activityList = new LinkedList<Activity>();
 
     private ExecutorService threadPool;
     public ExecutorService getThreadPool(){
@@ -29,19 +28,6 @@ public class BaseApplication extends Application {
         return mInstance;
     }
 
-    // 添加Activity到容器中
-    public void addActivity(Activity activity) {
-        activityList.add(activity);
-    }
-
-    // 遍历所有Activity并finish
-    public void exit() {
-        for (Activity activity : activityList) {
-            activity.finish();
-        }
-        Log.d("activityList==Size:", "" + activityList);
-
-    }
 
     @Override
     public void onCreate() {

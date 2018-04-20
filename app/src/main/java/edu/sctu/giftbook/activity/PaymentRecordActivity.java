@@ -19,7 +19,7 @@ import edu.sctu.giftbook.utils.ToastUtil;
  * Created by zhengsenwen on 2018/2/12.
  */
 
-public class PaymentRecordActivity extends Activity implements View.OnClickListener {
+public class PaymentRecordActivity extends BaseActivity implements View.OnClickListener {
 
     private Activity activity;
     private ListView budgetListView;
@@ -37,7 +37,6 @@ public class PaymentRecordActivity extends Activity implements View.OnClickListe
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
 
         getViews();
-
     }
 
     public void getViews() {
@@ -59,7 +58,6 @@ public class PaymentRecordActivity extends Activity implements View.OnClickListe
             case R.id.back_img:
                 finish();
                 break;
-
             default:
                 break;
         }

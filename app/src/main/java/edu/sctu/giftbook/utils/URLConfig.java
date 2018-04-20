@@ -33,6 +33,8 @@ public class URLConfig {
     public static final String URL_WISH_PUBLISH_TYPE = "/wish/publish/type";
     public static final String URL_WISH_PUBLISH = "/wish/publish/one/wishCard";
     public static final String URL_WISH_ALL = "/wish/all";
+    public static final String URL_FRIEND_WISH_ALL = "/wish/friend";
+    public static final String URL_USER_WISH_RECORD = "/wish/user/";//wish/user/{userId}
     public static final String URL_WISH_ONE = "/wish/"; // wish/{wishCardId}
 
 
@@ -47,33 +49,6 @@ public class URLConfig {
     public static final String URL_FRIEND_CONTACT_FRIEND = "/friend/contact/friend";
     public static final String URL_FELLOW_FRIEND = "/friend/fellow";
     public static final String URL_ALL_FELLOW_FRIEND = "/friend/all/fellow";
-
-
-
-
-
-    public static final String URL_FAMOUS_HEAD = "/files/object/c_zmjd_3";
-    public static final String URL_FAMOUS_SPOT_ONE = "/article/";
-
-
-    //个人中心
-    public static final String URL_PERSON_REGISTER = "/user/register";
-    public static final String URL_PERSON_LOGIN = "/user/login";
-    public static final String URL_PERSON_UPDATE_USERINFO = "/user/update/";
-
-    //游记列表
-    public static final String URL_TRAVEL_NOTES_LIST = "/travels/article/list";
-    public static final String URL_TRAVEL_NOTES_NEW_LIST = "/travels/top/";
-
-    //我的游记列表
-    public static final String URL_MY_TRAVAL_LIST = "/travels/manager/";
-
-
-    //游记详情
-    public static final String URL_PERSON_ALL_NOTE_DETAILS = "/travels/article/";
-    public static final String URL_PERSON_MY_NOTE_DETAILS = "/travels/article/";
-    //游记评论
-    public static final String URL_PERSON_NOTE_DETAILS_COMMENT = "/travels/comments/";
 
 
 }

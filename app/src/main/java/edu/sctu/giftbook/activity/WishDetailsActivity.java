@@ -28,6 +28,8 @@ import com.alibaba.fastjson.TypeReference;
 import com.zhy.http.okhttp.callback.BitmapCallback;
 import com.zhy.http.okhttp.callback.StringCallback;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -63,7 +65,6 @@ public class WishDetailsActivity extends BaseActivity implements View.OnClickLis
     private TextView nickName, time, article, type, money;
     private LayoutInflater layoutInflater;
     private EditText editComment, editCommentText;
-    private Button sendCommentButton;
     private String wishCardId;
     private String fromUserId;
     private String toUserId;
@@ -84,9 +85,8 @@ public class WishDetailsActivity extends BaseActivity implements View.OnClickLis
         sharePreference = SharePreference.getInstance(activity);
 
         wishCardId = getIntent().getStringExtra("wishCardId");
-        fromUserId = getIntent().getStringExtra("fromUserId");
-        toUserId = String.valueOf(sharePreference.getInt(CacheConfig.USER_ID));
-
+        fromUserId = String.valueOf(sharePreference.getInt(CacheConfig.USER_ID));
+        toUserId = getIntent().getStringExtra("toUserId");
         getViews();
         setWishCardData();
         getComment();
@@ -106,92 +106,87 @@ public class WishDetailsActivity extends BaseActivity implements View.OnClickLis
         type = (TextView) findViewById(R.id.activity_wish_details_type_text);
         money = (TextView) findViewById(R.id.activity_wish_details_money_text);
         payment = (ImageView) findViewById(R.id.activity_wish_details_payment);
-
-        payment.setOnClickListener(this);
-
         editComment = (EditText) findViewById(R.id.activity_wish_details_comment_edit);
-        editComment.setOnClickListener(this);
-
         commentListView = (ListView) findViewById(R.id.activity_wish_details_comment_listView);
-        layoutInflater = LayoutInflater.from(this);
 
+        editComment.setOnClickListener(this);
+        payment.setOnClickListener(this);
+        layoutInflater = LayoutInflater.from(this);
     }
 
     /**
      * 获取评论
      */
-    private void getComment() {
-        if (wishCardId != null && !"".equals(wishCardId)) {
-            Map<String, String> commentMap = new HashMap<>();
-            commentMap.put("wishCardId", String.valueOf(wishCardId));
-            StringCallback commentCallBack = new StringCallback() {
-                @Override
-                public void onError(Call call, Exception e, int id) {
-                    ToastUtil.makeText(activity, R.string.net_work_error);
-                    Log.e("error", e.getMessage(), e);
-                }
-
-                @Override
-                public void onResponse(String response, int id) {
-                    Log.e("comment", response);
-                    JsonBaseList<Comment> commentJsonBaseList = JSON.parseObject(
-                            response, new TypeReference<JsonBaseList<Comment>>() {
-                            }.getType());
-
-                    if (commentJsonBaseList.getCode() == 200
-                            && commentJsonBaseList.getMsg().equals("success")) {
-                        List<Comment> commentList = commentJsonBaseList.getData();
-                        CommentAdapter commentAdapter = new CommentAdapter(layoutInflater, activity, commentList);
-                        setHeight(commentListView, commentAdapter);
-                        commentListView.setAdapter(commentAdapter);
-                    } else {
-                        Log.e("someError", commentJsonBaseList.getCode() + commentJsonBaseList.getMsg());
-                    }
-                }
-            };
-            NetworkController.getMap(URLConfig.URL_COMMENT_WISHCARD_DETAILS, commentMap, commentCallBack);
-        } else {
-            Log.e("error", "wishCardId is null");
+    private String getComment() {
+        if (StringUtils.isBlank(wishCardId)) {
+            return null;
         }
+        Map<String, String> commentMap = new HashMap<>();
+        commentMap.put("wishCardId", String.valueOf(wishCardId));
+        StringCallback commentCallBack = new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+                ToastUtil.makeText(activity, R.string.net_work_error);
+                Log.e("error", e.getMessage(), e);
+            }
+
+            @Override
+            public void onResponse(String response, int id) {
+                Log.e("comment", response);
+                JsonBaseList<Comment> commentJsonBaseList = JSON.parseObject(
+                        response, new TypeReference<JsonBaseList<Comment>>() {
+                        }.getType());
+                if (commentJsonBaseList.getCode() == 200
+                        && commentJsonBaseList.getMsg().equals("success")) {
+                    List<Comment> commentList = commentJsonBaseList.getData();
+                    CommentAdapter commentAdapter = new CommentAdapter(layoutInflater, activity, commentList);
+                    setHeight(commentListView, commentAdapter);
+                    commentListView.setAdapter(commentAdapter);
+                }
+            }
+        };
+        NetworkController.getMap(URLConfig.URL_COMMENT_WISHCARD_DETAILS, commentMap, commentCallBack);
+        return null;
     }
 
     /**
      * 设置心愿单主体内容
      */
-    private void setWishCardData() {
-        if (wishCardId != null && !"".equals(wishCardId)) {
-            StringCallback wishCallBack = new StringCallback() {
-                @Override
-                public void onError(Call call, Exception e, int id) {
-                    ToastUtil.makeText(activity, R.string.net_work_error);
-                    Log.e("error", e.getMessage(), e);
-                }
+    private String setWishCardData() {
+        if (StringUtils.isBlank(wishCardId)) {
+            return null;
+        }
+        StringCallback wishCallBack = new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+                ToastUtil.makeText(activity, R.string.net_work_error);
+                Log.e("error", e.getMessage(), e);
+            }
 
-                @Override
-                public void onResponse(String response, int id) {
-                    Log.e("wishDetails", response);
-                    JsonBaseList<WishCardContent> wishCardContentJsonBaseList
-                            = JSON.parseObject(response,
-                            new TypeReference<JsonBaseList<WishCardContent>>() {
-                            }.getType());
-                    if (wishCardContentJsonBaseList.getCode() == 200
-                            && wishCardContentJsonBaseList.getMsg()
-                            .equals("success")) {
-                        final WishCardContent wishCardContent = wishCardContentJsonBaseList
-                                .getData().get(0);
-                        nickName.setText(wishCardContent.getNickName());
-                        time.setText(wishCardContent.getCreateTime());
-                        article.setText(wishCardContent.getDescription());
-                        type.setText(wishCardContent.getType());
-                        money.setText(wishCardContent.getPrice());
+            @Override
+            public void onResponse(String response, int id) {
+                Log.e("wishDetails", response);
+                JsonBaseList<WishCardContent> wishCardContentJsonBaseList
+                        = JSON.parseObject(response,
+                        new TypeReference<JsonBaseList<WishCardContent>>() {
+                        }.getType());
+                if (wishCardContentJsonBaseList.getCode() == 200
+                        && wishCardContentJsonBaseList.getMsg().equals("success")) {
+                    final WishCardContent wishCardContent = wishCardContentJsonBaseList.getData().get(0);
+                    nickName.setText(wishCardContent.getNickName());
+                    time.setText(wishCardContent.getCreateTime());
+                    article.setText(wishCardContent.getDescription());
+                    type.setText(wishCardContent.getType());
+                    money.setText(wishCardContent.getPrice());
+                    alipayReceiveCode = wishCardContent.getAlipayReceiveCode();
+                    CommonUtil.setType(wishCardContent.getType(), wishType);
 
-                        alipayReceiveCode = wishCardContent.getAlipayReceiveCode();
-
-                        CommonUtil.setType(wishCardContent.getType(), wishType);
-
+                    if (!StringUtils.isBlank(wishCardContent.getAvatarSrc())
+                            && !"null".equals(wishCardContent.getAvatarSrc())) {
                         BitmapCallback callBackAvatar = new BitmapCallback() {
                             @Override
                             public void onError(Call call, Exception e, int id) {
+                                avatar.setImageResource(R.drawable.avatar);
                                 ToastUtil.makeText(activity, R.string.net_work_error);
                                 Log.e("error", e.getMessage(), e);
                             }
@@ -202,10 +197,13 @@ public class WishDetailsActivity extends BaseActivity implements View.OnClickLis
                             }
                         };
                         NetworkController.getImage(wishCardContent.getAvatarSrc(), callBackAvatar);
-
+                    }
+                    if (!StringUtils.isBlank(wishCardContent.getWishCardImgSrc())
+                            && !"null".equals(wishCardContent.getWishCardImgSrc())) {
                         BitmapCallback callBackArticle = new BitmapCallback() {
                             @Override
                             public void onError(Call call, Exception e, int id) {
+                                content.setImageResource(R.drawable.error_img);
                                 ToastUtil.makeText(activity, R.string.net_work_error);
                                 Log.e("error", e.getMessage(), e);
                             }
@@ -216,38 +214,31 @@ public class WishDetailsActivity extends BaseActivity implements View.OnClickLis
                             }
                         };
                         NetworkController.getImage(wishCardContent.getWishCardImgSrc(), callBackArticle);
-
-                        avatar.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                Bundle bundle = new Bundle();
-                                bundle.putInt("userId", wishCardContent.getId());
-                                bundle.putString("avatarSrc", wishCardContent.getAvatarSrc());
-                                JumpUtil.jumpInActivity(activity, PersonalHomeActivity.class, bundle);
-                            }
-                        });
-
-                        nickName.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                Bundle bundle = new Bundle();
-                                bundle.putInt("userId", wishCardContent.getId());
-                                bundle.putString("avatarSrc", wishCardContent.getAvatarSrc());
-                                JumpUtil.jumpInActivity(activity, PersonalHomeActivity.class, bundle);
-                            }
-                        });
-
-                    } else {
-                        Log.e("someError", wishCardContentJsonBaseList.getCode()
-                                + wishCardContentJsonBaseList.getMsg());
                     }
+                    avatar.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Bundle bundle = new Bundle();
+                            bundle.putInt("userId", wishCardContent.getId());
+                            bundle.putString("avatarSrc", wishCardContent.getAvatarSrc());
+                            JumpUtil.jumpInActivity(activity, PersonalHomeActivity.class, bundle);
+                        }
+                    });
+
+                    nickName.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Bundle bundle = new Bundle();
+                            bundle.putInt("userId", wishCardContent.getId());
+                            bundle.putString("avatarSrc", wishCardContent.getAvatarSrc());
+                            JumpUtil.jumpInActivity(activity, PersonalHomeActivity.class, bundle);
+                        }
+                    });
                 }
-            };
-            Log.e("wishone", URLConfig.URL_WISH_ONE + wishCardId);
-            NetworkController.getObject(URLConfig.URL_WISH_ONE + wishCardId, wishCallBack);
-        } else {
-            Log.e("error", "wishCardId is null");
-        }
+            }
+        };
+        NetworkController.getObject(URLConfig.URL_WISH_ONE + wishCardId, wishCallBack);
+        return null;
     }
 
     /**
@@ -290,6 +281,7 @@ public class WishDetailsActivity extends BaseActivity implements View.OnClickLis
         alertDialog.getWindow().setBackgroundDrawableResource(R.drawable.abc_dialog_material_background_dark);
 
         editCommentText = (EditText) layout.findViewById(R.id.dialog_comment_edit);
+        Button sendCommentButton;
         sendCommentButton = (Button) layout.findViewById(R.id.dialog_send_comment_button);
         sendCommentButton.setOnClickListener(this);
     }
@@ -307,7 +299,7 @@ public class WishDetailsActivity extends BaseActivity implements View.OnClickLis
                 delayLoadSoftInput(editCommentText);
                 break;
             case R.id.activity_wish_details_payment:
-                if (alipayReceiveCode != null && !"".equals(alipayReceiveCode)) {
+                if (!StringUtils.isBlank(alipayReceiveCode)) {
                     AlipayUtils.transformMoney(activity, alipayReceiveCode);
                 }
                 break;
@@ -322,23 +314,20 @@ public class WishDetailsActivity extends BaseActivity implements View.OnClickLis
     /**
      * 发布评论
      */
-    private void sendComment() {
+    private String sendComment() {
         String description = editCommentText.getText().toString();
-        Log.e("comment", wishCardId + fromUserId + toUserId + description);
-        if ((wishCardId != null && !"".equals(wishCardId))
-                && (fromUserId != null && !"".equals(fromUserId))
-                && (!"".equals(description))) {
-
+        if (StringUtils.isBlank(wishCardId)
+                || StringUtils.isBlank(fromUserId)
+                || StringUtils.isBlank(description)) {
+            return null;
+        } else {
             Map<String, String> map = new HashMap<>();
             map.put("wishCardId", wishCardId);
             map.put("fromUserId", fromUserId);
-            if (fromUserId.equals(toUserId)) {
-
-            } else {
+            if (!fromUserId.equals(toUserId)) {
                 map.put("toUserId", toUserId);
             }
             map.put("description", description);
-
             StringCallback sendCommentCallBack = new StringCallback() {
                 @Override
                 public void onError(Call call, Exception e, int id) {
@@ -353,28 +342,20 @@ public class WishDetailsActivity extends BaseActivity implements View.OnClickLis
                     JsonBaseList<Reply> replyJsonBaseList = JSON.parseObject(
                             response, new TypeReference<JsonBaseList<Reply>>() {
                             }.getType());
-
-                    if (replyJsonBaseList.getCode() == 200 && replyJsonBaseList.getMsg().equals("success")) {
-                        //发送评论之后，重新刷新评论区
+                    if (replyJsonBaseList.getCode() == 200
+                            && replyJsonBaseList.getMsg().equals("success")) {
                         ToastUtil.makeText(activity, R.string.comment_send_success);
                         alertDialog.dismiss();
+                        //发送评论之后，重新刷新评论区
                         getComment();
-
-                    } else {
-                        Log.e("someError", replyJsonBaseList.getCode() + replyJsonBaseList.getMsg());
                     }
-
-
                 }
             };
             NetworkController.postMap(URLConfig.URL_COMMENT_PUBLISH, map, sendCommentCallBack);
-
-        } else {
-            Log.e("error", wishCardId + fromUserId + toUserId + description);
+            return null;
         }
-
-
     }
+
 
     /**
      * 延迟调出软键盘

@@ -22,30 +22,39 @@ import edu.sctu.giftbook.utils.SharePreference;
 /**
  * Created by zcy on 2016/8/23.
  */
-public class LeadingActivity extends Activity {
+public class LeadingActivity extends BaseActivity {
 
     private Activity activity;
+    private SharePreference sharePreference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         activity = LeadingActivity.this;
-
-        /**
-         * 去掉状态栏
-         */
+        //去掉状态栏
         View decorView = getWindow().getDecorView();
         int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_FULLSCREEN;
         decorView.setSystemUiVisibility(uiOptions);
-
 //        setContentView(R.layout.activity_leading);
         setContentView(R.layout.activity_guide_page);
 
-        if (SharePreference.getInstance(this).ifHaveShare(CacheConfig.IS_FIRST)) {
-            SharePreference.getInstance(this).setCache(CacheConfig.IS_FIRST, true);
-            JumpUtil.jumpInActivity(this, MainActivity.class);
-        } else {
+        sharePreference = SharePreference.getInstance(activity);
 
+        if (sharePreference.ifHaveShare(CacheConfig.IS_REGISTER)) {
+            if (sharePreference.ifHaveShare(CacheConfig.IS_LOGIN)) {
+                JumpUtil.jumpInActivity(this, MainActivity.class);
+            } else {
+                final Runnable myRun = new Runnable() {
+                    @Override
+                    public void run() {
+                        JumpUtil.jumpInActivity(activity, LoginActivity.class);
+                        finish();
+                    }
+                };
+                final Handler handler = new Handler();
+                handler.postDelayed(myRun, 3000);
+            }
+        } else {
             final Runnable myRun = new Runnable() {
                 @Override
                 public void run() {
@@ -53,10 +62,68 @@ public class LeadingActivity extends Activity {
                     finish();
                 }
             };
-
             final Handler handler = new Handler();
             handler.postDelayed(myRun, 3000);
         }
+
+
+//        if(sharePreference.ifHaveShare(CacheConfig.IS_REGISTER)){
+//            if(sharePreference.ifHaveShare(CacheConfig.IS_LOGIN)
+//                    && sharePreference.getBoolean(CacheConfig.IS_LOGIN)){
+//                JumpUtil.jumpInActivity(this, MainActivity.class);
+//            }else {
+//                final Runnable myRun = new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        JumpUtil.jumpInActivity(activity, LoginActivity.class);
+//                        finish();
+//                    }
+//                };
+//                final Handler handler = new Handler();
+//                handler.postDelayed(myRun, 3000);
+//            }
+//        }else {
+//            final Runnable myRun = new Runnable() {
+//                @Override
+//                public void run() {
+//                    JumpUtil.jumpInActivity(activity, RegisterActivity.class);
+//                    finish();
+//                }
+//            };
+//            final Handler handler = new Handler();
+//            handler.postDelayed(myRun, 3000);
+//        }
+
+//        //判断是否为第一次打开app
+//        if (sharePreference.ifHaveShare(CacheConfig.IS_FIRST)) {
+//            sharePreference.setCache(CacheConfig.IS_FIRST, true);
+//            JumpUtil.jumpInActivity(this, MainActivity.class);
+//        } else if (sharePreference.ifHaveShare(CacheConfig.IS_LOGIN)) {
+//            sharePreference.setCache(CacheConfig.IS_LOGIN, true);
+//            //延迟N秒进入APP
+//            final Runnable myRun = new Runnable() {
+//                @Override
+//                public void run() {
+//                    JumpUtil.jumpInActivity(activity, LoginActivity.class);
+//                    finish();
+//                }
+//            };
+//            final Handler handler = new Handler();
+//            handler.postDelayed(myRun, 3000);
+//        } else {
+//            //延迟N秒进入APP
+//            final Runnable myRun = new Runnable() {
+//                @Override
+//                public void run() {
+//                    JumpUtil.jumpInActivity(activity, RegisterActivity.class);
+//                    finish();
+//                }
+//            };
+//            final Handler handler = new Handler();
+//            handler.postDelayed(myRun, 3000);
+//        }
+
+
     }
 
 

@@ -17,6 +17,8 @@ import com.makeramen.roundedimageview.RoundedImageView;
 import com.zhy.http.okhttp.callback.BitmapCallback;
 import com.zhy.http.okhttp.callback.StringCallback;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,15 +42,13 @@ import okhttp3.Call;
  */
 public class AddNewFriendAdapter extends BaseAdapter {
     private Activity activity;
-    private LayoutInflater inflater;
     private List<ContactFriend> list;
     private List<Contact> contactList;
     private SharePreference sharePreference;
 
-    public AddNewFriendAdapter(Activity activity, LayoutInflater inflater,
-                               List<ContactFriend> list, List<Contact> contactList) {
+    public AddNewFriendAdapter(Activity activity, List<ContactFriend> list,
+                               List<Contact> contactList) {
         this.activity = activity;
-        this.inflater = inflater;
         this.list = list;
         this.contactList = contactList;
         sharePreference = SharePreference.getInstance(activity);
@@ -78,7 +78,7 @@ public class AddNewFriendAdapter extends BaseAdapter {
     public View getView(final int position, View view, ViewGroup parent) {
         final ViewHolder viewHolder;
         if (view == null) {
-            view = inflater.inflate(R.layout.item_activity_add_new_friend_listview, null);
+            view = LayoutInflater.from(activity).inflate(R.layout.item_activity_add_new_friend_listview, null);
             viewHolder = new ViewHolder();
             viewHolder.avatar = (RoundedImageView) view.findViewById(R.id.item_activity_add_new_friend_listView_avatar);
             viewHolder.contactName = (TextView) view.findViewById(R.id.item_activity_add_new_friend_listView_contact_name_text);
@@ -97,9 +97,7 @@ public class AddNewFriendAdapter extends BaseAdapter {
         }
 
         if (list.get(position).getFellowStatus() == null
-                || "null".equals((list.get(position).getFellowStatus()))
-                || "".equals(list.get(position).getFellowStatus())) {
-
+                || list.get(position).getFellowStatus() == 0) {
 
         } else if (list.get(position).getFellowStatus() == 0) {
             viewHolder.fellow.setBackgroundColor(activity.getResources().getColor(R.color.white));
@@ -111,12 +109,12 @@ public class AddNewFriendAdapter extends BaseAdapter {
             viewHolder.fellow.setText(activity.getResources().getString(R.string.fellow_each_other));
         }
 
-        if (list.get(position).getAvatarSrc() != null
-                && !"".equals(list.get(position).getAvatarSrc())
+        if (!StringUtils.isBlank(list.get(position).getAvatarSrc())
                 && !"null".equals(list.get(position).getAvatarSrc())) {
             BitmapCallback callBackArticle = new BitmapCallback() {
                 @Override
                 public void onError(Call call, Exception e, int id) {
+                    viewHolder.avatar.setImageResource(R.drawable.avatar);
                     ToastUtil.makeText(activity, R.string.net_work_error);
                     Log.e("error", e.getMessage(), e);
                 }
@@ -155,24 +153,20 @@ public class AddNewFriendAdapter extends BaseAdapter {
                 fellowTheFriend(list.get(position).getId(), viewHolder.fellow);
             }
         });
-
         return view;
     }
 
     private String fellowTheFriend(Integer friendId, final Button fellowButton) {
         if (friendId == null || friendId == 0) {
-            Log.e("error", friendId + "");
             return null;
         }
         Integer userId = sharePreference.getInt(CacheConfig.USER_ID);
-        if (userId == null || userId == 0) {
-            Log.e("error", userId + "");
+        if (userId == 0) {
             return null;
         }
         Map<String, String> map = new HashMap<>();
         map.put("userId", String.valueOf(userId));
         map.put("friendId", String.valueOf(friendId));
-
         StringCallback fellowCallBack = new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
@@ -192,11 +186,7 @@ public class AddNewFriendAdapter extends BaseAdapter {
                     fellowButton.setBackgroundColor(activity.getResources().getColor(R.color.white));
                     fellowButton.setTextColor(activity.getResources().getColor(R.color.thirdTitle));
                     fellowButton.setText("已关注");
-
-                } else {
-                    Log.e("someError", friendJsonBaseList.getCode() + friendJsonBaseList.getMsg());
                 }
-
             }
         };
         NetworkController.postMap(URLConfig.URL_FELLOW_FRIEND, map, fellowCallBack);
@@ -209,4 +199,6 @@ public class AddNewFriendAdapter extends BaseAdapter {
         TextView nickname;
         Button fellow;
     }
+
+
 }

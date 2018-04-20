@@ -27,6 +27,8 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
 import com.zhy.http.okhttp.callback.StringCallback;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -40,6 +42,7 @@ import edu.sctu.giftbook.base.BaseActivity;
 import edu.sctu.giftbook.entity.JsonBaseList;
 import edu.sctu.giftbook.entity.WishCard;
 import edu.sctu.giftbook.utils.CacheConfig;
+import edu.sctu.giftbook.utils.Constant;
 import edu.sctu.giftbook.utils.DesUtils;
 import edu.sctu.giftbook.utils.FileUtil;
 import edu.sctu.giftbook.utils.ImageTools;
@@ -54,7 +57,7 @@ import okhttp3.Call;
  * Created by zhengsenwen on 2018/2/12.
  */
 
-public class PublishWishActivity extends Activity implements View.OnClickListener {
+public class PublishWishActivity extends BaseActivity implements View.OnClickListener {
 
     private Activity activity;
     private EditText destinationEdit, valueEdit;
@@ -69,7 +72,6 @@ public class PublishWishActivity extends Activity implements View.OnClickListene
 
     private static final int PHOTO_FROM_GALLERY = 1;
     private static final int PHOTO_FROM_CAMERA = 2;
-    private String fileSavePath = "/sdcard/giftbook/wishcard/";
     private Bitmap bitmap;
 
     @Override
@@ -83,7 +85,6 @@ public class PublishWishActivity extends Activity implements View.OnClickListene
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         sharePreference = SharePreference.getInstance(activity);
         getViews();
-
     }
 
     public void getViews() {
@@ -118,7 +119,6 @@ public class PublishWishActivity extends Activity implements View.OnClickListene
                         }.getType());
                 if (stringJsonBaseList.getCode() == 200
                         && stringJsonBaseList.getMsg().equals("success")) {
-
                     dataList = stringJsonBaseList.getData();
                     adapter = new ArrayAdapter<String>(activity, android.R.layout.simple_spinner_item, dataList);
                     adapter.setDropDownViewResource(
@@ -127,7 +127,6 @@ public class PublishWishActivity extends Activity implements View.OnClickListene
                     typeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
                         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                            Log.e("position", adapter.getItem(position));
                             type = adapter.getItem(position);
                         }
 
@@ -135,9 +134,6 @@ public class PublishWishActivity extends Activity implements View.OnClickListene
                         public void onNothingSelected(AdapterView<?> parent) {
                         }
                     });
-
-                } else {
-                    Log.e("someError", stringJsonBaseList.getCode() + stringJsonBaseList.getMsg());
                 }
             }
         };
@@ -192,7 +188,7 @@ public class PublishWishActivity extends Activity implements View.OnClickListene
 
     private void getPictureFormCamera() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        File file = FileUtil.createStoragePathForAvatar(fileSavePath);
+        File file = FileUtil.createStoragePathForAvatar(Constant.WISH_CARD_IMG_SAVE_PATH);
         Uri uriForCamera = Uri.fromFile(file);
         sharePreference.setCache("uri", String.valueOf(uriForCamera));
         intent.putExtra(MediaStore.EXTRA_OUTPUT, uriForCamera);
@@ -202,12 +198,10 @@ public class PublishWishActivity extends Activity implements View.OnClickListene
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.e("now", "is here");
         switch (requestCode) {
             case PHOTO_FROM_GALLERY:
                 if (data != null) {
                     Uri uri = data.getData();
-                    Log.e("uri", uri.toString() + "  " + uri.getPath());
                     String path = uri.getPath();
                     String realPath = Environment.getExternalStorageDirectory().getPath()
                             + path.substring(path.indexOf("D") - 1, path.length());
@@ -223,7 +217,6 @@ public class PublishWishActivity extends Activity implements View.OnClickListene
                 if (resultCode == RESULT_OK) {
 
                     Uri uri = Uri.parse(sharePreference.getString("uri"));
-                    Log.e("uri", uri.toString() + "  " + uri.getPath());
                     FileUtil.storeAndUpdateInDCIM(activity, uri);
                     //生成缩略图防止OOM  回显图片较小，上传的图片较大
                     bitmap = ImageTools.getImageThumbnail(uri.getPath(), 300, 200);
@@ -238,39 +231,39 @@ public class PublishWishActivity extends Activity implements View.OnClickListene
         }
     }
 
-    public void publishOneWish() {
+    public String publishOneWish() {
         destination = destinationEdit.getText().toString();
         value = valueEdit.getText().toString();
-
-        if ((destination != null) && !"".equals(destination)
-                && (value != null) && !"".equals(value)
-                && (type != null) && !"".equals(type)
-                && (value != null) && !"".equals(value)) {
-
-            Map<String, File> fileHashMap = new HashMap<>();
-            Map<String, String> map = new HashMap<>();
-
+        if (StringUtils.isBlank(destination)
+                || StringUtils.isBlank(value)
+                || StringUtils.isBlank(type)) {
+            ToastUtil.makeText(activity, R.string.content_not_be_null);
+            return null;
+        } else {
             String wishCardFileName = sharePreference.getString(CacheConfig.CACHE_PHONE_NUMBER) + ".jpg";
+            if (StringUtils.isBlank(wishCardFileName)) {
+                return null;
+            }
             File file = null;
             try {
-                file = FileUtil.saveFile(bitmap, fileSavePath, wishCardFileName);
+                file = FileUtil.saveFile(bitmap, Constant.WISH_CARD_IMG_SAVE_PATH, wishCardFileName);
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
+            Map<String, File> fileHashMap = new HashMap<>();
+            Map<String, String> map = new HashMap<>();
             fileHashMap.put("file", file);
-            map.put("phoneNumber", sharePreference.getString(
-                    CacheConfig.CACHE_PHONE_NUMBER));
+            map.put("phoneNumber", sharePreference.getString(CacheConfig.CACHE_PHONE_NUMBER));
             map.put("content", destination);
             map.put("price", value);
             map.put("type", type);
-
             StringCallback callBackPublishWish = new StringCallback() {
                 @Override
                 public void onError(Call call, Exception e, int id) {
                     ToastUtil.makeText(activity, R.string.net_work_error);
                     Log.e("error", e.getMessage(), e);
                 }
+
                 @Override
                 public void onResponse(String response, int id) {
                     Log.e("wish", response);
@@ -279,21 +272,16 @@ public class PublishWishActivity extends Activity implements View.OnClickListene
                             new TypeReference<JsonBaseList<WishCard>>() {
                             }.getType());
                     if (wishCardJsonBaseList.getCode() == 200
-                            && wishCardJsonBaseList.getMsg()
-                            .equals("success")) {
-                        ToastUtil.makeText(activity,
-                                R.string.wish_card_upload_success);
+                            && wishCardJsonBaseList.getMsg().equals("success")) {
+                        ToastUtil.makeText(activity, R.string.wish_card_upload_success);
                         JumpUtil.jumpInActivity(activity, MainActivity.class);
-                    }else {
-                        Log.e("someError", wishCardJsonBaseList.getCode() + wishCardJsonBaseList.getMsg());
                     }
                 }
             };
-            NetworkController.postFile(URLConfig.URL_WISH_PUBLISH,
-                    map, fileHashMap, callBackPublishWish);
-        } else {
-            ToastUtil.makeText(activity, R.string.content_not_be_null);
+            NetworkController.postFile(URLConfig.URL_WISH_PUBLISH, map, fileHashMap, callBackPublishWish);
+            return null;
         }
-
     }
+
+
 }

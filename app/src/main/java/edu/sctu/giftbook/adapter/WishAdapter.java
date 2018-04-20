@@ -15,6 +15,8 @@ import android.widget.TextView;
 
 import com.zhy.http.okhttp.callback.BitmapCallback;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.List;
 
 import edu.sctu.giftbook.R;
@@ -33,13 +35,11 @@ import okhttp3.Call;
  * Created by zhengsenwen on 2018/2/9.
  */
 public class WishAdapter extends BaseAdapter {
-    private LayoutInflater layoutInflater;
     private Activity activity;
     private List<WishCardContent> list;
 
 
-    public WishAdapter(LayoutInflater layoutInflater, Activity activity, List<WishCardContent> list) {
-        this.layoutInflater = layoutInflater;
+    public WishAdapter(Activity activity, List<WishCardContent> list) {
         this.activity = activity;
         this.list = list;
     }
@@ -67,9 +67,8 @@ public class WishAdapter extends BaseAdapter {
     public View getView(final int position, View view, ViewGroup parent) {
         final ViewHolder holder;
         if (view == null) {
-            Log.e("getView", "view is null");
             holder = new ViewHolder();
-            view = layoutInflater.inflate(R.layout.item_fragment_wish_listview, null);
+            view = LayoutInflater.from(activity).inflate(R.layout.item_fragment_wish_listview, null);
             holder.avatar = (ImageView) view.findViewById(R.id.item_fragment_wish_avatar_img);
             holder.nickname = (TextView) view.findViewById(R.id.item_fragment_wish_nickname_text);
             holder.time = (TextView) view.findViewById(R.id.item_fragment_wish_time_text);
@@ -81,7 +80,6 @@ public class WishAdapter extends BaseAdapter {
             view.setTag(holder);
         } else {
             holder = (ViewHolder) view.getTag();
-            Log.e("getView", "ok");
         }
 
         holder.nickname.setText(list.get(position).getNickName());
@@ -89,34 +87,45 @@ public class WishAdapter extends BaseAdapter {
         holder.destination.setText(list.get(position).getDescription());
         CommonUtil.setType(list.get(position).getType(), holder.wishType);
 
-        BitmapCallback callBackAvatar = new BitmapCallback() {
-            @Override
-            public void onError(Call call, Exception e, int id) {
-                holder.avatar.setImageResource(R.drawable.avatar);
-                ToastUtil.makeText(activity, R.string.net_work_error);
-                Log.e("error", e.getMessage(), e);
-            }
+        if (!StringUtils.isBlank(list.get(position).getAvatarSrc())
+                && !"null".equals(list.get(position).getAvatarSrc())) {
+            BitmapCallback callBackAvatar = new BitmapCallback() {
+                @Override
+                public void onError(Call call, Exception e, int id) {
+                    holder.avatar.setImageResource(R.drawable.avatar);
+                    ToastUtil.makeText(activity, R.string.net_work_error);
+                    Log.e("error", e.getMessage(), e);
+                }
 
-            @Override
-            public void onResponse(Bitmap response, int id) {
-                holder.avatar.setImageBitmap(response);
-            }
-        };
-        NetworkController.getImage(list.get(position).getAvatarSrc(), callBackAvatar);
+                @Override
+                public void onResponse(Bitmap response, int id) {
+                    holder.avatar.setImageBitmap(response);
+                }
+            };
+            NetworkController.getImage(list.get(position).getAvatarSrc(), callBackAvatar);
+        }else {
+            holder.avatar.setImageResource(R.drawable.avatar);
+        }
 
-        BitmapCallback callBackArticle = new BitmapCallback() {
-            @Override
-            public void onError(Call call, Exception e, int id) {
-                ToastUtil.makeText(activity, R.string.net_work_error);
-                Log.e("error", e.getMessage(), e);
-            }
+        if (!StringUtils.isBlank(list.get(position).getWishCardImgSrc())
+                && !"null".equals(list.get(position).getWishCardImgSrc())) {
+            BitmapCallback callBackArticle = new BitmapCallback() {
+                @Override
+                public void onError(Call call, Exception e, int id) {
+                    holder.article.setImageResource(R.drawable.error_img);
+                    ToastUtil.makeText(activity, R.string.net_work_error);
+                    Log.e("error", e.getMessage(), e);
+                }
 
-            @Override
-            public void onResponse(Bitmap response, int id) {
-                holder.article.setImageBitmap(response);
-            }
-        };
-        NetworkController.getImage(list.get(position).getWishCardImgSrc(), callBackArticle);
+                @Override
+                public void onResponse(Bitmap response, int id) {
+                    holder.article.setImageBitmap(response);
+                }
+            };
+            NetworkController.getImage(list.get(position).getWishCardImgSrc(), callBackArticle);
+        }else {
+            holder.article.setImageResource(R.drawable.error_img);
+        }
 
         holder.avatar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -142,7 +151,6 @@ public class WishAdapter extends BaseAdapter {
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
                 bundle.putString("bigImageSrc", list.get(position).getWishCardImgSrc() + "");
-                Log.e("bigImageSrc", list.get(position).getWishCardImgSrc() + "");
                 JumpUtil.jumpInActivity(activity, BigImageActivity.class, bundle);
             }
         });
@@ -151,8 +159,7 @@ public class WishAdapter extends BaseAdapter {
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
                 bundle.putString("wishCardId", list.get(position).getWishCardId() + "");
-                Log.e("wishCardId", list.get(position).getWishCardId() + "  " + list.get(position).getId());
-                bundle.putString("fromUserId", list.get(position).getId() + "");
+                bundle.putString("toUserId", list.get(position).getId() + "");
                 JumpUtil.jumpInActivity(activity, WishDetailsActivity.class, bundle);
             }
         });
@@ -160,7 +167,7 @@ public class WishAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 String alipayReceiveCode = list.get(position).getAlipayReceiveCode();
-                if (alipayReceiveCode != null && !"".equals(alipayReceiveCode)) {
+                if (!StringUtils.isBlank(alipayReceiveCode)) {
                     AlipayUtils.transformMoney(activity, alipayReceiveCode);
                 }
             }

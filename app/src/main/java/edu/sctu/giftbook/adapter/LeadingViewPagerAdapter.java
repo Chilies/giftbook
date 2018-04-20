@@ -14,13 +14,11 @@ public class LeadingViewPagerAdapter  extends PagerAdapter {
     private List<View> list;
 
     public LeadingViewPagerAdapter(List<View> list) {
-
         this.list = list;
     }
 
     @Override
     public int getCount() {
-
         if (!list.isEmpty() && list.size() > 0) {
             return list.size();
         } else {

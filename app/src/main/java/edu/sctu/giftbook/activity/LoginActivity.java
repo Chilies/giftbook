@@ -14,6 +14,8 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
 import com.zhy.http.okhttp.callback.StringCallback;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -35,13 +37,11 @@ import okhttp3.Call;
  * Created by zhengsenwen on 2018/3/13.
  */
 
-public class LoginActivity extends Activity implements View.OnClickListener {
+public class LoginActivity extends BaseActivity implements View.OnClickListener {
 
     private Activity activity;
     private EditText phoneNumberEdit, passwordEdit;
-    private String phoneNumber, password;
-    private Button loginButton;
-    private TextView toRegister;
+
     private SharePreference sharePreference;
 
     @Override
@@ -53,23 +53,22 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         setContentView(R.layout.activity_login);
         //透明状态栏
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-
         sharePreference = SharePreference.getInstance(activity);
 
         getViews();
     }
 
     public void getViews() {
+        Button loginButton;
+        TextView toRegister;
+        loginButton = (Button) findViewById(R.id.login_button);
+        toRegister = (TextView) findViewById(R.id.login_register_text);
 
         phoneNumberEdit = (EditText) findViewById(R.id.login_input_phone_number);
         passwordEdit = (EditText) findViewById(R.id.login_input_password);
 
-        loginButton = (Button) findViewById(R.id.login_button);
-        toRegister = (TextView) findViewById(R.id.login_register_text);
-
         loginButton.setOnClickListener(this);
         toRegister.setOnClickListener(this);
-
     }
 
     @Override
@@ -80,7 +79,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                 break;
             case R.id.register_agreement_text:
                 break;
-            case R.id.register_login_text:
+            case R.id.login_register_text:
                 JumpUtil.jumpInActivity(activity, RegisterActivity.class);
                 finish();
                 break;
@@ -89,56 +88,50 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         }
     }
 
-    private void login() {
-        Map<String, String> map = new HashMap<>();
-
+    private String login() {
+        String phoneNumber, password;
         phoneNumber = phoneNumberEdit.getText().toString();
         password = passwordEdit.getText().toString();
-
-        if ((phoneNumber != null) && !"".equals(phoneNumber)
-                && (password != null) && !"".equals(password)) {
-            map.put("phoneNumber", DesUtils.encrypt(phoneNumber));
-            map.put("password", DesUtils.encrypt(password));
-
-            NetworkController.postMap(URLConfig.URL_USER_LOGIN, map, callBack);
-        } else {
+        if (StringUtils.isBlank(phoneNumber)
+                || (StringUtils.isBlank(password))) {
             ToastUtil.makeText(activity, R.string.not_null);
+            return null;
         }
-
-    }
-
-    StringCallback callBack = new StringCallback() {
-        @Override
-        public void onError(Call call, Exception e, int id) {
-            ToastUtil.makeText(activity, R.string.net_work_error);
-            Log.e("error", e.getMessage(), e);
-        }
-
-        @Override
-        public void onResponse(String response, int id) {
-            Log.e("login", response);
-            JsonBaseList<UserJson> userJsonJsonBaseList = JSON.parseObject(response,
-                    new TypeReference<JsonBaseList<UserJson>>() {
-                    }.getType());
-
-            if (userJsonJsonBaseList.getCode() == 200
-                    && userJsonJsonBaseList.getMsg().equals("success")) {
-                ToastUtil.makeText(activity, R.string.login_success);
-                JumpUtil.jumpInActivity(activity, MainActivity.class);
-
-                UserJson userJson = userJsonJsonBaseList.getData().get(0);
-                sharePreference.setCache(CacheConfig.IS_FIRST, true);
-                sharePreference.setCache(CacheConfig.USER_ID, userJson.getId());
-                sharePreference.setCache(CacheConfig.CACHE_NICKNAME, userJson.getNickName());
-                sharePreference.setCache(CacheConfig.CACHE_ALIPAY_ACCOUNT, userJson.getAlipayAccount());
-                sharePreference.setCache(CacheConfig.CACHE_SIGNATURE, userJson.getSignature());
-                sharePreference.setCache(CacheConfig.CACHE_PHONE_NUMBER, userJson.getTelephone());
-
-            } else {
-                ToastUtil.makeText(activity, R.string.login_failed);
-                Log.e("someError", userJsonJsonBaseList.getCode() + userJsonJsonBaseList.getMsg());
+        Map<String, String> map = new HashMap<>();
+        map.put("phoneNumber", DesUtils.encrypt(phoneNumber));
+        map.put("password", DesUtils.encrypt(password));
+        StringCallback callBack = new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+                ToastUtil.makeText(activity, R.string.net_work_error);
+                Log.e("error", e.getMessage(), e);
             }
-        }
-    };
+
+            @Override
+            public void onResponse(String response, int id) {
+                Log.e("login", response);
+                JsonBaseList<UserJson> userJsonJsonBaseList = JSON.parseObject(response,
+                        new TypeReference<JsonBaseList<UserJson>>() {
+                        }.getType());
+                if (userJsonJsonBaseList.getCode() == 200
+                        && userJsonJsonBaseList.getMsg().equals("success")) {
+                    ToastUtil.makeText(activity, R.string.login_success);
+                    JumpUtil.jumpInActivity(activity, MainActivity.class);
+
+                    UserJson userJson = userJsonJsonBaseList.getData().get(0);
+                    sharePreference.setCache(CacheConfig.IS_LOGIN, true);
+                    sharePreference.setCache(CacheConfig.USER_ID, userJson.getId());
+                    sharePreference.setCache(CacheConfig.CACHE_NICKNAME, userJson.getNickName());
+                    sharePreference.setCache(CacheConfig.CACHE_ALIPAY_ACCOUNT, userJson.getAlipayAccount());
+                    sharePreference.setCache(CacheConfig.CACHE_SIGNATURE, userJson.getSignature());
+                    sharePreference.setCache(CacheConfig.CACHE_PHONE_NUMBER, userJson.getTelephone());
+                } else {
+                    ToastUtil.makeText(activity, R.string.login_failed);
+                }
+            }
+        };
+        NetworkController.postMap(URLConfig.URL_USER_LOGIN, map, callBack);
+        return null;
+    }
 
 }

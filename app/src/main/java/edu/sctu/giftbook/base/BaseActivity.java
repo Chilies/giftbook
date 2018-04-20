@@ -1,15 +1,22 @@
 package edu.sctu.giftbook.base;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.*;
+
+import java.util.LinkedList;
+import java.util.List;
 
 
 /**
  * Created by zhengsenwen on 2018/3/13.
  */
-public class BaseActivity extends FragmentActivity {
+public class BaseActivity extends Activity {
     public AppManager appManager = null;
+    private List<Activity> activityList = new LinkedList<Activity>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +27,7 @@ public class BaseActivity extends FragmentActivity {
         appManager.addActivity(this);
 
     }
+
 
     @Override
     public void onBackPressed() {
@@ -110,4 +118,19 @@ public class BaseActivity extends FragmentActivity {
 //        }
 //        window.setAttributes(winParams);
 //    }
+
+
+    // 添加Activity到容器中
+    public void addActivity(Activity activity) {
+        activityList.add(activity);
+    }
+
+    // 遍历所有Activity并finish
+    public void removeAllActivity() {
+        for (Activity activity : activityList) {
+            activity.finish();
+        }
+        Log.d("activityList==Size:", "" + activityList);
+
+    }
 }

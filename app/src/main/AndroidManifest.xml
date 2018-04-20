@@ -30,6 +30,7 @@
         <activity android:name=".activity.SettingsActivity"/>
         <activity android:name=".activity.UserInfoUpdateActivity"/>
         <activity android:name=".activity.BigImageActivity"/>
+        <activity android:name=".activity.UserAllWishActivity"/>
 
     </application>
 

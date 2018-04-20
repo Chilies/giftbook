@@ -25,6 +25,8 @@ import com.makeramen.roundedimageview.RoundedImageView;
 import com.zhy.http.okhttp.callback.BitmapCallback;
 import com.zhy.http.okhttp.callback.StringCallback;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -34,10 +36,12 @@ import java.util.Map;
 import edu.sctu.giftbook.R;
 import edu.sctu.giftbook.activity.PaymentRecordActivity;
 import edu.sctu.giftbook.activity.SettingsActivity;
+import edu.sctu.giftbook.activity.UserAllWishActivity;
 import edu.sctu.giftbook.entity.AvatarJson;
 import edu.sctu.giftbook.entity.JsonBaseList;
 import edu.sctu.giftbook.entity.UserInfoJson;
 import edu.sctu.giftbook.utils.CacheConfig;
+import edu.sctu.giftbook.utils.Constant;
 import edu.sctu.giftbook.utils.FileUtil;
 import edu.sctu.giftbook.utils.ImageTools;
 import edu.sctu.giftbook.utils.JumpUtil;
@@ -59,11 +63,9 @@ public class PersonalFragment extends Fragment implements View.OnClickListener {
     private RoundedImageView avatar;
     private TextView nickName, signature, phoneNumber, alipayAccount, sex, area;
     private LinearLayout wishRecord, paymentRecord;
-
     private static final int PHOTO_FROM_GALLERY = 1;
     private static final int PHOTO_FROM_CAMERA = 2;
     private SharePreference sharePreference;
-    private String fileSavePath = "/sdcard/giftbook/avatar/";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -74,7 +76,6 @@ public class PersonalFragment extends Fragment implements View.OnClickListener {
         getViews(view);
         setUserData();
         setAvatarData();
-
         return view;
     }
 
@@ -86,6 +87,7 @@ public class PersonalFragment extends Fragment implements View.OnClickListener {
             BitmapCallback callBackBitmap = new BitmapCallback() {
                 @Override
                 public void onError(Call call, Exception e, int id) {
+                    avatar.setImageResource(R.drawable.avatar);
                     ToastUtil.makeText(activity, R.string.net_work_error);
                     Log.e("error", e.getMessage(), e);
                 }
@@ -96,7 +98,6 @@ public class PersonalFragment extends Fragment implements View.OnClickListener {
                     sharePreference.saveBitmapToSharedPreferences(CacheConfig.CACHE_AVATAR_BITMAP, response);
                 }
             };
-            Log.e("url22", CacheConfig.CACHE_AVATAR_SRC);
             NetworkController.getImage(sharePreference.getString(CacheConfig.CACHE_AVATAR_SRC), callBackBitmap);
         } else {
             avatar.setImageResource(R.drawable.avatar);
@@ -112,18 +113,18 @@ public class PersonalFragment extends Fragment implements View.OnClickListener {
         alipayAccount = (TextView) view.findViewById(R.id.fragment_personal_phone_alipay_text);
         sex = (TextView) view.findViewById(R.id.fragment_personal_sex_text);
         area = (TextView) view.findViewById(R.id.fragment_personal_phone_area_text);
-
         wishRecord = (LinearLayout) view.findViewById(R.id.fragment_personal_wish_record);
         paymentRecord = (LinearLayout) view.findViewById(R.id.fragment_personal_payment_record);
-
     }
 
 
-    private void setUserData() {
-        final int userId = sharePreference.getInt(CacheConfig.USER_ID);
+    private String setUserData() {
+        final Integer userId = sharePreference.getInt(CacheConfig.USER_ID);
+        if (userId == 0) {
+            return null;
+        }
         Map<String, String> paramsMap = new HashMap<>();
         paramsMap.put("userId", String.valueOf(userId));
-
         StringCallback userInfoCallBack = new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
@@ -146,47 +147,31 @@ public class PersonalFragment extends Fragment implements View.OnClickListener {
                     phoneNumber.setText(userInfoJson.getTelephone());
                     alipayAccount.setText(userInfoJson.getAlipayAccount());
 
-                    if ((userInfoJson.getSignature() == null)
-                            || ("null".equals(userInfoJson.getSignature()))
-                            || "".equals(userInfoJson.getSignature())) {
-
-                    } else {
+                    if (!StringUtils.isBlank(userInfoJson.getSignature())
+                            && !"null".equals(userInfoJson.getSignature())) {
                         signature.setText(userInfoJson.getSignature());
                     }
-                    if ((userInfoJson.getGender() == null)
-                            || ("null".equals(userInfoJson.getGender()))
-                            || "".equals(userInfoJson.getGender())) {
-
-                    } else {
+                    if (!StringUtils.isBlank(userInfoJson.getGender())
+                            && !"null".equals(userInfoJson.getGender())) {
                         sex.setText(userInfoJson.getGender());
                     }
-                    if ((userInfoJson.getProvince() == null)
-                            || ("null".equals(userInfoJson.getProvince()))
-                            || "".equals(userInfoJson.getProvince())) {
-
-                    } else {
+                    if (!StringUtils.isBlank(userInfoJson.getProvince())
+                            && !"null".equals(userInfoJson.getProvince())) {
                         area.setText(userInfoJson.getProvince());
+                    } else {
+                        //无网状态下从sharepreference中找数据
+                        getDataFromSharePreference();
                     }
-
-
-                } else {
-                    //无网状态下从sharepreference中找数据
-                    getDataFromSharePreference();
-                    Log.e("someError", userInfoJsonJsonBaseList.getCode() + userInfoJsonJsonBaseList.getMsg());
                 }
             }
         };
-        NetworkController.postMap(URLConfig.URL_USER_ALL_INFO,
-                paramsMap, userInfoCallBack);
+        NetworkController.postMap(URLConfig.URL_USER_ALL_INFO, paramsMap, userInfoCallBack);
+        return null;
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        setOnClick();
-    }
-
-    private void setOnClick() {
         settings.setOnClickListener(this);
         avatar.setOnClickListener(this);
         wishRecord.setOnClickListener(this);
@@ -204,17 +189,15 @@ public class PersonalFragment extends Fragment implements View.OnClickListener {
                 changeAvatar();
                 break;
             case R.id.fragment_personal_wish_record:
-                ToastUtil.makeText(activity, "正在开发中");
+                Bundle bundleData = new Bundle();
+                bundleData.putInt("userId", sharePreference.getInt(CacheConfig.USER_ID));
+                JumpUtil.jumpInActivity(activity, UserAllWishActivity.class, bundleData);
                 break;
             case R.id.fragment_personal_payment_record:
-                JumpUtil.jumpInActivity(activity, PaymentRecordActivity.class);
+                // TODO: 2018/4/17
+//                JumpUtil.jumpInActivity(activity, PaymentRecordActivity.class);
+                ToastUtil.makeText(activity, "正在开发中");
                 break;
-//            case R.id.fragment_personal_nickename_text:
-//                JumpUtil.jumpInActivity(activity, UpdateInformationActivity.class);
-//            break;
-//            case R.id.fragment_personal_signature_text:
-//                JumpUtil.jumpInActivity(activity, UpdateInformationActivity.class);
-//                break;
             default:
                 break;
         }
@@ -252,7 +235,7 @@ public class PersonalFragment extends Fragment implements View.OnClickListener {
 
     private void selectAvatarFromCamera() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        File file = FileUtil.createStoragePathForAvatar(fileSavePath);
+        File file = FileUtil.createStoragePathForAvatar(Constant.AVATAR_SAVE_PATH);
         Uri uriForCamera = Uri.fromFile(file);
         sharePreference.setCache("uri", String.valueOf(uriForCamera));
         intent.putExtra(MediaStore.EXTRA_OUTPUT, uriForCamera);
@@ -263,12 +246,10 @@ public class PersonalFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.e("now", "is here");
         switch (requestCode) {
             case PHOTO_FROM_GALLERY:
                 if (data != null) {
                     Uri uri = data.getData();
-                    Log.e("uri", uri.toString() + "  " + uri.getPath());
                     String path = uri.getPath();
                     String realPath = Environment.getExternalStorageDirectory().getPath()
                             + path.substring(path.indexOf("D") - 1, path.length());
@@ -282,7 +263,6 @@ public class PersonalFragment extends Fragment implements View.OnClickListener {
             case PHOTO_FROM_CAMERA:
                 if (resultCode == RESULT_OK) {
                     Uri uri = Uri.parse(sharePreference.getString("uri"));
-                    Log.e("uri", uri.toString() + "  " + uri.getPath());
                     FileUtil.storeAndUpdateInDCIM(activity, uri);
                     //生成缩略图防止OOM
                     Bitmap bitmap = ImageTools.getImageThumbnail(uri.getPath(), 100, 150);
@@ -301,21 +281,23 @@ public class PersonalFragment extends Fragment implements View.OnClickListener {
      *
      * @param bitmap
      */
-    private void uploadAvatar(final Bitmap bitmap) {
-        Map<String, String> paramsMap = new HashMap<>();
-        Map<String, File> fileMap = new HashMap<>();
-
-        int userId = sharePreference.getInt(CacheConfig.USER_ID);
-
+    private String uploadAvatar(final Bitmap bitmap) {
+        Integer userId = sharePreference.getInt(CacheConfig.USER_ID);
+        if (userId == 0) {
+            return null;
+        }
         String avatarFileName = sharePreference.getString(CacheConfig.CACHE_PHONE_NUMBER) + ".jpg";
+        if (StringUtils.isBlank(avatarFileName)) {
+            return null;
+        }
         File file = null;
         try {
-            file = FileUtil.saveFile(bitmap, fileSavePath, avatarFileName);
-
+            file = FileUtil.saveFile(bitmap, Constant.AVATAR_SAVE_PATH, avatarFileName);
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+        Map<String, String> paramsMap = new HashMap<>();
+        Map<String, File> fileMap = new HashMap<>();
         paramsMap.put("userId", String.valueOf(userId));
         fileMap.put("file", file);
         StringCallback callBack = new StringCallback() {
@@ -332,7 +314,6 @@ public class PersonalFragment extends Fragment implements View.OnClickListener {
                         JSON.parseObject(response,
                                 new TypeReference<JsonBaseList<AvatarJson>>() {
                                 }.getType());
-
                 if (avatarJsonJsonBaseList.getCode() == 200
                         && avatarJsonJsonBaseList.getMsg().equals("success")) {
                     avatar.setImageBitmap(bitmap);
@@ -345,28 +326,24 @@ public class PersonalFragment extends Fragment implements View.OnClickListener {
                 } else {
                     ToastUtil.makeText(activity, R.string.login_failed);
                     setAvatarData();
-
-                    Log.e("someError", avatarJsonJsonBaseList.getCode() + avatarJsonJsonBaseList.getMsg());
-
                 }
             }
         };
         NetworkController.postFile(URLConfig.URL_USER_UPDATE_AVATAR,
                 paramsMap, fileMap, callBack);
+        return null;
     }
 
     /**
      * 网络连接出错情况下，从sharepreference中获得用户资料数据
      */
     public void getDataFromSharePreference() {
-        Log.e("userInfo", "get from share");
         if (sharePreference.ifHaveShare(CacheConfig.CACHE_NICKNAME)) {
             nickName.setText(sharePreference.getString(CacheConfig.CACHE_NICKNAME));
         }
         if (sharePreference.ifHaveShare(CacheConfig.CACHE_SIGNATURE)) {
             signature.setText(sharePreference.getString(CacheConfig.CACHE_SIGNATURE));
         }
-
         if (sharePreference.ifHaveShare(CacheConfig.CACHE_PHONE_NUMBER)) {
             phoneNumber.setText(sharePreference.getString(CacheConfig.CACHE_PHONE_NUMBER));
         }

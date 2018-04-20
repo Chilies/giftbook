@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.List;
 
 import edu.sctu.giftbook.R;
@@ -52,7 +54,6 @@ public class CommentAdapter extends BaseAdapter {
     public View getView(int position, View view, ViewGroup parent) {
         ViewHolder holder;
         if (view == null) {
-            Log.e("getView", "view is null");
             holder = new ViewHolder();
             view = layoutInflater.inflate(R.layout.item_comment, null);
             holder.textView = (TextView) view.findViewById(R.id.item_comment_text);
@@ -63,9 +64,7 @@ public class CommentAdapter extends BaseAdapter {
 
         String commentText;
         Comment comment = list.get(position);
-        if (comment.getToUserNickName() == null
-                || comment.getToUserNickName().equals("")
-                || comment.getToUserNickName().equals("null")) {
+        if (StringUtils.isBlank(comment.getFromUserNickName())) {
             commentText = comment.getFromUserNickName()
                     + " : "
                     + comment.getDescription();
@@ -77,12 +76,12 @@ public class CommentAdapter extends BaseAdapter {
                     + comment.getDescription();
         }
         holder.textView.setText(commentText);
-
         return view;
     }
-
 
     private static class ViewHolder {
         TextView textView;
     }
+
+
 }

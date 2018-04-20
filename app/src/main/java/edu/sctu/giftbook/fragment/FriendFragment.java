@@ -55,20 +55,18 @@ public class FriendFragment extends Fragment {
         View view = LayoutInflater.from(activity).inflate(R.layout.fragment_friend, null);
         sharePreference = SharePreference.getInstance(activity);
 
-        getViews(view);
+        friendListView = (ListView) view.findViewById(R.id.fragment_friend_listview);
         setFellowedFriendData();
         return view;
     }
 
     private String setFellowedFriendData() {
         Integer userId = sharePreference.getInt(CacheConfig.USER_ID);
-        if (userId == null || userId == 0) {
-            Log.e("error", userId + "");
+        if (userId == 0) {
             return null;
         }
         Map<String, String> map = new HashMap<>();
         map.put("userId", String.valueOf(userId));
-
         StringCallback allFriendCallBack = new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
@@ -85,12 +83,10 @@ public class FriendFragment extends Fragment {
                 if (allFriendJsonBaseList.getCode() == 200
                         && allFriendJsonBaseList.getMsg().equals("success")) {
                     final List<AllFriend> allFriendList = allFriendJsonBaseList.getData();
-
-                    //加载所有已关注好友
                     LayoutInflater layoutInflater = LayoutInflater.from(activity);
                     newFriendView = layoutInflater.inflate(R.layout.fragment_friend_new_friend, null);
                     friendListView.addHeaderView(newFriendView);
-                    friendListView.setAdapter(new FriendAdapter(activity, layoutInflater,allFriendList));
+                    friendListView.setAdapter(new FriendAdapter(activity, layoutInflater, allFriendList));
                     friendListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -104,24 +100,11 @@ public class FriendFragment extends Fragment {
                             }
                         }
                     });
-
-
-                } else {
-                    Log.e("someError", allFriendJsonBaseList.getCode() + allFriendJsonBaseList.getMsg());
                 }
             }
         };
-        NetworkController.getMap(URLConfig.URL_ALL_FELLOW_FRIEND,
-                map, allFriendCallBack);
-
+        NetworkController.getMap(URLConfig.URL_ALL_FELLOW_FRIEND, map, allFriendCallBack);
         return null;
     }
-
-    public void getViews(View view) {
-
-        friendListView = (ListView) view.findViewById(R.id.fragment_friend_listview);
-
-    }
-
 
 }
