@@ -5,7 +5,6 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.util.ArrayMap;
 import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
@@ -47,6 +46,7 @@ import edu.sctu.giftbook.utils.AlipayUtils;
 import edu.sctu.giftbook.utils.CacheConfig;
 import edu.sctu.giftbook.utils.CommonUtil;
 import edu.sctu.giftbook.utils.JumpUtil;
+import edu.sctu.giftbook.utils.MyListView;
 import edu.sctu.giftbook.utils.NetworkController;
 import edu.sctu.giftbook.utils.SharePreference;
 import edu.sctu.giftbook.utils.ToastUtil;
@@ -60,7 +60,7 @@ import okhttp3.Call;
 public class WishDetailsActivity extends BaseActivity implements View.OnClickListener {
 
     private Activity activity;
-    private ListView commentListView;
+    private MyListView commentListView;
     private ImageView avatar, wishType, content, payment;
     private TextView nickName, time, article, type, money;
     private LayoutInflater layoutInflater;
@@ -107,7 +107,7 @@ public class WishDetailsActivity extends BaseActivity implements View.OnClickLis
         money = (TextView) findViewById(R.id.activity_wish_details_money_text);
         payment = (ImageView) findViewById(R.id.activity_wish_details_payment);
         editComment = (EditText) findViewById(R.id.activity_wish_details_comment_edit);
-        commentListView = (ListView) findViewById(R.id.activity_wish_details_comment_listView);
+        commentListView = (MyListView) findViewById(R.id.activity_wish_details_comment_listView);
 
         editComment.setOnClickListener(this);
         payment.setOnClickListener(this);
@@ -140,8 +140,8 @@ public class WishDetailsActivity extends BaseActivity implements View.OnClickLis
                         && commentJsonBaseList.getMsg().equals("success")) {
                     List<Comment> commentList = commentJsonBaseList.getData();
                     CommentAdapter commentAdapter = new CommentAdapter(layoutInflater, activity, commentList);
-                    setHeight(commentListView, commentAdapter);
                     commentListView.setAdapter(commentAdapter);
+                    CommonUtil.setHeight(commentListView);
                 }
             }
         };
@@ -241,26 +241,6 @@ public class WishDetailsActivity extends BaseActivity implements View.OnClickLis
         return null;
     }
 
-    /**
-     * 解决scrollView和listView嵌套问题
-     *
-     * @param listview
-     * @param adapter
-     */
-    public void setHeight(ListView listview, Adapter adapter) {
-        int height = 0;
-        int count = adapter.getCount();
-        for (int i = 0; i < count; i++) {
-            View temp = adapter.getView(i, null, listview);
-            temp.measure(0, 0);
-            height += temp.getMeasuredHeight();
-        }
-        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) listview.getLayoutParams();
-        params.width = LinearLayout.LayoutParams.FILL_PARENT;
-        params.height = height;
-        listview.setLayoutParams(params);
-    }
-
 
     /**
      * 弹出评论框
@@ -296,7 +276,7 @@ public class WishDetailsActivity extends BaseActivity implements View.OnClickLis
                 break;
             case R.id.activity_wish_details_comment_edit:
                 newCommentAlertDialog();
-                delayLoadSoftInput(editCommentText);
+                CommonUtil.delayLoadSoftInput(editCommentText);
                 break;
             case R.id.activity_wish_details_payment:
                 if (!StringUtils.isBlank(alipayReceiveCode)) {
@@ -354,32 +334,6 @@ public class WishDetailsActivity extends BaseActivity implements View.OnClickLis
             NetworkController.postMap(URLConfig.URL_COMMENT_PUBLISH, map, sendCommentCallBack);
             return null;
         }
-    }
-
-
-    /**
-     * 延迟调出软键盘
-     *
-     * @param editText
-     */
-    private void delayLoadSoftInput(final EditText editText) {
-        Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                if (editText != null) {
-                    //设置可获得焦点
-                    editText.setFocusable(true);
-                    editText.setFocusableInTouchMode(true);
-                    //请求获得焦点
-                    editText.requestFocus();
-                    //调用系统输入法
-                    InputMethodManager inputManager = (InputMethodManager) editText
-                            .getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-                    inputManager.showSoftInput(editText, 0);
-                }
-            }
-        }, 200);
     }
 
 
