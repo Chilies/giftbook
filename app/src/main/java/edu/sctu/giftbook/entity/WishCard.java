@@ -15,11 +15,7 @@ public class WishCard implements Serializable {
     private String description;
     private String price;
     private String type;
-    private Integer giverId;
     private Integer userId;
-    private Integer avatarId;
-    private Integer replyId;
-    private Integer deadline;
 
     public Integer getWishCardId() {
         return wishCardId;
@@ -61,13 +57,6 @@ public class WishCard implements Serializable {
         this.type = type;
     }
 
-    public Integer getGiverId() {
-        return giverId;
-    }
-
-    public void setGiverId(Integer giverId) {
-        this.giverId = giverId;
-    }
 
     public Integer getUserId() {
         return userId;
@@ -77,27 +66,6 @@ public class WishCard implements Serializable {
         this.userId = userId;
     }
 
-    public Integer getAvatarId() {
-        return avatarId;
-    }
 
-    public void setAvatarId(Integer avatarId) {
-        this.avatarId = avatarId;
-    }
 
-    public Integer getReplyId() {
-        return replyId;
-    }
-
-    public void setReplyId(Integer replyId) {
-        this.replyId = replyId;
-    }
-
-    public Integer getDeadline() {
-        return deadline;
-    }
-
-    public void setDeadline(Integer deadline) {
-        this.deadline = deadline;
-    }
 }

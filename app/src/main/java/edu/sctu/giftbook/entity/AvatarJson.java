@@ -12,7 +12,6 @@ public class AvatarJson implements Serializable {
 
     private Integer avatarId;
     private Integer userId;
-    private Integer wishCardId;
     private String avatarSrc;
 
     public Integer getAvatarId() {
@@ -29,14 +28,6 @@ public class AvatarJson implements Serializable {
 
     public void setUserId(Integer userId) {
         this.userId = userId;
-    }
-
-    public Integer getWishCardId() {
-        return wishCardId;
-    }
-
-    public void setWishCardId(Integer wishCardId) {
-        this.wishCardId = wishCardId;
     }
 
     public String getAvatarSrc() {
