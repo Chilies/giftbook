@@ -42,6 +42,7 @@ import edu.sctu.giftbook.base.BaseActivity;
 import edu.sctu.giftbook.entity.JsonBaseList;
 import edu.sctu.giftbook.entity.WishCard;
 import edu.sctu.giftbook.utils.CacheConfig;
+import edu.sctu.giftbook.utils.CommonUtil;
 import edu.sctu.giftbook.utils.Constant;
 import edu.sctu.giftbook.utils.DesUtils;
 import edu.sctu.giftbook.utils.FileUtil;
@@ -201,27 +202,30 @@ public class PublishWishActivity extends BaseActivity implements View.OnClickLis
         switch (requestCode) {
             case PHOTO_FROM_GALLERY:
                 if (data != null) {
-                    Uri uri = data.getData();
-                    String path = uri.getPath();
-                    String realPath = Environment.getExternalStorageDirectory().getPath()
-                            + path.substring(path.indexOf("D") - 1, path.length());
+                    String realPath = null;
+                    try {
+                        realPath = CommonUtil.getAbsolutePath(data.getData(),activity);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                     //生成缩略图防止OOM 回显图片较小，上传的图片较大
                     bitmap = ImageTools.getImageThumbnail(realPath, 300, 200);
                     updateImg.setVisibility(View.VISIBLE);
-                    updateImg.setImageBitmap(ImageTools.getImageThumbnail(realPath, 150, 150));
+                    updateImg.setImageBitmap(ImageTools.getImageThumbnail(
+                            realPath, 150, 150));
                 } else {
                     ToastUtil.makeText(activity, R.string.get_image_failed);
                 }
                 break;
             case PHOTO_FROM_CAMERA:
                 if (resultCode == RESULT_OK) {
-
                     Uri uri = Uri.parse(sharePreference.getString("uri"));
                     FileUtil.storeAndUpdateInDCIM(activity, uri);
                     //生成缩略图防止OOM  回显图片较小，上传的图片较大
                     bitmap = ImageTools.getImageThumbnail(uri.getPath(), 300, 200);
                     updateImg.setVisibility(View.VISIBLE);
-                    updateImg.setImageBitmap(ImageTools.getImageThumbnail(uri.getPath(), 150, 150));
+                    updateImg.setImageBitmap(ImageTools.getImageThumbnail(
+                            uri.getPath(), 150, 150));
                 } else {
                     ToastUtil.makeText(activity, R.string.get_image_failed);
                 }
@@ -240,20 +244,23 @@ public class PublishWishActivity extends BaseActivity implements View.OnClickLis
             ToastUtil.makeText(activity, R.string.content_not_be_null);
             return null;
         } else {
-            String wishCardFileName = sharePreference.getString(CacheConfig.CACHE_PHONE_NUMBER) + ".jpg";
+            String wishCardFileName = sharePreference.getString(CacheConfig
+                    .CACHE_PHONE_NUMBER) + ".jpg";
             if (StringUtils.isBlank(wishCardFileName)) {
                 return null;
             }
             File file = null;
             try {
-                file = FileUtil.saveFile(bitmap, Constant.WISH_CARD_IMG_SAVE_PATH, wishCardFileName);
+                file = FileUtil.saveFile(bitmap, Constant
+                        .WISH_CARD_IMG_SAVE_PATH, wishCardFileName);
             } catch (IOException e) {
                 e.printStackTrace();
             }
             Map<String, File> fileHashMap = new HashMap<>();
             Map<String, String> map = new HashMap<>();
             fileHashMap.put("file", file);
-            map.put("phoneNumber", sharePreference.getString(CacheConfig.CACHE_PHONE_NUMBER));
+            map.put("phoneNumber", sharePreference.getString(
+                    CacheConfig.CACHE_PHONE_NUMBER));
             map.put("content", destination);
             map.put("price", value);
             map.put("type", type);
@@ -278,7 +285,8 @@ public class PublishWishActivity extends BaseActivity implements View.OnClickLis
                     }
                 }
             };
-            NetworkController.postFile(URLConfig.URL_WISH_PUBLISH, map, fileHashMap, callBackPublishWish);
+            NetworkController.postFile(URLConfig.URL_WISH_PUBLISH,
+                    map, fileHashMap, callBackPublishWish);
             return null;
         }
     }

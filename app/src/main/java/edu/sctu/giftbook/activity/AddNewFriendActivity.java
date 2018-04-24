@@ -147,7 +147,7 @@ public class AddNewFriendActivity extends BaseActivity implements View.OnClickLi
         if (userId == 0) {
             return null;
         }
-        if (!StringUtils.isBlank(JSON.toJSONString(samePhoneNumberList))) {
+        if (StringUtils.isBlank(JSON.toJSONString(samePhoneNumberList))) {
             return null;
         }
         Map<String, String> map = new HashMap<>();
@@ -163,30 +163,40 @@ public class AddNewFriendActivity extends BaseActivity implements View.OnClickLi
             @Override
             public void onResponse(String response, int id) {
                 Log.e("friend", response);
-                JsonBaseList<ContactFriend> contactFriendJsonBaseList = JSON.parseObject(response,
-                        new TypeReference<JsonBaseList<ContactFriend>>() {
-                        }.getType());
+                JsonBaseList<ContactFriend> contactFriendJsonBaseList = JSON
+                        .parseObject(response, new TypeReference<JsonBaseList
+                                <ContactFriend>>() {}.getType());
                 if (contactFriendJsonBaseList.getCode() == 200
                         && contactFriendJsonBaseList.getMsg().equals("success")) {
-                    final List<ContactFriend> contactFriendList = contactFriendJsonBaseList.getData();
-                    newFriendListView.setAdapter(new AddNewFriendAdapter(activity, contactFriendList, contactList));
-                    newFriendListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    final List<ContactFriend> contactFriendList =
+                            contactFriendJsonBaseList.getData();
+                    newFriendListView.setAdapter(new AddNewFriendAdapter(activity,
+                            contactFriendList, contactList));
+                    newFriendListView.setOnItemClickListener(new AdapterView
+                            .OnItemClickListener() {
                         @Override
-                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        public void onItemClick(AdapterView<?> parent, View view,
+                                                int position, long id) {
                             if (position == 0) {
-                                JumpUtil.jumpInActivity(activity, AddNewFriendActivity.class);
+                                JumpUtil.jumpInActivity(activity,
+                                        AddNewFriendActivity.class);
                             } else {
                                 Bundle bundle = new Bundle();
-                                bundle.putInt("userId", contactFriendList.get(position).getId());
-                                bundle.putString("wishCardAvatarSrc", contactFriendList.get(position).getAvatarSrc());
-                                JumpUtil.jumpInActivity(activity, PersonalHomeActivity.class, bundle);
+                                bundle.putInt("userId", contactFriendList.get(
+                                        position).getId());
+                                bundle.putString("wishCardAvatarSrc",
+                                        contactFriendList.get(
+                                        position).getAvatarSrc());
+                                JumpUtil.jumpInActivity(activity,
+                                        PersonalHomeActivity.class, bundle);
                             }
                         }
                     });
                 }
             }
         };
-        NetworkController.postMap(URLConfig.URL_FRIEND_CONTACT_FRIEND, map, friendCallBack);
+        NetworkController.postMap(URLConfig.URL_FRIEND_CONTACT_FRIEND,
+                map, friendCallBack);
         return null;
     }
 

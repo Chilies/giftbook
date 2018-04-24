@@ -46,7 +46,8 @@ public class BigImageActivity extends BaseActivity {
 
 
     private void setBigImage() {
-        if (StringUtils.isBlank(imageUrl)) {
+        if (StringUtils.isBlank(imageUrl)
+                || "null".equals(imageUrl)) {
             bigImage.setImageResource(R.drawable.avatar);
         } else {
             BitmapCallback callBackBitmap = new BitmapCallback() {

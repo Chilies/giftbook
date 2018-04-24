@@ -4,10 +4,12 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -38,6 +40,7 @@ import edu.sctu.giftbook.entity.Alipay;
 import edu.sctu.giftbook.entity.JsonBaseList;
 import edu.sctu.giftbook.entity.WishCardContent;
 import edu.sctu.giftbook.utils.CacheConfig;
+import edu.sctu.giftbook.utils.CommonUtil;
 import edu.sctu.giftbook.utils.ImageTools;
 import edu.sctu.giftbook.utils.JumpUtil;
 import edu.sctu.giftbook.utils.NetworkController;
@@ -258,16 +261,18 @@ public class WishFragment extends Fragment implements View.OnClickListener {
         switch (requestCode) {
             case PHOTO_FROM_GALLERY:
                 if (data != null) {
-                    Uri uri = data.getData();
-                    String path = uri.getPath();
-                    String realPath = Environment.getExternalStorageDirectory().getPath()
-                            + path.substring(path.indexOf("D") - 1, path.length());
+                    String realPath = null;
+                    try {
+                        realPath = CommonUtil.getAbsolutePath(data.getData(),activity);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                     //生成缩略图防止OOM 回显图片较小，上传的图片较大
                     bitmap = ImageTools.getImageThumbnail(realPath, 500, 500);
                     // 解析二维码信息
                     String result = QRHelper.getResult(bitmap);
                     String header = result.substring(0, 21);
-                    if (header.equals("HTTPS://QR.ALIPAY.COM/")) {
+                    if (header.equals("HTTPS://QR.ALIPAY.COM")) {
                         receiveCode = result.substring(22, result.length());
                         uploadReceiveCode();
                     } else {
@@ -281,6 +286,8 @@ public class WishFragment extends Fragment implements View.OnClickListener {
                 break;
         }
     }
+
+
 
     private String uploadReceiveCode() {
         Integer userId = sharePreference.getInt(CacheConfig.USER_ID);

@@ -82,28 +82,37 @@ public class FriendFragment extends Fragment {
                         }.getType());
                 if (allFriendJsonBaseList.getCode() == 200
                         && allFriendJsonBaseList.getMsg().equals("success")) {
-                    final List<AllFriend> allFriendList = allFriendJsonBaseList.getData();
+                    final List<AllFriend> allFriendList = allFriendJsonBaseList
+                            .getData();
                     LayoutInflater layoutInflater = LayoutInflater.from(activity);
-                    newFriendView = layoutInflater.inflate(R.layout.fragment_friend_new_friend, null);
+                    newFriendView = layoutInflater.inflate(R.layout.
+                            fragment_friend_new_friend, null);
                     friendListView.addHeaderView(newFriendView);
-                    friendListView.setAdapter(new FriendAdapter(activity, layoutInflater, allFriendList));
-                    friendListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    friendListView.setAdapter(new FriendAdapter(activity,
+                            layoutInflater, allFriendList));
+                    friendListView.setOnItemClickListener(new AdapterView.
+                            OnItemClickListener() {
                         @Override
-                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        public void onItemClick(AdapterView<?> parent,
+                                                View view, int position, long id) {
                             if (position == 0) {
                                 JumpUtil.jumpInActivity(activity, AddNewFriendActivity.class);
                             } else {
                                 Bundle bundle = new Bundle();
-                                bundle.putInt("userId", allFriendList.get(position).getId());
-                                bundle.putString("wishCardAvatarSrc", allFriendList.get(position).getAvatarSrc());
-                                JumpUtil.jumpInActivity(activity, PersonalHomeActivity.class, bundle);
+                                bundle.putInt("userId", allFriendList
+                                        .get(position).getId());
+                                bundle.putString("wishCardAvatarSrc",
+                                        allFriendList.get(position).getAvatarSrc());
+                                JumpUtil.jumpInActivity(activity,
+                                        PersonalHomeActivity.class, bundle);
                             }
                         }
                     });
                 }
             }
         };
-        NetworkController.getMap(URLConfig.URL_ALL_FELLOW_FRIEND, map, allFriendCallBack);
+        NetworkController.getMap(URLConfig.URL_ALL_FELLOW_FRIEND,
+                map, allFriendCallBack);
         return null;
     }
 

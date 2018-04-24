@@ -139,13 +139,15 @@ public class WishDetailsActivity extends BaseActivity implements View.OnClickLis
                 if (commentJsonBaseList.getCode() == 200
                         && commentJsonBaseList.getMsg().equals("success")) {
                     List<Comment> commentList = commentJsonBaseList.getData();
-                    CommentAdapter commentAdapter = new CommentAdapter(layoutInflater, activity, commentList);
+                    CommentAdapter commentAdapter = new CommentAdapter(
+                            layoutInflater, activity, commentList);
                     commentListView.setAdapter(commentAdapter);
                     CommonUtil.setHeight(commentListView);
                 }
             }
         };
-        NetworkController.getMap(URLConfig.URL_COMMENT_WISHCARD_DETAILS, commentMap, commentCallBack);
+        NetworkController.getMap(URLConfig.URL_COMMENT_WISHCARD_DETAILS,
+                commentMap, commentCallBack);
         return null;
     }
 
@@ -331,7 +333,8 @@ public class WishDetailsActivity extends BaseActivity implements View.OnClickLis
                     }
                 }
             };
-            NetworkController.postMap(URLConfig.URL_COMMENT_PUBLISH, map, sendCommentCallBack);
+            NetworkController.postMap(URLConfig.URL_COMMENT_PUBLISH,
+                    map, sendCommentCallBack);
             return null;
         }
     }

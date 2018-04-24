@@ -41,6 +41,7 @@ import edu.sctu.giftbook.entity.AvatarJson;
 import edu.sctu.giftbook.entity.JsonBaseList;
 import edu.sctu.giftbook.entity.UserInfoJson;
 import edu.sctu.giftbook.utils.CacheConfig;
+import edu.sctu.giftbook.utils.CommonUtil;
 import edu.sctu.giftbook.utils.Constant;
 import edu.sctu.giftbook.utils.FileUtil;
 import edu.sctu.giftbook.utils.ImageTools;
@@ -249,10 +250,13 @@ public class PersonalFragment extends Fragment implements View.OnClickListener {
         switch (requestCode) {
             case PHOTO_FROM_GALLERY:
                 if (data != null) {
-                    Uri uri = data.getData();
-                    String path = uri.getPath();
-                    String realPath = Environment.getExternalStorageDirectory().getPath()
-                            + path.substring(path.indexOf("D") - 1, path.length());
+
+                    String realPath = null;
+                    try {
+                        realPath = CommonUtil.getAbsolutePath(data.getData(),activity);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                     //生成缩略图防止OOM
                     Bitmap bitmap = ImageTools.getImageThumbnail(realPath, 100, 150);
                     uploadAvatar(bitmap);

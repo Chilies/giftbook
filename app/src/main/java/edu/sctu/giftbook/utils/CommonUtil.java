@@ -1,6 +1,10 @@
 package edu.sctu.giftbook.utils;
 
+import android.app.Activity;
 import android.content.Context;
+import android.database.Cursor;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Adapter;
@@ -90,5 +94,16 @@ public class CommonUtil {
         listview.setLayoutParams(params);
     }
 
+    public static String getAbsolutePath(Uri uri, Activity activity) {
+        String[] projection = {MediaStore.MediaColumns.DATA};
+        @SuppressWarnings("deprecation")
+        Cursor cursor = activity.managedQuery(uri, projection, null, null, null);
+        if (cursor != null) {
+            int column_index = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA);
+            cursor.moveToFirst();
+            return cursor.getString(column_index);
+        } else
+            return null;
+    }
 
 }

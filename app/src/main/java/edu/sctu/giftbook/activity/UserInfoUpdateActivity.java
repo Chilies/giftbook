@@ -195,27 +195,34 @@ public class UserInfoUpdateActivity extends BaseActivity implements View.OnClick
                 @Override
                 public void onResponse(String response, int id) {
                     Log.e("updateUser", response);
-                    JsonBaseList<UserInfoJson> userJsonJsonBaseList = JSON.parseObject(
-                            response, new TypeReference<JsonBaseList<UserInfoJson>>() {
-                            }.getType());
+                    JsonBaseList<UserInfoJson> userJsonJsonBaseList = JSON
+                            .parseObject(response, new TypeReference<JsonBaseList
+                                    <UserInfoJson>>() {}.getType());
                     if (userJsonJsonBaseList.getCode() == 200
                             && userJsonJsonBaseList.getMsg().equals("success")) {
                         ToastUtil.makeText(activity, R.string.user_info_upload_success);
                         JumpUtil.jumpInActivity(activity, MainActivity.class);
-                        UserInfoJson userInfoJson = (UserInfoJson) userJsonJsonBaseList.getData().get(0);
+                        UserInfoJson userInfoJson = (UserInfoJson)
+                                userJsonJsonBaseList
+                                .getData().get(0);
                         sharePreference.removeOneCache(CacheConfig.CACHE_NICKNAME);
                         sharePreference.removeOneCache(CacheConfig.CACHE_SIGNATURE);
                         sharePreference.removeOneCache(CacheConfig.CACHE_GENDER);
                         sharePreference.removeOneCache(CacheConfig.CACHE_ADDRESS);
 
-                        sharePreference.setCache(CacheConfig.CACHE_NICKNAME, userInfoJson.getNickName());
-                        sharePreference.setCache(CacheConfig.CACHE_SIGNATURE, userInfoJson.getSignature());
-                        sharePreference.setCache(CacheConfig.CACHE_GENDER, userInfoJson.getGender());
-                        sharePreference.setCache(CacheConfig.CACHE_ADDRESS, userInfoJson.getProvince());
+                        sharePreference.setCache(CacheConfig.CACHE_NICKNAME,
+                                userInfoJson.getNickName());
+                        sharePreference.setCache(CacheConfig.CACHE_SIGNATURE,
+                                userInfoJson.getSignature());
+                        sharePreference.setCache(CacheConfig.CACHE_GENDER,
+                                userInfoJson.getGender());
+                        sharePreference.setCache(CacheConfig.CACHE_ADDRESS,
+                                userInfoJson.getProvince());
                     }
                 }
             };
-            NetworkController.postMap(URLConfig.URL_USER_UPDATE_INFO, map, callBack);
+            NetworkController.postMap(URLConfig.URL_USER_UPDATE_INFO,
+                    map, callBack);
             return null;
         }
     }

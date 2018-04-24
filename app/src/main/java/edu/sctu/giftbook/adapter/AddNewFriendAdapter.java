@@ -96,8 +96,7 @@ public class AddNewFriendAdapter extends BaseAdapter {
             }
         }
 
-        if (list.get(position).getFellowStatus() == null
-                || list.get(position).getFellowStatus() == 0) {
+        if (list.get(position).getFellowStatus() == null) {
 
         } else if (list.get(position).getFellowStatus() == 0) {
             viewHolder.fellow.setBackgroundColor(activity.getResources().getColor(R.color.white));

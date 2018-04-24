@@ -124,19 +124,20 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                 @Override
                 public void onResponse(String response, int id) {
                     Log.e("register", response);
-                    JsonBaseObject<UserJson> userJsonJsonBaseObject = JSON.parseObject(response,
-                            new TypeReference<JsonBaseObject<UserJson>>() {
-                            }.getType());
-
+                    JsonBaseObject<UserJson> userJsonJsonBaseObject = JSON
+                            .parseObject(response, new TypeReference<
+                                    JsonBaseObject<UserJson>>() {}.getType());
                     if (userJsonJsonBaseObject.getCode() == 200
                             && userJsonJsonBaseObject.getMsg().equals("success")) {
                         ToastUtil.makeText(activity, R.string.register_success);
-                        SharePreference.getInstance(activity).setCache(CacheConfig.IS_REGISTER, true);
+                        SharePreference.getInstance(activity).setCache(
+                                CacheConfig.IS_REGISTER, true);
                         JumpUtil.jumpInActivity(activity, LoginActivity.class);
                     }
                 }
             };
-            NetworkController.postMap(URLConfig.URL_USER_REGISTER, map, callBack);
+            NetworkController.postMap(URLConfig.URL_USER_REGISTER,
+                    map, callBack);
         }
         return null;
     }
